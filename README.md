@@ -7,9 +7,11 @@ You have to include keys 'id' and 'users' to your JSON-file. Otherwise the syste
 If you use with Chrome, you have to upload the app to the web server (Chrome does not allow loading dynamic html from the local file system).
 
 ### Algorithms in use:
-classification -> id3 decision tree
-cluster analysis -> neural n-tree
-association rule learning -> apriori
-outlier detection -> density based
+Task | Algorithm
+--- | ---
+Classification | ID3
+Cluster analysis | Neural N-Tree
+Association rule learning | Apriori
+Anomaly detection | Density based outlier detection
 
-[instance of app running on a server](http://cs.uef.fi/~tapanit/ecraft2learn/analysis/)
+[Instance of app running on a server](http://cs.uef.fi/~tapanit/ecraft2learn/analysis/)
