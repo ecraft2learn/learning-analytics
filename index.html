@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eCraft2Learn Analytics</title>
+		<!-- load libraries -->
+		<link rel='stylesheet' type='text/css' href='lib/bootstrap/css/bootstrap.min.css'>
+		<link rel='stylesheet' type='text/css' href='lib/jquery-ui/jquery-ui.min.css'>
+		<link rel='stylesheet' type='text/css' href='lib/decision-tree/style.css'>
+		<link rel='stylesheet' type='text/css' href='lib/vis/vis.min.css'>
+		<link rel='stylesheet' type='text/css' href='lib/jquery-timepicker/jquery.timepicker.min.css'>
+		<link rel='stylesheet' type='text/css' href='lib/navbar-fixed-side/navbar-fixed-side.css'>
+		<link rel='stylesheet' type='text/css' href='lib/font-awesome/font-awesome.min.css'>
+		<link rel='stylesheet' type='text/css' href='css/style.min.css'>
+		<!-- for electron -->
+		<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+		<script src='lib/json-async/json-async.js'></script>
+		<script src='lib/jquery/jquery.js'></script>
+		<script src='lib/jquery-ui/jquery-ui.js'></script>
+		<script src='lib/jquery-timepicker/jquery.timepicker.min.js'></script>
+		<script src='lib/bootstrap/js/bootstrap.min.js'></script>
+		<script src='lib/tablesorter/tablesorter.min.js'></script>
+		<script src='lib/jsonfn/jsonfn.min.js'></script>
+		<script src='js/neural-n-tree.min.js'></script>
+		<script src='js/decision-tree.min.js'></script>
+		<script src='lib/decision-tree/controls.js'></script>
+		<script src='js/sylvester.min.js'></script>
+		<script src='js/outlier.min.js'></script>
+		<script src='lib/vis/vis.min.js'></script>
+		<script src='lib/charts/charts.min.js'></script>
+		<script src='js/apriori.min.js'></script>
+		<script src='js/http.min.js'></script>
+		<script src='js/analytics-ui.min.js'></script>
+		<script>if (window.module) module = window.module;</script>
+		<!-- end load -->
+	</head>
+	<body>
+		<button class='c-hamburger c-hamburger--htla btn-info'>
+  			<span></span>
+		</button>
+		<div class='container-fluid' id='nav-container'>
+ 			<div class='row'>
+    			<div class='col-sm-3 col-lg-2'>
+					<nav class='navbar navbar-inverse navbar-fixed-side' role='navigation'>
+						<div id='nav-content'>
+						<ul class='nav navbar-nav'>
+  							<li id='li-home' role='presentation' class='active'><a href='javascript:void(0)' id='a-home'>&nbsp;&nbsp;<span class='glyphicon glyphicon-home'></span> Home / settings</span></a></li>
+  							<li id='li-cluster' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-cluster'>&nbsp;&nbsp;<span class='glyphicon glyphicon-th'></span> Cluster analysis</a></li>
+  							<li id='li-classification' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-classification'>&nbsp;&nbsp;<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> Classification / prediction</a></li>
+  							<li id='li-anomaly' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-anomaly'>&nbsp;&nbsp;<span class='glyphicon glyphicon-indent-left'></span> Anomaly detection</a></li>
+  							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Association rule mining</a></li>
+  							<li id='li-charts' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-charts'>&nbsp;&nbsp;<span class='glyphicon glyphicon-signal'></span> Data set charts</a></li>
+  						</ul>
+						<form class='navbar-form' id='session-connect'>
+							<div class='form-group'>
+								<input class='form-control' placeholder='Session id' id='session-id'>
+							</div>
+							<button class='btn btn-info' id='connect-button'>Connect</button>
+						</form>
+						<div id='users'></div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<noscript>
+			You have to have JavaScript enabled.
+		</noscript>
+		<div id='messages'></div>
+		<div id='loader'></div>
+		<div class='center-wrapper'>
+			<div class='center-container'>
+				<img id='index-img' src='images/eCraft2Learn-Final0.1.png'>
+			</div>
+		</div>
+		<div class='center-wrapper'>
+			<div class='center-container'>
+				<div id='analysis-settings'></div>
+			</div>
+		</div>
+		<div class='center-wrapper'>
+			<div class='center-container'>
+				<div id='analysis-content'></div>
+			</div>
+		</div>
+		<script>
+		
+			$(document).ready(function() {
+			
+				if (window && window.process && window.process.type) {
+				
+					$('#session-connect').hide();
+					$('#index-img').hide();
+					
+				}
+			
+				new initSettings();
+			
+				$('#a-home').on('click', function(event) {
+				
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-home').addClass('active');
+	
+					new initSettings();
+				
+				});
+				
+				$('#a-cluster').on('click', function(event) {
+				
+					$('#li-home').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-cluster').addClass('active');
+				
+					new initCluster();
+				
+				});
+				
+				$('#a-classification').on('click', function(event) {
+				
+					$('#li-cluster').removeClass('active');
+					$('#li-home').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-classification').addClass('active');
+				
+					new initClassification();
+				
+				});
+				
+				$('#a-anomaly').on('click', function(event) {
+				
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-home').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-anomaly').addClass('active');
+				
+					new initAnomaly();
+				
+				});
+				
+				$('#a-charts').on('click', function(event) {
+				
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-home').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-charts').addClass('active');
+				
+					new initCharts();
+				
+				});
+				
+				$('#a-apriori').on('click', function(event) {
+				
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-home').removeClass('active');
+					$('#li-charts').removeClass('active');
+					
+					$('#li-apriori').addClass('active');
+				
+					new initApriori();
+				
+				});
+				
+				$('#connect-button').on('click', function(event) {
+				
+					event.preventDefault();
+				
+					var session = $('#session-id').val();
+					
+					session = parseInt(session);
+					
+					if (isNaN(session)) {
+					
+						alert('Not a proper session id format.');
+						return;
+					
+					}
+					
+					window.sessionStorage.setItem('sessionId', session);
+					
+					$('#connect-button').text('Connected');
+					
+					$('#connect-button').prop('disabled', true);
+					$('#session-id').prop('disabled', true);
+					
+					setMessage('Connected to the server');
+				
+				});
+				
+				$('#open-nav').hide();
+				hideLoader();
+			
+			});
+			
+			var toggles = document.querySelectorAll('.c-hamburger');
+
+  			for (var i = toggles.length - 1; i >= 0; i--) {
+    			
+    			var toggle = toggles[i];
+    		
+    			toggleHandler(toggle);
+  
+  			}
+
+  			function toggleHandler(toggle) {
+    
+    			toggle.addEventListener('click', function(e) {
+      				
+      				e.preventDefault();
+      				
+      				if (this.classList.contains('is-active')) {
+      				
+      					$('#nav-container').fadeOut();
+      					this.classList.remove('is-active');
+      				
+      				} else {
+      				
+      					$('#nav-container').fadeIn();
+      			
+      					this.classList.add('is-active');
+      				
+      				}
+    
+    			});
+    			
+  			}
+  			
+  			$('#nav-container').hide();
+  			
+  			$('.analysis-tools').hide();
+  			
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<blockquote>
+	<p>Decision tree classifier will predict the student performance</p>
+	<p>You can find the student performance from the table below and the decision tree rules from the tree below</p>
+	<p>Left child of the node indicates that the parent condition is false and the right child of the node indicates
+	<br>
+	that the parent condition is true.
+	</p>
+	<footer>By clicking the nodes you can edit the rules of the decision tree</footer>
+</blockquote>
+<div class='row' id='classifier-handler'>
+	<button id='save-classification' class='btn btn-info'>
+		<span class='glyphicon glyphicon-save' aria-hidden='true'></span>
+		Save classifier
+	</button>
+	<button id='load-classification' class='btn btn-info'>
+		<span class='glyphicon glyphicon-open' aria-hidden='true'></span>
+		Load classifier
+	</button>
+</div>
+<div id='loaded-classifiers'></div>
+<div id='display-tree'></div>
+<div id='classification-table'></div>
+
+<script>
+
+	if (window && window.process && window.process.type)
+		$('#classifier-handler').hide();
+
+	$('#save-classification').on('click', function(event) {
+	
+		removeParentsDecisionTree(analysisObjects.miners.decisionTree.decisionTree.root);
+	
+		var save = analysisObjects.miners.decisionTree;
+		
+		save = JSONfn.stringify(save);
+		
+		var http = new HTTP('php/save-miner.php', 'POST');
+		
+		var data = 'minerType=classification&minerJSON=' + save + '&sessionId=' + window.sessionStorage.getItem('sessionId');
+		
+		showLoader();
+		
+		http.saveMiner(data, function(response) {
+		
+			console.log(response);
+		
+			if (! isNaN(response))
+				setMessage('Miner saved');
+			else
+				setMessage('Error when saving the miner');
+		
+			hideLoader();
+		
+		}, function(error) {
+		
+			setMessage('Error while uploading the miner');
+		
+			hideLoader();
+		
+		});
+	
+	});
+
+	$('#load-classification').on('click', function(event) {
+	
+		var http = new HTTP('php/load-miners.php', 'POST');
+		
+		var data = 'minerType=classification';
+		
+		http.loadMiner('decisionTree', data, function(response) {
+		
+			// TODO
+		
+		}, function(error) {
+		
+		
+		});
+	
+	});
+	
+</script>

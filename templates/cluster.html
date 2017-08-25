@@ -1,0 +1,144 @@
+<blockquote>
+	<p>Cluster analysis will map the similar data instances together.</p>
+	<footer>
+		Learning rate means how well the cluster analysis algorithm will learn the correct values (ranges from 0 to 1, 0.01 is usually very good)
+		<br>
+		Max clusters means the number of clusters
+		<br>
+		Dimensions means how many attributes are there in the data set (automatic)
+		<br>
+		Min value is the minimum value found from the data set (automatic)
+		<br>
+		Max value is the maximum value found from the data set (automatic)
+		<br>
+		Backward train will teach the cluster analysis algorithm before Forward train that will also teach the algorithm.
+		<br>
+		Cluster will map the data instances into the clusters in the tree. The clusters are the nodes that have no children (no nodes below them).
+		<br>
+		Silhouette index indicates how well the data is clustered (varies from -1 to 1).
+	</footer>
+</blockquote>
+<div class='row' id='cluster-handler'>
+	<button id='save-cluster' class='btn btn-info'>
+		<span class='glyphicon glyphicon-save' aria-hidden='true'></span>
+		Save Neural N-Tree
+	</button>
+	<button id='load-cluster' class='btn btn-info'>
+		<span class='glyphicon glyphicon-open' aria-hidden='true'></span>
+		Load Neural N-Tree
+	</button>
+</div>
+<br>
+<div>
+<div class='input-group'>
+  <span class='input-group-addon'>Max clusters</span>
+  <input type='text' class='form-control' id='max-clusters' placeholder='no clusters' aria-describedby='basic-addon1'>
+</div>
+<div class='input-group'>
+  <span class='input-group-addon'>Learning rate</span>
+  <input type='text' class='form-control' placeholder='alpha' id='alpha' aria-describedby='basic-addon2'>
+</div>
+<div class='input-group'>
+  <span class='input-group-addon'>Dimensions</span>
+  <input type='text' class='form-control' id='dimensions' placeholder='vector length'>
+</div>
+<div class='input-group'>
+  <span class='input-group-addon'>Min value</span>
+  <input type='text' class='form-control' id='min' placeholder='min value of train set' aria-describedby='basic-addon3'>
+</div>
+<div class='input-group'>
+  <span class='input-group-addon'>Max value</span>
+  <input type='text' class='form-control' id='max' placeholder='max value of train set' aria-describedby='basic-addon3'>
+</div>
+<div class='btn-group'>
+  <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+    Action <span class='glyphicon glyphicon-play-circle'></span>
+  </button>
+  <ul class='dropdown-menu'>
+    <li><a id='backward' href='javascript:void(0)'><span class='glyphicon glyphicon-backward'></span>Backward train</a></li>
+    <li><a id='forward' href='javascript:void(0)'><span class='glyphicon glyphicon-forward'></span>Forward train</a></li>
+    <li><a id='cluster' href='javascript:void(0)'><span class='glyphicon glyphicon-resize-small'></span>Cluster</a></li>
+  </ul>
+</div>
+</div>
+<div id='loaded-clusteres'></div>
+<div id='neural-n-tree-visual'></div>
+<div id='silhouettes'></div>
+<script>
+
+	if (window && window.process && window.process.type)
+		$('#cluster-handler').hide();
+
+	$('#save-cluster').on('click', function(event) { // this is how you save nnt
+	
+		showLoader();
+	
+		removeParentsNeuralNTree(analysisObjects.miners.neuralNTree.neuralNTree.rootNode);
+	
+		var saveNeuralNTree = analysisObjects.miners.neuralNTree;
+		
+		saveNeuralNTree = JSONfn.stringify(saveNeuralNTree);
+		
+		var http = new HTTP('php/save-miner.php', 'POST');
+		
+		var data = 'minerType=cluster&minerJSON=' + saveNeuralNTree + '&sessionId=' + window.sessionStorage.getItem('sessionId');
+		
+		http.saveMiner(data, function(response) {
+		
+			if (! isNaN(response))
+				setMessage('Miner saved');
+			else
+				setMessage('Error when saving the miner');
+		
+			hideLoader();
+		
+		}, function(error) {
+		
+			setMessage('Error while uploading the miner');
+		
+			hideLoader();
+		
+		});
+		
+		/*
+		saveNeuralNTree = JSONfn.parse(saveNeuralNTree);
+		
+		addParentsNeuralNTree(saveNeuralNTree.neuralNTree.rootNode);
+		
+		var nnt = new NNTFunctions.NeuralNTree();
+		
+		for (var key in save) {
+		
+			for (var prob in save[key]) {
+			
+				nnt[prob] = save[key][prob];
+			
+			}
+			
+		}
+		
+		analysisObjects.miners.neuralNTree.neuralNTree = nnt;
+		*/
+		
+	});
+
+	$('#load-cluster').on('click', function(event) {
+	
+		showLoader();
+	
+		var http = new HTTP('php/load-miners.php', 'POST');
+		
+		var data = 'minerType=cluster';
+		
+		http.loadMiner('neuralNTree', data, function(response) {
+		
+			hideLoader();
+		
+		}, function(error) {
+		
+			hideLoader();
+		});
+	
+	});
+	
+</script>
