@@ -11,3 +11,5 @@ classification -> id3 decision tree
 cluster analysis -> neural n-tree
 association rule learning -> apriori
 outlier detection -> density based
+
+[instance of app running on a server](http://cs.uef.fi/~tapanit/ecraft2learn/analysis/)
