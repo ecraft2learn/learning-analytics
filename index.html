@@ -206,9 +206,13 @@
 					$('#session-id').prop('disabled', true);
 					
 					setMessage('Connected to the server');
+				
+					if (location.protocol === 'https:')
+						var url = 'https://cs.uef.fi/~tapanit/notify.php';
+					else
+						var url = 'http://cs.uef.fi/~tapanit/notify.php';	
 					
-					
-					var http = new HTTP('http://cs.uef.fi/~tapanit/notify.php', 'POST');
+					var http = new HTTP(url, 'POST');
 		
 					var notify = function() {
 		
