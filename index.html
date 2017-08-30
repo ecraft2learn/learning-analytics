@@ -10,9 +10,10 @@
 		<link rel='stylesheet' type='text/css' href='lib/jquery-timepicker/jquery.timepicker.min.css'>
 		<link rel='stylesheet' type='text/css' href='lib/navbar-fixed-side/navbar-fixed-side.css'>
 		<link rel='stylesheet' type='text/css' href='lib/font-awesome/font-awesome.min.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.min.css'>
+		<link rel='stylesheet' type='text/css' href='css/style.css'>
 		<!-- for electron -->
 		<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+		<script src="https://unpkg.com/stats-analysis"></script> 
 		<script src='lib/json-async/json-async.js'></script>
 		<script src='lib/jquery/jquery.js'></script>
 		<script src='lib/jquery-ui/jquery-ui.js'></script>
@@ -20,16 +21,17 @@
 		<script src='lib/bootstrap/js/bootstrap.min.js'></script>
 		<script src='lib/tablesorter/tablesorter.min.js'></script>
 		<script src='lib/jsonfn/jsonfn.min.js'></script>
-		<script src='js/neural-n-tree.min.js'></script>
+		<script src='js/neural-n-tree.js'></script>
 		<script src='js/decision-tree.min.js'></script>
 		<script src='lib/decision-tree/controls.js'></script>
-		<script src='js/sylvester.min.js'></script>
-		<script src='js/outlier.min.js'></script>
+		<script src='js/sylvester.js'></script>
+		<script src='js/outlier.js'></script>
 		<script src='lib/vis/vis.min.js'></script>
 		<script src='lib/charts/charts.min.js'></script>
-		<script src='js/apriori.min.js'></script>
-		<script src='js/http.min.js'></script>
-		<script src='js/analytics-ui.min.js'></script>
+		<script src='js/apriori.js'></script>
+		<script src='js/http.js'></script>
+		<script src='lib/jit/jit.js'></script>
+		<script src='js/analytics-ui.js'></script>
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load -->
 	</head>
@@ -92,6 +94,9 @@
 					$('#index-img').hide();
 					
 				}
+				
+				for (var key in window.sessionStorage)
+					window.sessionStorage.setItem(key, 0);
 			
 				new initSettings();
 			

@@ -23,6 +23,14 @@
 	<span class='glyphicon glyphicon-hand-down' aria-hidden='true'></span>
 	Reset miners
 </button>
+<button id='train-decision-tree' class='shortcut-train btn btn-success'>
+    <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
+    Train classifier
+</button>
+<button id='train-outlier' class='shortcut-train btn btn-success'>
+    <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
+    Train anomaly detector
+</button>
 </div>
 <br>
 <br>
@@ -45,6 +53,7 @@
 <script>
 
 	$('#settings-div').hide();
+	$('.shortcut-train').hide();
 
 	if (window && window.process && window.process.type)
 		$('#refresh').hide();
@@ -54,22 +63,48 @@
 	$('#train-set').on('change', function(event) {
 	
 		parseTrainSet(event);
+		
+		$('.shortcut-train').show();
 	
 	});
 	
 	$('#refresh').on('click', function(event) {
 	
-		var http = new HTTP('urlToDataSet', 'POST');
+		showLoader();
+	
+		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
+	
+		var http = new HTTP('http://cs.uef.fi/~tapanit/test2.php', 'POST');
 		
-		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId');
+		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
+			'&lastId=' + lastId;
 		
 		http.fetchDataSet(data, function(response) {
 		
-			console.log(response);
+			var dataset = JSON.parse(response);
+			
+			if (dataset.length > 0) {
+			
+				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['vector_id']);
+				
+				fetchDataSet(dataset);
+				
+				initOptions(dataset);
+					
+				$('.analysis-tools').show();
+				$('#settings-div').fadeIn();
+				
+				hideLoader();	
+				
+				$('.shortcut-train').show();
+			
+			}
 		
 		}, function(error) {
 		
-			console.log(error);
+			alert('Error: ' + error);
+			
+			hideLoader();
 		
 		});
 	
@@ -94,6 +129,22 @@
 	$('#reset-miners').on('click', function(event) {
 	
 		resetMiners();
+	
+	});
+	
+	$('#train-decision-tree').on('click', function(event) {
+	
+		new DecisionTree();
+		
+		setMessage('Decision tree has been trained');
+	
+	});
+	
+	$('#train-outlier').on('click', function(event) {
+	
+		new Anomaly();
+		
+		setMessage('Anomaly detector has been trained');
 	
 	});
 
