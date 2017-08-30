@@ -12,4 +12,6 @@ Cluster analysis | Neural N-Tree
 Association rule learning | Apriori
 Anomaly detection | Density based outlier detection
 
+### You can also run the app with electron
+
 [Instance of app running on a server](http://cs.uef.fi/~tapanit/ecraft2learn/analysis/)
