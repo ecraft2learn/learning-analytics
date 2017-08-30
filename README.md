@@ -14,4 +14,4 @@ Anomaly detection | Density based outlier detection
 
 ### You can also run the app with [electron](https://electron.atom.io)
 
-[Instance of the app running on a server](http://cs.uef.fi/~tapanit/ecraft2learn/analysis/)
+[Instance of the app running on a server](https://tapanit-e.github.io/eCraft2Learn-analysis/)
