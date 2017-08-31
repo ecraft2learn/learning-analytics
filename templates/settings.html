@@ -74,10 +74,12 @@
 	
 		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
 
+		var url;
+
 		if (location.protocol === 'https:')
-                	var url = 'https://cs.uef.fi/~tapanit/test2.php';
+                	url = 'https://cs.uef.fi/~tapanit/test2.php';
                 else
-                	var url = 'http://cs.uef.fi/~tapanit/test2.php';       
+                	url = 'http://cs.uef.fi/~tapanit/test2.php';       
                                         
                 var http = new HTTP(url, 'POST');
 		

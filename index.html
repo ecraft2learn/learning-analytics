@@ -213,8 +213,15 @@
 					
 					setMessage('Connected to the server');
 					
+
+					var url;
+
+					if (location.protocol === 'https:')
+						url = 'https://cs.uef.fi/~tapanit/notify.php';
+					else
+						url = 'http://cs.uef.fi/~tapanit/notify.php';
 					
-					var http = new HTTP('http://cs.uef.fi/~tapanit/notify.php', 'POST');
+					var http = new HTTP(url, 'POST');
 		
 					var notify = function() {
 		
