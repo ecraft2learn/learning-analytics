@@ -1,14 +1,3 @@
-<!--<div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Class id</label>
-    <input type="email" class="form-control" id="class-id" placeholder="id">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="train-set">
-  </div>
-  <button class="btn btn-default">Connect</button>
-</div>-->
 <hr>
 <div class='row'>
 <button id='refresh' class='btn btn-info'>
@@ -73,15 +62,8 @@
 		showLoader();
 	
 		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
-
-		var url;
-
-		if (location.protocol === 'https:')
-                	url = 'https://cs.uef.fi/~tapanit/test2.php';
-                else
-                	url = 'http://cs.uef.fi/~tapanit/test2.php';       
-                                        
-                var http = new HTTP(url, 'POST');
+	
+		var http = new HTTP('http://cs.uef.fi/~tapanit/test2.php', 'POST');
 		
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
