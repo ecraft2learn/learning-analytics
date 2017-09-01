@@ -70,7 +70,7 @@
 		else
 			url = 'http://cs.uef.fi/~tapanit/test2.php';
 		
-		var http = new HTTP('http://cs.uef.fi/~tapanit/test2.php', 'POST');
+		var http = new HTTP(url, 'POST');
 		
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
