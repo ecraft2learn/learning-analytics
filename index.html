@@ -214,13 +214,8 @@
 					setMessage('Connected to the server');
 					
 
-					var url;
+					var url = analysisObjects.urls.notify;
 
-					if (location.protocol === 'https:')
-						url = 'https://cs.uef.fi/~tapanit/notify.php';
-					else
-						url = 'http://cs.uef.fi/~tapanit/notify.php';
-					
 					var http = new HTTP(url, 'POST');
 		
 					var notify = function() {

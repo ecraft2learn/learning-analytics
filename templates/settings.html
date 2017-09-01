@@ -63,12 +63,7 @@
 	
 		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
 
-		var url;
-
-		if (location.protocol === 'https:')
-			url = 'https://cs.uef.fi/~tapanit/test2.php';
-		else
-			url = 'http://cs.uef.fi/~tapanit/test2.php';	
+		var url = analysisObjects.urls.fetchDataFromServer;	
 
 		var http = new HTTP(url, 'POST');
 		
