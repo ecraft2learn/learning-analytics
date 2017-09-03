@@ -37,9 +37,29 @@
 <div class='well' id='group-by'></div>
 <div class='well' id='normalize'></div>
 <div class='well' id='attributes'></div>
-<div id='data-set-table'></div>
+    <select id='data-source-select'>
+        <option value='uui'>UUI</option>
+        <option value='snap'>Programming</option>
+        <option value='print'>3D printing</option>
+        <option value='brainstrom'>Brainstorming</option>
+    </select>
+    <div id='data-set-table'></div>
 </div>
+<div id='data-set-table'></div>
 <script>
+    
+    // this goes to analytics-ui
+    var urls = {
+        
+        snap: location.protocol === 'https:' ? 'https://cs.uef.fi/~tapanit/test2.php' : 'http://cs.uef.fi/~tapanit/test2.php',
+        uui: location.protocol === 'https:' ? 'https://cs.uef.fi/~tapanit/get_uui_vectors_pilot_1.php' : 'http://cs.uef.fi/~tapanit/get_uui_vectors_pilot_1.php',
+        print: location.protocol === 'https:' ? '' : '',
+        brainstrom: location.protocol === 'https:' ? '' : ''
+        
+    };
+    // also notify urls
+    
+    window.sessionStorage.setItem('dataSource', urls['uui']);
 
 	$('#settings-div').hide();
 	$('.shortcut-train').hide();
@@ -48,6 +68,24 @@
 		$('#refresh').hide();
 
 	var trigger = false;
+    
+     $('#data-source-select').on('change', function(event) {
+       
+        var value = $(this).val();
+         
+        window.sessionStorage.setItem('dataSource', urls[value]);
+         
+        resetMiners();
+         
+        analysisObjects.miners.dataSet = [];
+        analysisObjects.miners.curDataSet = null;
+        // TODO the rest, add method to analytics-ui.js
+         
+        window.sessionStorage.setItem('lastId', 0);
+         
+        $('#refresh').click();
+        
+    });
 
 	$('#train-set').on('change', function(event) {
 	
@@ -63,16 +101,20 @@
 	
 		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
 
-		var url = analysisObjects.urls.fetchDataFromServer;	
-
+		var url = window.sessionStorage.getItem('dataSource');	
+        
 		var http = new HTTP(url, 'POST');
 		
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
+        
+        console.log(data);
 		
 		http.fetchDataSet(data, function(response) {
 		
 			var dataset = JSON.parse(response);
+            
+            console.log(dataset);
 			
 			if (dataset.length > 0) {
 			
@@ -94,7 +136,7 @@
 		
 		}, function(error) {
 		
-			alert('Error: ' + error);
+			console.log(error);
 			
 			hideLoader();
 		
