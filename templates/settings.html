@@ -51,8 +51,12 @@
 	$('#settings-div').hide();
 	$('.shortcut-train').hide();
 
-	if (window && window.process && window.process.type)
+	if (window && window.process && window.process.type) {
+	
 		$('#refresh').hide();
+		$('#data-source-select').hide();
+
+	}
 
 	var trigger = false;
     
