@@ -37,12 +37,15 @@
 <div class='well' id='group-by'></div>
 <div class='well' id='normalize'></div>
 <div class='well' id='attributes'></div>
-    <select id='data-source-select'>
-        <option value='uui'>UUI</option>
-        <option value='snap'>Programming</option>
-        <option value='print'>3D printing</option>
-        <option value='brainstrom'>Brainstorming</option>
-    </select>
+	<label id='data-source-label'>
+		Data source:
+    	<select id='data-source-select'>
+        	<option value='uui'>UUI</option>
+        	<option value='snap'>Programming</option>
+        	<option value='print'>3D printing</option>
+        	<option value='brainstrom'>Brainstorming</option>
+    	</select>
+    </label>
     <div id='data-set-table'></div>
 </div>
 <div id='data-set-table'></div>
@@ -54,7 +57,7 @@
 	if (window && window.process && window.process.type) {
 	
 		$('#refresh').hide();
-		$('#data-source-select').hide();
+		$('#data-source-label').hide();
 
 	}
 
