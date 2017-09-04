@@ -94,10 +94,13 @@
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
         
+        console.log(data);
 		
 		http.fetchDataSet(data, function(response) {
 		
 			var dataset = JSON.parse(response);
+            
+            console.log(dataset);
 			
 			if (dataset.length > 0) {
 			
