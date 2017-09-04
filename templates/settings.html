@@ -47,19 +47,6 @@
 </div>
 <div id='data-set-table'></div>
 <script>
-    
-    // this goes to analytics-ui
-    var urls = {
-        
-        snap: location.protocol === 'https:' ? 'https://cs.uef.fi/~tapanit/test2.php' : 'http://cs.uef.fi/~tapanit/test2.php',
-        uui: location.protocol === 'https:' ? 'https://cs.uef.fi/~tapanit/get_uui_vectors_pilot_1.php' : 'http://cs.uef.fi/~tapanit/get_uui_vectors_pilot_1.php',
-        print: location.protocol === 'https:' ? '' : '',
-        brainstrom: location.protocol === 'https:' ? '' : ''
-        
-    };
-    // also notify urls
-    
-    window.sessionStorage.setItem('dataSource', urls['uui']);
 
 	$('#settings-div').hide();
 	$('.shortcut-train').hide();
@@ -73,13 +60,12 @@
        
         var value = $(this).val();
          
-        window.sessionStorage.setItem('dataSource', urls[value]);
+        window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls[value]);
+        window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls[value]);
          
         resetMiners();
          
-        analysisObjects.miners.dataSet = [];
-        analysisObjects.miners.curDataSet = null;
-        // TODO the rest, add method to analytics-ui.js
+       	analysisObjects.miners.resetDatasets();
          
         window.sessionStorage.setItem('lastId', 0);
          
@@ -108,13 +94,10 @@
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
         
-        console.log(data);
 		
 		http.fetchDataSet(data, function(response) {
 		
 			var dataset = JSON.parse(response);
-            
-            console.log(dataset);
 			
 			if (dataset.length > 0) {
 			

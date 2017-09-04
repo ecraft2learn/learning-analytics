@@ -3,10 +3,10 @@
 	<head>
 		<title>eCraft2Learn Analytics</title>
 		<meta charset='UTF-8'>
-        	<meta name='description' content='eCraft2Learn analysis'>
-        	<meta name='keywords' content='eCraft2Learn,data mining,id3,neural-n-tree,apriori,outlier detection,maker movement,data analysis'>
-        	<meta name='author' content='eCraft2LearnTeam'>
-        	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='description' content='eCraft2Learn analysis'>
+        <meta name='keywords' content='eCraft2Learn,data mining,id3,neural-n-tree,apriori,outlier detection,maker movement,data analysis'>
+        <meta name='author' content='eCraft2LearnTeam'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 		<link rel='shortcut icon' type='image/png' href='images/eCraft2Learn-Favicon.png'>
 		<!-- load libraries -->
 		<link rel='stylesheet' type='text/css' href='lib/bootstrap/css/bootstrap.min.css'>
@@ -75,13 +75,6 @@
 					You have to have JavaScript enabled.
 				</div>
 			</div>
-			<style>
-				#loader {
-				
-					visibility: hidden !important;
-				
-				}
-			</style>
 		</noscript>
 		<div id='messages'></div>
 		<div id='loader'></div>
@@ -200,6 +193,9 @@
 				
 				});
 				
+				window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
+				window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls['uui']);
+				
 				$('#connect-button').on('click', function(event) {
 				
 					event.preventDefault();
@@ -223,13 +219,12 @@
 					$('#session-id').prop('disabled', true);
 					
 					setMessage('Connected to the server');
-					
-
-					var url = analysisObjects.urls.notify;
-
-					var http = new HTTP(url, 'POST');
 		
 					var notify = function() {
+					
+						var url = window.sessionStorage.getItem('notifySource');
+						
+						var http = new HTTP(url, 'POST');
 		
 						var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
 		
