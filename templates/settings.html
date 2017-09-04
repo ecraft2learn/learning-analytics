@@ -101,13 +101,13 @@
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
         
-        console.log(data);
+        //console.log(data);
 		
 		http.fetchDataSet(data, function(response) {
 		
 			var dataset = JSON.parse(response);
             
-            console.log(dataset);
+            //console.log(dataset);
 			
 			if (dataset.length > 0) {
 			
@@ -129,7 +129,7 @@
 		
 		}, function(error) {
 		
-			console.log(error);
+			//console.log(error);
 			
 			hideLoader();
 		
