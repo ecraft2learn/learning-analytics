@@ -10,7 +10,7 @@ Task | Algorithm
 Classification | ID3
 Cluster analysis | Neural N-Tree
 Association rule learning | Apriori
-Anomaly detection | Density based outlier detection
+Anomaly detection | Multivariate normal distribution model
 
 ### You can also run the app with [electron](https://electron.atom.io)
 
