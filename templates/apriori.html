@@ -1,4 +1,4 @@
-<blockquote>
+<blockquote id='apriori-help'>
 	<p>Association rule mining will find the frequent data items that are found together in the data set</p>
 	<p>Steps: 1: Select confidence and support 2: You can see the frequently together seen data items from the table below</p>
 	<footer>Confidence: Confidence is an indication of how often the rule has been found to be true.
@@ -12,19 +12,42 @@
 	Iterations: How long will the apriori calculate relationships (quite low is often good)
 	</footer>
 </blockquote>
-<div class='input-group'>
-  <span class='input-group-addon'>Min confidence</span>
-  <input type='text' class='form-control' id='apriori-min-confidence' placeholder='confidence' aria-describedby='basic-addon1' value='0.1'>
-</div>
-<div class='input-group'>
-  <span class='input-group-addon'>Min support</span>
-  <input type='text' class='form-control' id='apriori-min-support' placeholder='support' aria-describedby='basic-addon1' value='0.1'>
-</div>
-<div class='input-group'>
-  <span class='input-group-addon'>Iterations</span>
-  <input type='text' class='form-control' id='apriori-iterations' placeholder='iterations' aria-describedby='basic-addon1' value='3'>
+<div id='apriori-settings'>
+    <div class='input-group'>
+        <span class='input-group-addon'>Min confidence</span>
+        <input type='text' class='form-control' id='apriori-min-confidence' placeholder='confidence' aria-describedby='basic-addon1' value='0.1'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Min support</span>
+        <input type='text' class='form-control' id='apriori-min-support' placeholder='support' aria-describedby='basic-addon1' value='0.1'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Iterations</span>
+        <input type='text' class='form-control' id='apriori-iterations' placeholder='iterations' aria-describedby='basic-addon1' value='3'>
+    </div>
 </div>
 <button class='btn' id='apriori-apply'><span class='glyphicon glyphicon-list'></span>Apply</button>
+<button class='btn btn-success' id='apriori-show-help'>Help</button>
+<button class='btn btn-success' id='apriori-show-settings'>Advanced</button>
 <div id='apriori-attributes'></div>
 <div id='apriori-table'></div>
 <div id='apriori-support-div'></div>
+
+<script>
+
+    $('#apriori-help').hide();
+    $('#apriori-settings').hide();
+    
+    $('#apriori-show-help').on('click', function(event) {
+       
+        $('#apriori-help').toggle();
+        
+    });
+    
+    $('#apriori-show-settings').on('click', function(event) {
+       
+        $('#apriori-settings').toggle();
+        
+    });
+
+</script>

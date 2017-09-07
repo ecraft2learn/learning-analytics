@@ -1,4 +1,4 @@
-<blockquote>
+<blockquote id='cluster-help'>
 	<p>Cluster analysis will map the similar data instances together.</p>
 	<footer>
 		Learning rate means how well the cluster analysis algorithm will learn the correct values (ranges from 0 to 1, 0.01 is usually very good)
@@ -29,46 +29,63 @@
 	</button>
 </div>
 <br>
-<div>
-<div class='input-group'>
-  <span class='input-group-addon'>Max clusters</span>
-  <input type='text' class='form-control' id='max-clusters' placeholder='no clusters' aria-describedby='basic-addon1'>
+<div id='cluster-settings'>
+    <div class='input-group'>
+        <span class='input-group-addon'>Max clusters</span>
+        <input type='text' class='form-control' id='max-clusters' placeholder='no clusters' aria-describedby='basic-addon1' value='8'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Learning rate</span>
+        <input type='text' class='form-control' placeholder='alpha' id='alpha' aria-describedby='basic-addon2' value='0.01'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Dimensions</span>
+        <input type='text' class='form-control' id='dimensions' placeholder='vector length'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Min value</span>
+        <input type='text' class='form-control' id='min' placeholder='min value of train set' aria-describedby='basic-addon3'>
+    </div>
+    <div class='input-group'>
+        <span class='input-group-addon'>Max value</span>
+        <input type='text' class='form-control' id='max' placeholder='max value of train set' aria-describedby='basic-addon3'>
+    </div>
+    <div class='btn-group'>
+        <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Action <span class='glyphicon glyphicon-play-circle'></span>
+        </button>
+        <ul class='dropdown-menu'>
+            <li><a id='backward' href='javascript:void(0)'><span class='glyphicon glyphicon-backward'></span>Backward train</a></li>
+            <li><a id='forward' href='javascript:void(0)'><span class='glyphicon glyphicon-forward'></span>Forward train</a></li>
+            <li><a id='cluster' href='javascript:void(0)'><span class='glyphicon glyphicon-resize-small'></span>Cluster</a></li>
+        </ul>
+    </div>
 </div>
-<div class='input-group'>
-  <span class='input-group-addon'>Learning rate</span>
-  <input type='text' class='form-control' placeholder='alpha' id='alpha' aria-describedby='basic-addon2'>
-</div>
-<div class='input-group'>
-  <span class='input-group-addon'>Dimensions</span>
-  <input type='text' class='form-control' id='dimensions' placeholder='vector length'>
-</div>
-<div class='input-group'>
-  <span class='input-group-addon'>Min value</span>
-  <input type='text' class='form-control' id='min' placeholder='min value of train set' aria-describedby='basic-addon3'>
-</div>
-<div class='input-group'>
-  <span class='input-group-addon'>Max value</span>
-  <input type='text' class='form-control' id='max' placeholder='max value of train set' aria-describedby='basic-addon3'>
-</div>
-<div class='btn-group'>
-  <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-    Action <span class='glyphicon glyphicon-play-circle'></span>
-  </button>
-  <ul class='dropdown-menu'>
-    <li><a id='backward' href='javascript:void(0)'><span class='glyphicon glyphicon-backward'></span>Backward train</a></li>
-    <li><a id='forward' href='javascript:void(0)'><span class='glyphicon glyphicon-forward'></span>Forward train</a></li>
-    <li><a id='cluster' href='javascript:void(0)'><span class='glyphicon glyphicon-resize-small'></span>Cluster</a></li>
-  </ul>
-</div>
-</div>
+<button class='btn btn-success' id='cluster-show-help'>Help</button>
+<button class='btn btn-success' id='cluster-show-settings'>Advanced</button>
 <div id='loaded-clusteres'></div>
 <div id='neural-n-tree-visual'></div>
 <div id='neural-n-tree-hyperbolic'></div>
 <div id='silhouettes'></div>
 <script>
 
-	if (window && window.process && window.process.type)
-		$('#cluster-handler').hide();
+	//if (window && window.process && window.process.type)
+    $('#cluster-handler').hide();
+    
+  //  $('#cluster-settings').hide();
+    $('#cluster-help').hide();
+    
+    $('#cluster-show-settings').on('click', function(event) {
+       
+        $('#cluster-settings').toggle();
+        
+    });
+    
+    $('#cluster-show-help').on('click', function(event) {
+       
+        $('#cluster-help').toggle();
+        
+    });
 
 	$('#save-cluster').on('click', function(event) { // this is how you save nnt
 	

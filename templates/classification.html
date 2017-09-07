@@ -1,4 +1,4 @@
-<blockquote>
+<blockquote id='classification-help'>
 	<p>Decision tree classifier will predict the student performance</p>
 	<p>You can find the student performance from the table below and the decision tree rules from the tree below</p>
 	<p>Left child of the node indicates that the parent condition is false and the right child of the node indicates
@@ -17,15 +17,24 @@
 		Load classifier
 	</button>
 </div>
+<button class='btn btn-success' id='classification-help-show'>Help</button>
 <div id='loaded-classifiers'></div>
 <div id='display-tree'></div>
 <div id='classification-table'></div>
 
 <script>
 
-	if (window && window.process && window.process.type)
+	//if (window && window.process && window.process.type)
 		$('#classifier-handler').hide();
 
+    $('#classification-help').hide();
+    
+    $('#classification-help-show').on('click', function(event) {
+       
+        $('#classification-help').toggle();
+        
+    });
+    
 	$('#save-classification').on('click', function(event) {
 	
 		removeParentsDecisionTree(analysisObjects.miners.decisionTree.decisionTree.root);
