@@ -37,6 +37,15 @@
 <div class='well' id='group-by'></div>
 <div class='well' id='normalize'></div>
 <div class='well' id='attributes'></div>
+<div id='data-source-div'>
+	<h4>Get data from:<h4>
+	<br>
+	<img id='uui' class='data-source-img' src='images/uui.png'>
+	<img id='brainstorm' class='data-source-img' src='images/brainstorming.jpg'>
+	<br>
+	<img id='print' class='data-source-img' src='images/printer.jpg'>
+	<img id='snap' class='data-source-img' src='images/programming.jpg'>
+</div><!--
 	<label id='data-source-label'>
 		Data source:
     	<select id='data-source-select'>
@@ -45,10 +54,11 @@
         	<option value='print'>3D printing</option>
         	<option value='brainstorm'>Brainstorming</option>
     	</select>
-    </label>
+    </label>-->
     <div id='data-set-table'></div>
 </div>
 <div id='data-set-table'></div>
+
 <script>
 
 	$('#settings-div').hide();
@@ -60,9 +70,28 @@
 		$('#data-source-label').hide();
 
 	}
+	
+	$('.data-source-img').on('click', function(event) {
+	
+		//console.log(event.target.id);
+		
+		var value = event.target.id;
+		
+		window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls[value]);
+        window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls[value]);
+         
+        resetMiners();
+         
+       	analysisObjects.miners.resetDatasets();
+         
+        window.sessionStorage.setItem('lastId', 0);
+         
+        $('#refresh').click();
+	
+	});
 
 	var trigger = false;
-    
+    /*
      $('#data-source-select').on('change', function(event) {
        
         var value = $(this).val();
@@ -79,7 +108,7 @@
         $('#refresh').click();
         
     });
-
+	*/
 	$('#train-set').on('change', function(event) {
 	
 		parseTrainSet(event);
