@@ -20,6 +20,10 @@
     <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
     Train anomaly detector
 </button>
+<button id='help-settings' class='shortcut-train btn btn-success'>
+	<span class='glyphicon glyphicon-question-sign' aria-hidden='true'><span>
+	Help
+</button>
 </div>
 <br>
 <br>
@@ -74,6 +78,13 @@
 
 	$('#settings-div').hide();
 	$('.shortcut-train').hide();
+	$('#instructions').hide();
+	
+	$('#help-settings').on('click', function(event) {
+	
+		$('#instructions').toggle();
+	
+	});
 
 	if (window && window.process && window.process.type) {
 	
