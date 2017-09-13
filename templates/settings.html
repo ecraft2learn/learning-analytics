@@ -220,9 +220,15 @@
 	
 	$('#train-outlier').on('click', function(event) {
 	
-		new Anomaly();
+		try {
+	
+			new Anomaly();
 		
-		setMessage('Anomaly detector has been trained');
+			setMessage('Anomaly detector has been trained');
+	
+		} catch (e) {
+		
+		}
 	
 	});
 
