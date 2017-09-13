@@ -36,12 +36,16 @@
 	<p>Steps: 1: Reduce time frame if needed. 2: Group data sets by attribute. 3: Normalize vectors by attribute.</p>
 	<footer>The time frame reducing has to be the first step.</footer>
 </blockquote>
-<input id='start-time' placeholder='start time filter'>
-<input id='end-time' placeholder='end time filter'>
+<div id='time-div'>
+	<input id='start-time' placeholder='start time filter'>
+	<input id='end-time' placeholder='end time filter'>
+</div>
 <div class='well' id='group-by'></div>
 <div class='well' id='normalize'></div>
 <div class='well' id='attributes'></div>
-<div id='data-source-div'>
+<div id='data-source-div' class='well'>
+	<h4>Data source</h4>
+	<br>
 	<br>
 	<div id='uui-wrap'>
 		<img id='uui' class='data-source-img' src='images/uui.png'>
