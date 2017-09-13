@@ -1,7 +1,17 @@
 {
-
-	"name": "analysis",
-	"version": "0.0.1",
-	"main": "main.js"
-
+  "name": "eCraft2Learn-analytics",
+  "version": "0.5.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "pretty-bytes": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.35.2"
+  },
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "Tapani Toivonen",
+  "license": "MIT"
 }
