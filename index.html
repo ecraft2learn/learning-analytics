@@ -50,11 +50,11 @@
 					<nav class='navbar navbar-inverse navbar-fixed-side' role='navigation'>
 						<div id='nav-content'>
 						<ul class='nav navbar-nav'>
-  							<li id='li-home' role='presentation' class='active'><a href='javascript:void(0)' id='a-home'>&nbsp;&nbsp;<span class='glyphicon glyphicon-home'></span> Home / settings</span></a></li>
-  							<li id='li-cluster' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-cluster'>&nbsp;&nbsp;<span class='glyphicon glyphicon-th'></span> Cluster analysis</a></li>
-  							<li id='li-classification' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-classification'>&nbsp;&nbsp;<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> Classification / prediction</a></li>
-  							<li id='li-anomaly' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-anomaly'>&nbsp;&nbsp;<span class='glyphicon glyphicon-indent-left'></span> Anomaly detection</a></li>
-  							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Association rule mining</a></li>
+  							<li id='li-home' role='presentation' class='active'><a href='javascript:void(0)' id='a-home' data-toggle='tooltip' title='For data visualisation and data preprocessing'>&nbsp;&nbsp;<span class='glyphicon glyphicon-home'></span> Home / settings</span></a></li>
+  							<li id='li-cluster' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-cluster' data-toggle='tooltip' title='For instance to group similar students together'>&nbsp;&nbsp;<span class='glyphicon glyphicon-th'></span> Cluster analysis</a></li>
+  							<li id='li-classification' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-classification' data-toggle='tooltip' title='For instance to predict student performance'>&nbsp;&nbsp;<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> Classification / prediction</a></li>
+  							<li id='li-anomaly' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-anomaly' data-toggle='tooltip' title='To find anomalies and outliers from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-indent-left'></span> Anomaly detection</a></li>
+  							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori' data-toggle='tooltip' title='To find intersting relationships from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Association rule mining</a></li>
   							<!--<li id='li-charts' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-charts'>&nbsp;&nbsp;<span class='glyphicon glyphicon-signal'></span> Data set charts</a></li>-->
   						</ul>
 						<form class='navbar-form' id='session-connect'>
@@ -99,6 +99,8 @@
 
 				console.log('%ceCraft2Learn analytics in the production mode.', 'background: red; color: yellow; font-size: x-large');
 			
+				$('[data-toggle=\'tooltip\']').tooltip();
+
 				if (window && window.process && window.process.type) {
 				
 					$('#session-connect').hide();
