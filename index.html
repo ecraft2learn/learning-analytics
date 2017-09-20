@@ -78,7 +78,7 @@
 		</noscript>
 		<div id='messages'></div>
 		<div id='loader'></div>
-		<div class='center-wrapper'>
+		<div class='center-wrapper' id='index-img-div'>
 			<div class='center-container'>
 				<img id='index-img' src='images/eCraft2Learn-Final0.1.png'>
 			</div>
@@ -107,7 +107,22 @@
 					$('#index-img').hide();
 					
 				}
+				/*
+				var indexImg = document.getElementById('index-img-div');
 				
+				var imgTop = indexImg.offsetTop;
+				
+				window.onscroll = function(event) {
+				
+					var y = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+					
+					if (y > imgTop)
+						indexImg.classList.add('stick');
+					else
+						indexImg.classList.remove('stick');		
+				
+				};
+				*/
 				for (var key in window.sessionStorage)
 					window.sessionStorage.setItem(key, 0);
 			
