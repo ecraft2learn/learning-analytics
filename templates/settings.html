@@ -247,8 +247,17 @@
 		if (! analysisObjects.miners.decisionTree)
 			new DecisionTree();
 		
-		if (! analysisObjects.miners.anomaly)
-			new Anomaly();
+		if (! analysisObjects.miners.anomaly) {
+		
+			try {
+			
+				new Anomaly();
+				
+			} catch (e) {
+			
+			}
+			
+		}
 			
 		if (! analysisObjects.miners.neuralNTree)
 			new NeuralNTree();
