@@ -57,15 +57,15 @@
 	</div>
 	<div id='brainstorm-wrap'>
 		<img id='brainstorm' class='data-source-img' src='images/brainstorming.jpg'>
-		<p id='brainstorm-desc'>Brainstorming</p>
+		<p id='brainstorm-desc'>Ideation</p>
 	</div>
 	<div id='print-wrap'>
 		<img id='print' class='data-source-img' src='images/printer.jpg'>
-		<p id='print-dec'>3D printing</p>
+		<p id='print-dec'>Search for ideas</p>
 	</div>
 	<div id='programming-wrap'>
 		<img id='snap' class='data-source-img' src='images/programming.jpg'>
-		<p id='programming-desc'>Programming with Snap</p>
+		<p id='programming-desc'>Programming</p>
 	</div>
 </div><!--
 	<label id='data-source-label'>
@@ -164,9 +164,23 @@
 		
 		http.fetchDataSet(data, function(response) {
 		
+			//console.log(response);
+		
 			var dataset = JSON.parse(response);
+			
+			var temp = [];
+			
+			for (var i = 0; i < dataset.length; i++) {
+			
+				var obj = JSON.parse(dataset[i].data);
+				
+				temp.push(obj);
+			
+			}
+			
+			dataset = temp;
             
-            //console.log(dataset);
+            console.log(dataset);
 			
 			if (dataset.length > 0) {
 			
