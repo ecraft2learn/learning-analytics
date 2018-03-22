@@ -168,6 +168,9 @@
 		
 			var dataset = JSON.parse(response);
 			
+			if (dataset.length > 0)
+				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['id']);
+			
 			var temp = [];
 			
 			for (var i = 0; i < dataset.length; i++) {
@@ -181,8 +184,6 @@
 			dataset = temp;
 			
 			if (dataset.length > 0) {
-			
-				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['vector_id']);
 				
 				fetchDataSet(dataset);
 				
