@@ -159,12 +159,8 @@
 		
 		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
 			'&lastId=' + lastId;
-        
-        //console.log(data);
 		
 		http.fetchDataSet(data, function(response) {
-		
-			//console.log(response);
 		
 			var dataset = JSON.parse(response);
 			
@@ -176,6 +172,9 @@
 			for (var i = 0; i < dataset.length; i++) {
 			
 				var obj = JSON.parse(dataset[i].data);
+				
+				if (dataset[i].timestamp)
+					obj.timestamp = dataset[i].timestamp;
 				
 				temp.push(obj);
 			
