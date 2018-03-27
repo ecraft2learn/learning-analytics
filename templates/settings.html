@@ -105,6 +105,16 @@
 	
 		//console.log(event.target.id);
 		
+		var element = event.target.parentNode;
+		
+		$('.data-source-img').each(function() {
+    
+    		$(this.parentNode).removeClass('active-source');
+
+		});
+		
+		$(element).addClass('active-source');
+		
 		var value = event.target.id;
 		
 		window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls[value]);
@@ -276,9 +286,6 @@
 			}
 			
 		}
-			
-		if (! analysisObjects.miners.neuralNTree)
-			new NeuralNTree();
 	
 		buildStudentModels();
 	
