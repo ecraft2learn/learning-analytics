@@ -237,7 +237,7 @@
 						var userObj = {};
 						
 						userObj['users'] = data[i]['users'];
-						userObj['status'] = predit;
+						userObj['status'] = predict;
 						
 						userList.push(userObj);
 						
@@ -270,6 +270,106 @@
 		});
 	
 	});
+	
+	function realtimePrediction() {
+	
+		var lastId = window.sessionStorage.getItem('lastId') ? parseInt(window.sessionStorage.getItem('lastId')) + 1: 0;
+
+		var url = window.sessionStorage.getItem('dataSource');	
+        
+		var http = new HTTP(url, 'POST');
+		
+		var data = 'sessionId=' + window.sessionStorage.getItem('sessionId') +
+			'&lastId=' + lastId;
+		
+		http.fetchDataSet(data, function(response) {
+		
+			var dataset = JSON.parse(response);
+			
+			if (dataset.length > 0)
+				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['id']);
+			
+			var temp = [];
+			
+			for (var i = 0; i < dataset.length; i++) {
+			
+				var obj = JSON.parse(dataset[i].data);
+				
+				if (dataset[i].timestamp)
+					obj.timestamp = dataset[i].timestamp;
+				
+				temp.push(obj);
+			
+			}
+			
+			dataset = temp;
+			
+			if (dataset.length > 0) {
+				
+				fetchDataSet(dataset);
+
+				if (analysisObjects.miners.decisionTree) {
+
+					var curDataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+	
+					var data = [];
+	
+					for (var i = 0; i < curDataset.length; i++) {
+	
+						var obj = {};
+		
+						for (var key in curDataset[i]) {
+		
+							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
+								key !== 'wellPerformed') {
+				
+								obj[key] = curDataset[i][key];
+		
+							}
+		
+						}
+		
+						data.push(obj);
+	
+					}
+					
+					var userList = [];
+					
+					for (var i = 0; i < data.length; i++) {
+					
+						var predict = analysisObjects.miners.decisionTree.decisionTree.predict(data[i]);
+						
+						$('#users').html('');
+
+						var userObj = {};
+						
+						userObj['users'] = data[i]['users'];
+						userObj['status'] = predict;
+						
+						userList.push(userObj);
+						
+					
+					}
+					
+					generateUserList(userList);
+					
+					
+				}
+
+			
+			} 
+			
+			$('.analysis-tools').show();
+			$('#settings-div').fadeIn();
+								
+			$('.shortcut-train').show();	
+
+		
+		}, function(error) {
+		
+		});
+	
+	}
 	
 	$('#use-file').on('click', function(event) {
 	
@@ -337,11 +437,7 @@
 		buildStudentModels();
 	
 	});
-	/*
-	setInterval(function() {
 	
-		$('#refresh').click();
+	setInterval(realtimePrediction, 30000);
 	
-	}, 50000);
-	*/
 </script>
