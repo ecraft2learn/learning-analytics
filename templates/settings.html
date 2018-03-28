@@ -84,6 +84,9 @@
 
 <script>
 
+	window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
+	window.sessionStorage.setItem('lastId', 0);
+
 	$('#settings-div').hide();
 	$('.shortcut-train').hide();
 	$('#instructions').hide();
@@ -198,12 +201,56 @@
 				
 				initOptions(dataset);
 
+				if (analysisObjects.miners.decisionTree) {
+
+					var curDataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+	
+					var data = [];
+	
+					for (var i = 0; i < curDataset.length; i++) {
+	
+						var obj = {};
+		
+						for (var key in curDataset[i]) {
+		
+							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
+								key !== 'wellPerformed') {
+				
+								obj[key] = curDataset[i][key];
+		
+							}
+		
+						}
+		
+						data.push(obj);
+	
+					}
+					
+					var userList = [];
+					
+					for (var i = 0; i < data.length; i++) {
+					
+						var predict = analysisObjects.miners.decisionTree.decisionTree.predict(data[i]);
+						
+						$('#users').html('');
+
+						var userObj = {};
+						
+						userObj['users'] = data[i]['users'];
+						userObj['status'] = predit;
+						
+						userList.push(userObj);
+						
+					
+					}
+					
+					generateUserList(userList);
+					
+					
+				}
+
 			
-			} else {
-			
-				alert('No data from the source is currently available. Try a different data source.');
-			
-			}
+			} 
 			
 			$('.analysis-tools').show();
 			$('#settings-div').fadeIn();
@@ -290,5 +337,11 @@
 		buildStudentModels();
 	
 	});
-
+	/*
+	setInterval(function() {
+	
+		$('#refresh').click();
+	
+	}, 50000);
+	*/
 </script>
