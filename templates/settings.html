@@ -28,6 +28,10 @@
 	<span class='glyphicon glyphicon-question-sign' aria-hidden='true'><span>
 	Help
 </button>
+<div id='toggles'>
+<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle">
+  <label for="checkbox1" class="checkbox-label" data-off="Automatic classification off" data-on="Automatic classification on"></label>
+</div>
 </div>
 <br>
 <br>
@@ -425,7 +429,7 @@
 		if (! analysisObjects.miners.anomaly) {
 		
 			try {
-			
+				
 				new Anomaly();
 				
 			} catch (e) {
@@ -437,7 +441,31 @@
 		buildStudentModels();
 	
 	});
+
+	var automatic = null;
 	
-	setInterval(realtimePrediction, 30000);
+	$('#checkbox1').on('change', (event) => {	
+
+		if (event.target.checked) {
+
+			if (analysisObjects.miners.decisionTree && window.sessionStorage.getItem('groupped')) {
+
+				automatic = setInterval(realtimePrediction, 30000);
+
+			} else {
+
+				alert('First, you have to train the classifier and group the dataset by \'users\'');
+				event.target.checked = false;
+
+			}
+
+		} else {
+
+			clearInterval(automatic);
+			automatic = 0;
+
+		}	
+
+	});
 	
 </script>
