@@ -32,6 +32,10 @@
 <input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle">
   <label for="checkbox1" class="checkbox-label" data-off="Real-time classification off" data-on="Real-time classification on"></label>
 </div>
+<div class="range-slider">
+    Real-time classification interval
+  	<input id='real-time-interval' class="range-slider__range" type="range" value="3" min="1" max="5" step='0.5'>
+</div>
 </div>
 <br>
 <br>
@@ -87,6 +91,8 @@
 </div>
 
 <script>
+
+	$('.range-slider').hide();
 
 	window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
 	window.sessionStorage.setItem('lastId', 0);
@@ -420,9 +426,7 @@
 	});
 	
 	$('#build-models').on('click', (event) => {
-	
-		// TODO NeuralNTree with training and default parameters
-		// TODO Anomaly second iteration with avg th	
+		
 		if (! analysisObjects.miners.decisionTree)
 			new DecisionTree();
 		
@@ -449,23 +453,45 @@
 		if (event.target.checked) {
 
 			if (analysisObjects.miners.decisionTree && window.sessionStorage.getItem('groupped')) {
+			
+				$('.range-slider').show();
+				
+				var interval = parseFloat($('#real-time-interval').val()) * 10000;;
 
-				automatic = setInterval(realtimePrediction, 30000);
+				automatic = setInterval(realtimePrediction, interval);
+				
+				$('#real-time-indicator').text('Real-time classification on');
 
 			} else {
 
 				alert('First, you have to train the classifier and group the dataset by \'users\'');
 				event.target.checked = false;
+				
+				$('.range-slider').hide();
 
 			}
 
 		} else {
+		
+			$('#real-time-indicator').text('Real-time classification off');
 
 			clearInterval(automatic);
-			automatic = 0;
+			automatic = null;
+			
+			$('.range-slider').hide();
 
 		}	
 
+	});
+	
+	$('#real-time-interval').on('change', (event) => {
+	
+		var interval = parseFloat(event.target.value) * 10000;
+		
+		clearInterval(automatic);
+		
+		automatic = setInterval(realtimePrediction, interval);
+	
 	});
 	
 </script>
