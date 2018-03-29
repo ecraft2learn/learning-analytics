@@ -32,7 +32,7 @@
 <input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle">
   <label for="checkbox1" class="checkbox-label" data-off="Real-time classification off" data-on="Real-time classification on"></label>
 </div>
-<label for='real-time-interval'>
+<label for='real-time-interval' id='real-time-interval-label'>
 Real-time classification interval
 </label>
 <input id='real-time-interval' class="range-slider__range" type="range" value="3" min="1" max="5" step='0.5'>
@@ -93,6 +93,7 @@ Real-time classification interval
 <script>
 
 	$('#real-time-interval').hide();
+	$('#real-time-interval-label').hide();
 
 	window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
 	window.sessionStorage.setItem('lastId', 0);
@@ -455,6 +456,7 @@ Real-time classification interval
 			if (analysisObjects.miners.decisionTree && window.sessionStorage.getItem('groupped')) {
 			
 				$('#real-time-interval').show();
+				$('#real-time-interval-label').show();
 				
 				var interval = parseFloat($('#real-time-interval').val()) * 10000;;
 
@@ -467,7 +469,8 @@ Real-time classification interval
 				alert('First, you have to train the classifier and group the dataset by \'users\'');
 				event.target.checked = false;
 				
-				$('.range-slider').hide();
+				$('#real-time-interval').hide();
+				$('#real-time-interval-label').hide();
 
 			}
 
@@ -479,6 +482,7 @@ Real-time classification interval
 			automatic = null;
 			
 			$('#real-time-interval').hide();
+			$('#real-time-interval-label').hide();
 
 		}	
 
