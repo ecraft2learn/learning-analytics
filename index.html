@@ -57,12 +57,22 @@
   							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori' data-toggle='tooltip' title='To find intersting relationships from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Association rule mining</a></li>
   							<!--<li id='li-charts' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-charts'>&nbsp;&nbsp;<span class='glyphicon glyphicon-signal'></span> Data set charts</a></li>-->
   						</ul>
+  						
 						<form class='navbar-form' id='session-connect'>
+							
 							<div class='form-group'>
 								<input class='form-control' placeholder='Session id' id='session-id'>
 							</div>
+							
 							<button class='btn btn-info' id='connect-button'>Connect</button>
 						</form>
+						<select id='select-pilot'>
+							<option value='' selected='selected'>Or select pilot</option>
+							<option value='11'>Pataluoto</option>
+							<option value='12'>Lyseo</option>
+							<option value='13'>Athens informal</option>
+							<option value='14'>Athens formal</option>
+						</select>	
 						<h4 id='real-time-indicator'>Real-time classification off</h4>
 						<div id='users'></div>
 						</div>
@@ -200,6 +210,16 @@
 				
 				window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
 				window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls['uui']);
+				
+				$('#select-pilot').on('change', (event) => {
+				
+					$('#select-pilot').prop('disabled', 'disabled');;
+				
+					$('#session-id').val(event.target.value);
+					
+					$('#connect-button').click();
+				
+				});
 				
 				$('#connect-button').on('click', function(event) {
 				
