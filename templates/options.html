@@ -7,6 +7,8 @@
 
 	var sessionId = window.sessionStorage.getItem('sessionId');
 	
+	tinymce.init({ selector: 'textarea' });
+	
 	$.ajax({
 	
 		type: 'POST',
