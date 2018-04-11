@@ -36,6 +36,7 @@
 		<script src='js/apriori.min.js'></script>
 		<script src='js/http.min.js'></script>
 		<script src='lib/jit/jit.js'></script>
+		<script src='lib/tinymce/js/tinymce/tinymce.min.js'></script>
 		<script src='js/analytics-ui.min.js'></script>
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
@@ -55,7 +56,7 @@
   							<li id='li-classification' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-classification' data-toggle='tooltip' title='For instance to predict student performance'>&nbsp;&nbsp;<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> Classification / prediction</a></li>
   							<li id='li-anomaly' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-anomaly' data-toggle='tooltip' title='To find anomalies and outliers from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-indent-left'></span> Anomaly detection</a></li>
   							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori' data-toggle='tooltip' title='To find intersting relationships from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Association rule mining</a></li>
-  							<!--<li id='li-charts' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-charts'>&nbsp;&nbsp;<span class='glyphicon glyphicon-signal'></span> Data set charts</a></li>-->
+  							<li id='li-settings' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Settings</span></a></li>
   						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -131,12 +132,27 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-home').addClass('active');
 	
 					new initSettings();
 				
 				});
+				
+				$('#a-settings').on('click', function(event) {
+
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					
+					$('#li-settings').addClass('active');
+
+                	new Reflect();
+
+                });
 				
 				$('#a-cluster').on('click', function(event) {
 				
@@ -145,6 +161,7 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-cluster').addClass('active');
 				
@@ -159,6 +176,7 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-classification').addClass('active');
 				
@@ -173,6 +191,7 @@
 					$('#li-home').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-anomaly').addClass('active');
 				
@@ -187,6 +206,7 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-home').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-charts').addClass('active');
 				
@@ -201,6 +221,7 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-home').removeClass('active');
 					$('#li-charts').removeClass('active');
+					$('#li-settings').removeClass('active');
 					
 					$('#li-apriori').addClass('active');
 				

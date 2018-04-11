@@ -1,0 +1,153 @@
+<div id='teacher-settings'>
+	<textarea id='teacher-settings-textarea'></textarea>
+	<button class='btn btn-success' id='save-reflection'>Save</button>
+	<div class='well' id='teacher-settings-include-tools'></div>
+</div>
+<script>
+
+	var sessionId = window.sessionStorage.getItem('sessionId');
+	
+	$.ajax({
+	
+		type: 'POST',
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_tools_pilot_2.php',
+		data: '',
+		success: function(data) {
+		
+			var array = JSON.parse(data);
+			
+			var str = '<h3>Include tools in UUI</h3>';
+			
+			$.ajax({
+			
+				type: 'POST',
+				url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_included_tools_pilot_2.php',
+				data: 'sessionId=' + sessionId,
+				success: function(data) {
+				
+					var included = JSON.parse(data);
+				
+					if (included[0] && included[0].tools)
+						included = JSON.parse(included[0].tools);
+			
+					for (var i = 0; i < array.length; i++) {
+				
+						var isThere = false;
+				
+						for (var j = 0; j < included.length; j++) {
+			
+							if (included[j] === array[i].TOOL_NAME) {
+						
+								isThere = true;
+						
+							}			
+			
+						}
+					
+						if (isThere) {
+					
+							str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\' checked=\'checked\'><br>';
+					
+						} else {
+					
+							str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\'><br>';
+					
+						}
+					
+						isThere = false;
+			
+					}
+			
+					$('#teacher-settings-include-tools').html(str);
+		
+		
+				},
+				error: function(error) {
+		
+					console.log(error);
+		
+				}
+	
+			});
+			
+		},
+		error: function(error) {
+	
+			console.log(error);		
+		
+		}
+
+	});
+	
+	$.ajax({
+		
+		type: 'POST',
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_reflection_pilot_2.php',
+		data: 'sessionId=' + sessionId,
+		success: function(data) {
+			
+			var content = JSON.parse(data);
+				
+			if (content && content[0] && content[0].content) {
+				
+				tinymce.activeEditor.setContent(content[0].content);
+				
+			}
+			
+		},
+		error: function(error) {
+			
+			
+		}
+		
+	});
+
+
+	$('#save-reflection').on('click', (event) => {
+
+		var selected = [];
+		$('#teacher-settings-include-tools input:checked').each(function() {
+    
+    		selected.push($(this).attr('id'));
+	
+		});
+
+		$.ajax({
+		
+			type: 'POST',
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/put_tools_pilot_2.php',
+			data: 'sessionId=' + sessionId + '&data=' + JSON.stringify(selected),
+			success: function(data) {
+			
+				console.log(data);
+			
+			},
+			error: function(error) {
+			
+				console.log(error);
+			}
+		
+		});
+		
+		var content = tinymce.activeEditor.getContent();
+		
+		$.ajax({
+		
+			type: 'POST',
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/put_reflection_pilot_2.php',
+			data: 'sessionId=' + sessionId + '&data=' + encodeURIComponent(content),
+			success: function(data) {
+			
+				console.log(data);
+			
+			},
+			error: function(error) {
+			
+				console.log(error);
+			}
+		
+		});
+
+	});
+
+</script>
