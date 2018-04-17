@@ -2,13 +2,49 @@
 	<textarea id='teacher-settings-textarea'></textarea>
 	<button class='btn btn-success' id='save-reflection'>Save</button>
 	<div class='well' id='teacher-settings-include-tools'></div>
+	<div id='files_dz' class="dropzone"></div>
 </div>
 <script>
 
 	var sessionId = window.sessionStorage.getItem('sessionId');
 	
 	tinymce.init({ selector: 'textarea' });
+
+	Dropzone.autoDiscover = false;
 	
+	var myDropzone = new Dropzone("#files_dz", { url: 'upload' });
+  
+  
+  	myDropzone.on("addedfile", function(file) {
+  
+		var formdata = new FormData();
+		formdata.append('sessionId', sessionId);
+		formdata.append('file', file);
+
+		$.ajax({
+
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/upload_help_files.php',
+			type: 'POST',
+			data: formdata,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+		
+				console.log(data);
+
+			},
+			error: function(error) {
+
+				console.log(error);
+
+			}
+		
+		});
+
+
+  	});
+
+
 	$.ajax({
 	
 		type: 'POST',
