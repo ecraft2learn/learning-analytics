@@ -42,6 +42,7 @@
 		<script src='lib/datetimepicker/js/moment.js'></script>
 		<script src='lib/datetimepicker/js/datetimepicker.js'></script>
 		<script src='lib/dropzone/dropzone.js'></script>
+		<script src='lib/html2canvas/html2canvas.min.js'></script>
 		<script src='js/analytics-ui.min.js'></script>
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
@@ -366,7 +367,211 @@
   			$('#nav-container').hide();
   			
   			$('.analysis-tools').hide();
-  			
+
+			function logAnomaly() {
+
+                                html2canvas(document.querySelector('#anomaly-table')).then(canvas => {
+
+                                        var session = window.sessionStorage.getItem('sessionId');
+                                                
+                                        var action = 'anomaly';
+
+                                        canvas.toBlob((blob) => {
+
+                                                var formdata = new FormData();
+                                                formdata.append('action', action);
+                                                formdata.append('session', session);
+                                                formdata.append('file', blob);
+
+
+                                                $.ajax({
+
+                                                        type: 'POST',
+                                                        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/log-la.php',
+                                                        data: formdata,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: (data) => {
+
+
+                                                        },
+                                                        error: (error) => {
+
+
+                                                        }
+
+                                                });
+
+                                        }, 'image/png', 1);
+
+
+                                });
+                                
+                        }
+
+			function logSettings() {
+
+                                html2canvas(document.querySelector('#analysis-settings')).then(canvas => {
+
+                                        var session = window.sessionStorage.getItem('sessionId');
+
+                                        var action = 'home';
+
+                                        canvas.toBlob((blob) => {
+
+                                                var formdata = new FormData();
+                                                formdata.append('action', action);
+                                                formdata.append('session', session);
+                                                formdata.append('file', blob);
+
+
+                                                $.ajax({
+
+                                                        type: 'POST',
+                                                        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/log-la.php',
+                                                        data: formdata,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: (data) => {
+
+
+                                                        },
+                                                        error: (error) => {
+
+
+                                                        }
+
+                                                });
+
+                                       }, 'image/png', 1);
+
+
+                                });
+
+                        }
+
+			function logCluster() {
+
+
+                                        var canvas = $('.vis-network').find('canvas')[0]; // ?
+
+                                        var session = window.sessionStorage.getItem('sessionId');
+
+                                        var action = 'cluster';
+
+                                        canvas.toBlob((blob) => {
+
+                                                var formdata = new FormData();
+                                                formdata.append('action', action);
+                                                formdata.append('session', session);
+                                                formdata.append('file', blob);
+
+
+                                                $.ajax({
+
+                                                        type: 'POST',
+                                                        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/log-la.php',
+                                                        data: formdata,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: (data) => {
+
+                                                                console.log(data);
+
+                                                        },
+                                                        error: (error) => {
+
+                                                                console.log(error);
+
+                                                        }
+
+                                               });
+
+                                        }, 'image/png', 1);
+
+
+
+
+                                }
+
+				function logClassification() {
+
+                                         var canvas = $('.vis-network').find('canvas')[0]; // ?
+
+                                        var session = window.sessionStorage.getItem('sessionId');
+
+                                        var action = 'classification';
+
+                                        if (canvas)
+                                        canvas.toBlob((blob) => {
+
+                                                var formdata = new FormData();
+                                                formdata.append('action', action);
+                                                formdata.append('session', session);
+                                                formdata.append('file', blob);
+
+
+                                                $.ajax({
+
+                                                        type: 'POST',
+                                                        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/log-la.php',
+                                                        data: formdata,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: (data) => {
+
+
+                                                        },
+                                                        error: (error) => {
+
+
+                                                        }
+
+                                               });
+
+                                        }, 'image/png', 1);
+
+                                }
+
+				 function logApriori() {
+
+                                         var canvas = $('.vis-network').find('canvas')[0]; // ?
+
+                                        var session = window.sessionStorage.getItem('sessionId');
+
+                                        var action = 'association';
+
+                                        canvas.toBlob((blob) => {
+
+                                                var formdata = new FormData();
+                                                formdata.append('action', action);
+                                                formdata.append('session', session);
+                                                formdata.append('file', blob);
+
+
+                                                $.ajax({
+
+                                                        type: 'POST',
+                                                        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/log-la.php',
+                                                        data: formdata,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: (data) => {
+
+
+                                                        },
+                                                        error: (error) => {
+
+
+                                                        }
+
+                                               });
+
+                                        }, 'image/png', 1);
+
+
+                                }
+
 		
 		</script>
 	</body>
