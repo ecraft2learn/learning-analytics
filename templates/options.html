@@ -67,36 +67,50 @@
 				
 					if (included[0] && included[0].tools)
 						included = JSON.parse(included[0].tools);
+                    
+                    if (! included.length) {
+                        
+                        var str = '';
+                        
+                        for (let i = 0; i < array.length; i++)
+                            str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\' checked=\'checked\'><br>';
+                        
+                        
+                         $('#teacher-settings-include-tools').html(str);   
+                            
+                    } else {
 			
-					for (var i = 0; i < array.length; i++) {
+				        for (var i = 0; i < array.length; i++) {
 				
-						var isThere = false;
+                            var isThere = false;
 				
-						for (var j = 0; j < included.length; j++) {
+				            for (var j = 0; j < included.length; j++) {
 			
-							if (included[j] === array[i].TOOL_NAME) {
+				                if (included[j] === array[i].TOOL_NAME) {
 						
-								isThere = true;
+								    isThere = true;
 						
-							}			
+				                }			
 			
-						}
+                            }
 					
-						if (isThere) {
+				            if (isThere) {
 					
-							str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\' checked=\'checked\'><br>';
+                                str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\' checked=\'checked\'><br>';
 					
-						} else {
+						    } else {
 					
-							str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\'><br>';
+				                str += array[i].TOOL_NAME + '<input type=\'checkbox\' id=\'' + array[i].TOOL_NAME + '\'><br>';
 					
-						}
+				            }
 					
-						isThere = false;
+				            isThere = false;
 			
-					}
+                        }
 			
-					$('#teacher-settings-include-tools').html(str);
+                        $('#teacher-settings-include-tools').html(str);
+                    
+                    }
 		
 		
 				},
