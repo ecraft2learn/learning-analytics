@@ -7,8 +7,10 @@
 <script>
 
 	var sessionId = window.sessionStorage.getItem('sessionId');
+    
+    tinymce.editors = [];
 	
-	tinymce.init({ selector: 'textarea' });
+	tinymce.init({ selector: '#teacher-settings-textarea', init_instance_callback: getReflectionContent });
 
 	Dropzone.autoDiscover = false;
 	
@@ -130,29 +132,34 @@
 		}
 
 	});
+    
+    function getReflectionContent() {
 	
-	$.ajax({
+        $.ajax({
 		
-		type: 'POST',
-		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_reflection_pilot_2.php',
-		data: 'sessionId=' + sessionId,
-		success: function(data) {
+            type: 'POST',
+		    url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_reflection_pilot_2.php',
+            data: 'sessionId=' + sessionId,
+		    success: function(data) {
 			
-			var content = JSON.parse(data);
+			     var content = JSON.parse(data);
 				
-			if (content && content[0] && content[0].content) {
+			     if (content && content[0] && content[0].content) {
 				
-				tinymce.activeEditor.setContent(content[0].content);
+                    tinymce.get('teacher-settings-textarea').setContent(content[0].content);
+				    //tinymce.activeEditor.setContent(content[0].content);
 				
-			}
+                 }
 			
-		},
-		error: function(error) {
+		    },
+		    error: function(error) {
 			
 			
-		}
+		    }
 		
-	});
+	   });
+        
+    }
 
 
 	$('#save-reflection').on('click', (event) => {
