@@ -87,19 +87,23 @@ Real-time classification interval
 	<br>
 	<div id='uui-wrap'>
 		<img id='uui' class='data-source-img' src='images/uui.png'>
-		<p id='uui-desc'>Unified User Interface</p>
+		<p id='uui-desc'>Students' actions in Unified User Interface</p>
 	</div>
 	<div id='brainstorm-wrap'>
 		<img id='brainstorm' class='data-source-img' src='images/brainstorming.jpg'>
-		<p id='brainstorm-desc'>Sketching</p>
+		<p id='brainstorm-desc'>eCraft Plan (sketching)</p>
 	</div>
 	<div id='print-wrap'>
 		<img id='print' class='data-source-img' src='images/printer.jpg'>
-		<p id='print-dec'>Search for ideas</p>
+		<p id='print-dec'>eCraft Search (searching)</p>
 	</div>
 	<div id='programming-wrap'>
 		<img id='snap' class='data-source-img' src='images/programming.jpg'>
-		<p id='programming-desc'>Programming</p>
+		<p id='programming-desc'>Snap4Arduino</p>
+	</div>
+	<div id='todo-wrap'>
+		<img id='todo' class='data-source-img' src='images/todo.jpg'>
+		<p id='todo-desc'>eCraft TODO (todo-list)</p>
 	</div>
 </div><!--
 	<label id='data-source-label'>
@@ -112,8 +116,6 @@ Real-time classification interval
     	</select>
     </label>-->
     <div id='data-set-table'></div>
-    <canvas id='charts-radar'></canvas>
-	<canvas id='charts-line'></canvas>
 </div>
 
 <script>
@@ -143,8 +145,6 @@ Real-time classification interval
 	
 	$('.data-source-img').on('click', function(event) {
 	
-		//console.log(event.target.id);
-		
 		var element = event.target.parentNode;
 		
 		$('.data-source-img').each(function() {
@@ -158,15 +158,15 @@ Real-time classification interval
 		var value = event.target.id;
 		
 		window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls[value]);
-        window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls[value]);
+        	window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls[value]);
          
-        resetMiners();
+        	resetMiners();
          
-       	analysisObjects.miners.resetDatasets();
+       		analysisObjects.miners.resetDatasets();
          
-        window.sessionStorage.setItem('lastId', 0);
+        	window.sessionStorage.setItem('lastId', 0);
          
-        $('#refresh').click();
+        	$('#refresh').click();
 	
 	});
 
@@ -213,15 +213,23 @@ Real-time classification interval
 		http.fetchDataSet(data, function(response) {
 		
 			var dataset = JSON.parse(response);
-			
+		
+			console.log(dataset);
+	
 			if (dataset.length > 0)
 				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['id']);
 			
 			var temp = [];
-			
+		
+			if (dataset.data)
+				dataset = dataset.data;
+	
 			for (var i = 0; i < dataset.length; i++) {
 			
-				var obj = JSON.parse(dataset[i].data);
+				if (! dataset[i].data)
+					var obj = dataset[i];
+				else
+					var obj = JSON.parse(dataset[i].data);
 				
 				if (dataset[i].timestamp)
 					obj.timestamp = dataset[i].timestamp;
