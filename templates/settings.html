@@ -47,7 +47,7 @@ Real-time classification interval
 </div>
 <div id='settings-div'>
 <blockquote id='instructions'>
-	<p>Steps: 1: Reduce time frame if needed. 2: Group data sets by attribute. 3: Normalize vectors by attribute.</p>
+	<p>Steps: 1: Reduce time frame if needed. 2: Group dataset by feature.</p>
 	<footer>The time frame reducing has to be the first step.</footer>
 </blockquote>
 <div id='time-div'>
@@ -55,7 +55,7 @@ Real-time classification interval
     <div class='col-md-5'>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker6'>
-                <input type='text' class="form-control" />
+                <input type='text' class="form-control" placeholder='From time'>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -65,7 +65,7 @@ Real-time classification interval
     <div class='col-md-5'>
         <div class="form-group">
             <div class='input-group date' id='datetimepicker7'>
-                <input type='text' class="form-control" />
+                <input type='text' class="form-control" placeholder='Till time'>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -85,36 +85,27 @@ Real-time classification interval
 	<h4>Data source</h4>
 	<br>
 	<br>
-	<div id='uui-wrap'>
+	<div id='uui-wrap' class='active-source'>
 		<img id='uui' class='data-source-img' src='images/uui.png'>
 		<p id='uui-desc'>Students' actions in Unified User Interface</p>
 	</div>
 	<div id='brainstorm-wrap'>
-		<img id='brainstorm' class='data-source-img' src='images/brainstorming.jpg'>
+		<img id='brainstorm' class='data-source-img' src='images/sketch.png'>
 		<p id='brainstorm-desc'>eCraft Plan (sketching)</p>
 	</div>
 	<div id='print-wrap'>
-		<img id='print' class='data-source-img' src='images/printer.jpg'>
+		<img id='print' class='data-source-img' src='images/search.png'>
 		<p id='print-dec'>eCraft Search (searching)</p>
 	</div>
 	<div id='programming-wrap'>
-		<img id='snap' class='data-source-img' src='images/programming.jpg'>
+		<img id='snap' class='data-source-img' src='images/s4a.png'>
 		<p id='programming-desc'>Snap4Arduino</p>
 	</div>
 	<div id='todo-wrap'>
-		<img id='todo' class='data-source-img' src='images/todo.jpg'>
+		<img id='todo' class='data-source-img' src='images/todo.png'>
 		<p id='todo-desc'>eCraft TODO (todo-list)</p>
 	</div>
-</div><!--
-	<label id='data-source-label'>
-		Data source:
-    	<select id='data-source-select'>
-        	<option value='uui'>UUI</option>
-        	<option value='snap'>Programming</option>
-        	<option value='print'>3D printing</option>
-        	<option value='brainstorm'>Brainstorming</option>
-    	</select>
-    </label>-->
+</div>
     <div id='data-set-table'></div>
 </div>
 
