@@ -60,13 +60,13 @@ var Share = (function(){
 					var tags = JSON.parse(list[i].tags);
 					
 					for (var j = 0; j < tags.length; j++)
-						html += '<span class=\'label label-success label-xl tags\'>' + tags[j] + '</span>';
+						html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';
 
-					//html += '</div>';
-					html += '<h4>Comments for the share</h4>';
+					html += '<br><br><br>';
 
 					if (list[i].comments) {
 
+						html += '<h4>Comments for the share</h4>';
 
 						html += '<div class=\'container\'>';
 
@@ -74,9 +74,6 @@ var Share = (function(){
 
 						for (var j = 0; j < list[i].comments.length; j++) {
 
-							//html += '<div>' + list[i].comments[j].comment;
-							//html += '<br><span class=\'label label-info\'>' + list[i].comments[j].user + '</span></div><hr>';
-								
 							html += '<div class=\'col-sm-1\'>';
 							html += '<div class=\'thumbnail\'>';
 

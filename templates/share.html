@@ -161,7 +161,7 @@
 
 			for (var i = 0; i < tags.length; i++) {
 
-                        	$(tags[i]).parent().show();
+                        	$(tags[i]).parent().parent().show();
 
                    
 
@@ -176,14 +176,16 @@
 
 		for (var i = 0; i < tags.length; i++) {
 
-			if ($(tags[i]).text().trim() !== value && ! found[$(tags[i]).parent().attr('id')]) {
+			if ($(tags[i]).text().trim() !== value && ! found[$(tags[i]).parent().parent().attr('id')]) {
 
-				$(tags[i]).parent().hide();
+				$(tags[i]).parent().parent().hide();
 
 			} else {
 
-				$(tags[i]).parent().show();
-				found[$(tags[i]).parent().attr('id')] = true;
+				console.log('jaa');
+
+				$(tags[i]).parent().parent().show();
+				found[$(tags[i]).parent().parent().attr('id')] = true;
 
 			}
 
