@@ -120,7 +120,7 @@
 	
 	<h4>Share a file, tag your project and write a tiny description.</h4>
 	<input style='display: inline-block !important;' name='tags' id="tags" value='' >
-	<textarea style='display: inline-block;' id='desc' cols='20' rows='10' placeholder='add a description here'></textarea>
+	<textarea style='display: inline-block;' id='desc' cols='5' rows='5' placeholder='add a description here'></textarea>
 	<input style='display: inline-block;' type='file' id='share-file'>
 	<br>
 	<br>
@@ -128,6 +128,65 @@
 	<button style='display: inline-block;' id='share-upload' class='btn btn-success'>Upload</button>
 
 </div>
+
+<style>
+
+
+
+.comment-main{
+	background-color: #74C2E1;
+	box-shadow: 1px 2px 6px 2px #005B9A;
+}
+.comment-main ul{
+	list-style: none;
+}
+.sub-cmt-img{
+	width: 55px !important;
+    height: 55px !important;
+    border-radius: 50%;
+} 
+.main-cmt-img{
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+}
+.border-bottom{
+	font-size: 13px;
+	border-bottom: 1px solid #d3d3d3;
+}
+.user-comment{
+	background-color: #f3f3f3 !important;
+    box-shadow: 0px 5px 8px -4px #c1c1c1;
+}
+.user-comment-desc, .user-comment span{
+	color: #a0a0a0;
+}
+.user-comment-desc p{
+	font-size: 12px;
+	display: inline-block;
+	float: left;
+}
+.send-icon i{
+	font-size: 20px;
+	background: #f3f3f3;
+	padding: 6px 5px;
+	border-radius: 50%;
+	color: #74C2E1;
+	height: 35px;
+	width: 35px;
+}
+.user-comment:before{
+    content: "";
+    height: 0;
+    width: 0;
+    top: 0;
+    left: -10px;
+    position: absolute;
+    border-style: solid;
+    border-width: 13px 0 0 13px;
+	border-color: #f3f3f3 transparent transparent transparent; 
+}
+</style>
 
 <div class="container">
 	<div class="row">
@@ -380,7 +439,7 @@
 .forgot {
     display: none;
 }
-
+/*
 textarea {
   margin-top: 10px;
   margin-left: 50px;
@@ -410,6 +469,55 @@ textarea:focus {
     background: none repeat scroll 0 0 #FFFFFF;
     outline-width: 0;
 }
+*/
+
+.content {
+  width:100%;
+  padding:16px;
+}
+
+.content.centered {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+ }
+
+/* UI Elements */
+h1 {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 300;
+} 
+
+textarea {
+  resize: none;
+  min-width:50%;
+  font-size:14px;
+  line-height:16px;
+  padding: 16px;
+  border:none;
+}
+
+textarea:focus {
+  outline:none;
+  box-shadow: 0 13px 38px 0 rgba(0, 0, 0, 0.4);
+}
+
+.separator {
+  width:50%;
+  height:2px;
+  background:rgba(0, 0, 0, .1);
+  margin:16px 0;
+  
+}
+
+
+
 
 .thumbnail {
     padding:0px;
@@ -439,5 +547,39 @@ textarea:focus {
 	border-right-color:#ddd;
 	border-width:8px;
 }
+
+<script>
+
+	var autoExpandingTextArea = (function(){
+  var tag = document.querySelectorAll('textarea');
+ 
+  for (var i=0; i<tag.length; i++){
+    tag[i].addEventListener('paste',autoExpand);
+    tag[i].addEventListener('input',autoExpand);
+    tag[i].addEventListener('keyup',autoExpand);
+  }
+  
+  function autoExpand(e,el){
+    var el = el || e.target;
+    var paddingTop = parseInt(window.getComputedStyle(el, null).getPropertyValue('padding-top'));
+    var paddingBottom = parseInt(window.getComputedStyle(el, null).getPropertyValue('padding-bottom'));
+    el.style.height = 'auto';
+    console.log(el.scrollHeight);
+    el.style.height = (el.scrollHeight - (paddingTop + paddingBottom)) + 'px';
+  }
+  
+  window.addEventListener('load',expandAll);
+  window.addEventListener('resize',expandAll);
+  
+  function expandAll(e){
+    var tag = document.querySelectorAll('textarea');
+    
+    for (var i=0; i<tag.length; i++){
+      autoExpand(e,tag[i]);
+    }
+  }
+})();
+
+</script>
 
 </style>

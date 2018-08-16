@@ -104,8 +104,8 @@ var Share = (function(){
 					}
 
 					html += '<div>';
-
-					html += '<textarea cols=\'40\' rows=\'20\' id=\'comment-' + list[i].id + '\'></textarea>';
+					
+					html += '<textarea cols=\'5\' rows=\'5\' id=\'comment-' + list[i].id + '\'></textarea>';
 					html += '<br><br><br>';
 					html += '<button class=\'btn btn-success\' id=\'comment-btn-' + list[i].id + '\' onclick=\'comment(this)\'>Share comment</button>';
 
