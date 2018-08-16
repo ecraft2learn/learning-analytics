@@ -54,15 +54,15 @@ var Share = (function(){
 
 				for (var i = 0; i < list.length; i++) {
 
-					html += '<div class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
+					html += '<div id=\'shares-' + i  + '\' class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
 					html += '<pre>' + list[i].description + '</pre><br>';
 					
 					var tags = JSON.parse(list[i].tags);
 					
 					for (var j = 0; j < tags.length; j++)
-						html += '<span class=\'label label-success tags\'>' + tags[j] + '</span>';
+						html += '<span class=\'label label-success label-xl tags\'>' + tags[j] + '</span>';
 
-					html += '</div>';
+					//html += '</div>';
 					html += '<h4>Comments for the share</h4>';
 
 					if (list[i].comments) {
@@ -104,8 +104,6 @@ var Share = (function(){
 						html += '</div>';
                                                 html += '</div>';
 
-						console.log(html);
-
 					}
 
 					html += '<div>';
@@ -115,6 +113,8 @@ var Share = (function(){
 					html += '<button class=\'btn btn-success\' id=\'comment-btn-' + list[i].id + '\' onclick=\'comment(this)\'>Share comment</button>';
 
 					html += '</div>';
+
+					html += '<hr>';
 
 				}
 
