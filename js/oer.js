@@ -22,7 +22,7 @@ var OER = (function(){
 
 				}
 
-				var html = '<table id=\'oer-table\' class=\'table\'>';
+				var html = '<table id=\'oer-table\' class=\'table table-hover\'>';
 				html += '<thead>';
 				html += '<tr>'
 
@@ -31,6 +31,8 @@ var OER = (function(){
 						html += '<th>#</th>';
 					else
 						html += '<th>' + key + '</th>';
+
+				html += '<th>Preview</th>';
 
 				html += '</tr>';
 				html += '<tbody>';
@@ -46,6 +48,12 @@ var OER = (function(){
 							html += '<td><a target=\'_blank\' href=\'' + oer[key].trim() + '\'>Download OER</a></tf>';
 						else
 							html += '<td>' + oer[key] + '</td>';
+
+					html += '<td>';
+
+					html += '<object data=\'' + oer['download'].trim() + '\' type=\'application/pdf\' width=\'100%\' height=\'100%\'>';
+   					html += '<p>This browser does not support PDFs. Please download the PDF to view</p>';
+					html += '</object>'
 
 					html += '</tr>';
 
