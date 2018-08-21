@@ -22,7 +22,7 @@ var OER = (function(){
 
 				}
 
-				var html = '<table class=\'table\'>';
+				var html = '<table id=\'oer-table\' class=\'table\'>';
 				html += '<thead>';
 				html += '<tr>'
 
