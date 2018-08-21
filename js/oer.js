@@ -27,7 +27,10 @@ var OER = (function(){
 				html += '<tr>'
 
 				for (var key in oers[0])
-					html += '<th>' + key + '</th>';
+					if (key === 'id')
+						html += '<th>#</th>';
+					else
+						html += '<th>' + key + '</th>';
 
 				html += '</tr>';
 				html += '<tbody>';
@@ -39,7 +42,10 @@ var OER = (function(){
 					html += '<tr>';
 
 					for (let key in oer)
-						html += '<td>' + oer[key] + '</td>';
+						if (key === 'download')
+							html += '<td><a target=\'_blank\' href=\'' + oer[key].trim() + '\'>Download OER</a></tf>';
+						else
+							html += '<td>' + oer[key] + '</td>';
 
 					html += '</tr>';
 
