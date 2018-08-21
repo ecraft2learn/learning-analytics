@@ -49,6 +49,7 @@
 		<script src='lib/bootbox/bootbox.min.js'></script>
 		<script src='js/analytics-ui.min.js'></script>
 		<script src='js/share.js'></script>
+		<script src='js/oer.js'></script>
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
 	</head>
@@ -69,6 +70,7 @@
   							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori' data-toggle='tooltip' title='To find intersting relationships from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Find events that occur usually simultaneously</a></li>
   							<li id='li-settings' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Include tools in UUI</span></a></li>
   							<!--<li id='li-share' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Share</span></a></li>-->
+							<li id='li-oer' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Open educational resources</span></a></li>
 						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -136,6 +138,31 @@
 					window.sessionStorage.setItem(key, 0);
 			
 				new initSettings();
+
+				$('#a-oer').on('click', (event) => {
+
+
+					analysisObjects.uiConstants.removeContent();
+ 
+                                        var $container = $(analysisObjects.uiConstants.wrapper);
+
+                                        showLoader();
+
+                                        var uri = isChrome() ? analysisObjects.urls.templateUrl + 'oer.html' : 'templates/oer.html';
+
+                                        $container.load(uri, function() {
+ 
+                                                hideLoader();
+
+                                                var oer = OER.getInstance();
+
+						oer.getOERs(document.getElementById('oer-container'));
+                                                
+
+                                        });
+
+
+				});
 			
 				$('#a-home').on('click', function(event) {
 				
