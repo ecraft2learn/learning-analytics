@@ -1,0 +1,44 @@
+<input type="text" class="form-control input-lg" style='width: 600px !important;' placeholder='Search for OERs' id='oer-search' />
+<div class='well' id='oer-container' style='width: 600px !imporatant'></div>
+<script>
+
+	$('#oer-search').on('change', (event) => {
+
+		var value = $('#oer-search').val();
+
+                var input, filter, table, tr, td, i;
+  
+                filter = value.toUpperCase();
+
+                table = document.getElementById('oer-table');
+                tr = table.getElementsByTagName('tr');
+
+                var found = {};
+
+                for (i = 0; i < tr.length; i++) {
+    
+                        td = tr[i].getElementsByTagName('td');
+
+                        for (var j = 0; j < td.length; j++) {
+    
+                                if (td[j]) {
+
+                                        if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        
+                                                tr[i].style.display = "";
+                                                found[tr[i].innerHTML] = true;      
+
+                                        } else {
+
+                                                if (! found[tr[i].innerHTML])
+                                                        tr[i].style.display = "none";
+      
+                                        }
+                                }
+
+                        } 
+                }
+
+	});
+
+</script>

@@ -104,11 +104,53 @@ Real-time classification interval
 		<img id='todo' class='data-source-img' src='images/todo.png'>
 		<p id='todo-desc'>eCraft TODO (todo-list)</p>
 	</div>
+    	<br>
+	<hr>
+	<input type="text" class="form-control input-lg" placeholder="Search for users" id='user-search' />
 </div>
     <div id='data-set-table'></div>
 </div>
 
 <script>
+
+	$('#user-search').on('change', (event) => {
+
+		var value = $('#user-search').val();
+
+		var input, filter, table, tr, td, i;
+  
+		filter = value.toUpperCase();
+
+  		table = document.getElementById('attribute-table');
+  		tr = table.getElementsByTagName('tr');
+
+		var found = {};
+
+		for (i = 0; i < tr.length; i++) {
+    
+			td = tr[i].getElementsByTagName('td');
+
+			for (var j = 0; j < td.length; j++) {
+    
+				if (td[j]) {
+
+      					if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        
+						tr[i].style.display = "";
+						found[tr[i].innerHTML] = true;      
+
+					} else {
+
+						if (! found[tr[i].innerHTML])
+        						tr[i].style.display = "none";
+      
+					}
+    				}
+
+			} 
+  		}
+
+	});
 
 	$('#real-time-interval').hide();
 	$('#real-time-interval-label').hide();
@@ -248,7 +290,7 @@ Real-time classification interval
 		
 						for (var key in curDataset[i]) {
 		
-							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
+							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
 								key !== 'wellPerformed') {
 				
 								obj[key] = curDataset[i][key];
@@ -355,7 +397,7 @@ Real-time classification interval
 		
 						for (var key in curDataset[i]) {
 		
-							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
+							if (key === 'users' || ! (key in analysisObjects.miners.ignoredAttributes) && 
 								key !== 'wellPerformed') {
 				
 								obj[key] = curDataset[i][key];
@@ -444,7 +486,7 @@ Real-time classification interval
 		
 			setMessage('Anomaly detector has been trained');
 	
-		} catch (e) {
+		} catch (e) {
 		
 		}
 	

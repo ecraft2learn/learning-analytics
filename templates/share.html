@@ -1,0 +1,582 @@
+<div class="container">
+	<div class="row">
+	<div class="bs-example">
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login & Register</h4>
+                </div>               
+                
+                <div class="modal-body">                                       
+                <div class="col-md-6 col-sm-6 no-padng">
+                    <div class="model-l">                    
+                    <form method="post" id="logFrm" class="log-frm" name="logFrm"> 
+                    <ul>                                                     
+                        <li>Email</li>
+                        <li> <input type="text" placeholder="User ID" id="userName" class="form-control" ></li>
+                        <li>Password</li>
+                        <li><input type="password" placeholder="Password" id="password-login" class="form-control" ></li>                                                
+                        <li><br/><button type="button" onclick="userLogin();" id="logBtn" class="btn btn-default">Submit</button></li>
+                        <div style="display:none;" id="loginFail" class="sign">
+                        <li> <font color="red">  Username or password is incorrect.</font></li>
+                        </div>
+                           </ul>
+                            </form>                      
+                                <div class="clearfix"></div>
+                                 <form method="post" id="logFrm1" class="log-frm" name="logFrm1"> 
+                                <ul>                                    
+                                    <li>
+                                        <div class="forgot">
+                                        <ul>                                          
+                                        <li><p>Enter your Email Address here to receive a link to change password.</p></li>
+                                        <li>Email Id</li>
+                                        <li><input type="text" placeholder="Your email id" id="forgetemailId" class="form-control" name="forgetemailId"></li>
+                                        <li><button type="button" class="btn btn-default" onclick="forgot();">Send Mail</button></li>
+                                    </ul> 
+                                </div>
+                            </li>
+                        </ul>
+                 </form>
+                    </div>
+                    </div>    
+                    <div class="col-md-6 col-sm-6 no-padng">
+                        <div class="model-r">
+                        <div class="o-r">
+                        <span>OR</span>
+                        </div>
+                             <form method="post" id="userRegisterFrm" class="log-frm" name="userRegisterFrm">  
+                            <ul>
+                             <li>First Name</li>
+                            <li><input type="text" placeholder="First Name" id="fName" class="form-control"></li>
+                             <li>Last Name</li>
+                            <li><input type="text" placeholder="Last Name" id="lName" class="form-control"></li>
+                            <li>Email</li>
+                            <li><input type="text" placeholder="Email Id" id="emailId" class="form-control"></li>
+                            <li>Password</li>
+                            <li><input type="password" placeholder="Password" id="password" class="form-control"></li>
+                            <li>Confirm Password</li>
+                            <li><input type="password" placeholder="Confirm Password" id="repassword" class="form-control"></li>
+                           <br> <li><button type="button" name="userRegBtn" id='share-register' class="btn btn-default">Signup Now</button></li>
+                             <div style="display:none;" class="sign greenglow">
+                                 <li>   <i class="icon-check"></i><br>
+                                     <font color="red"> 
+                                     User registration successful.<br>
+                                      Your login Url already send to your email.
+                                     
+                                     </font></li>
+                          </div>
+                           <div style="display:none;" id="regnSuc11" class="sign redglow">
+                               <li>   <i class="icon-mail"></i><br>
+                                   <font color="red">    Email Exist.</font></li>
+                          </div> 
+                        </ul>
+                    </form>
+                        </div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+	</div>
+</div>
+
+<script>
+
+	$('#share-register').on('click', function(event) {
+
+		var firstName = $('#fName').val();
+		var lastName = $('#lName').val();
+		var email = $('#emailId').val();
+		var password = $('#password').val();
+
+		var share = Share.getInstance();
+
+		share.register(email, password, firstName, lastName, email);
+
+	});
+
+	function userLogin() {
+
+		var email = $('#userName').val();
+		var pw = $('#password-login').val();
+
+		var share = Share.getInstance();
+
+		share.login(email, pw);
+
+	}
+
+</script>
+
+<div id='share-upload-div' class='well'>
+	
+	<h4>Share a file, tag your project and write a tiny description.</h4>
+	<input style='display: inline-block !important;' name='tags' id="tags" value='' >
+	<textarea style='display: inline-block;' id='desc' cols='5' rows='5' placeholder='add a description here'></textarea>
+	<input style='display: inline-block;' type='file' id='share-file'>
+	<br>
+	<br>
+	<br>
+	<button style='display: inline-block;' id='share-upload' class='btn btn-success'>Upload</button>
+
+</div>
+
+<style>
+
+
+
+.comment-main{
+	background-color: #74C2E1;
+	box-shadow: 1px 2px 6px 2px #005B9A;
+}
+.comment-main ul{
+	list-style: none;
+}
+.sub-cmt-img{
+	width: 55px !important;
+    height: 55px !important;
+    border-radius: 50%;
+} 
+.main-cmt-img{
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+}
+.border-bottom{
+	font-size: 13px;
+	border-bottom: 1px solid #d3d3d3;
+}
+.user-comment{
+	background-color: #f3f3f3 !important;
+    box-shadow: 0px 5px 8px -4px #c1c1c1;
+}
+.user-comment-desc, .user-comment span{
+	color: #a0a0a0;
+}
+.user-comment-desc p{
+	font-size: 12px;
+	display: inline-block;
+	float: left;
+}
+.send-icon i{
+	font-size: 20px;
+	background: #f3f3f3;
+	padding: 6px 5px;
+	border-radius: 50%;
+	color: #74C2E1;
+	height: 35px;
+	width: 35px;
+}
+.user-comment:before{
+    content: "";
+    height: 0;
+    width: 0;
+    top: 0;
+    left: -10px;
+    position: absolute;
+    border-style: solid;
+    border-width: 13px 0 0 13px;
+	border-color: #f3f3f3 transparent transparent transparent; 
+}
+</style>
+
+<div class="container">
+	<div class="row">
+        <div class="col-md-6">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" placeholder="Search for tags" id='tag-search' />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button" id='tag-search-btn'>
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<br>
+<hr>
+<br>
+
+<script>
+
+	$('#tag-search-btn').on('click', function(event) {
+
+		var value = $('#tag-search').val();
+
+		var tags = $('.tags');
+		
+		if (value === '') {
+
+			for (var i = 0; i < tags.length; i++) {
+
+                        	$(tags[i]).parent().parent().show();
+
+                   
+
+                	}
+
+			return;	
+
+		}
+
+
+		var found = {};
+
+		for (var i = 0; i < tags.length; i++) {
+
+			if ($(tags[i]).text().trim() !== value && ! found[$(tags[i]).parent().parent().attr('id')]) {
+
+				$(tags[i]).parent().parent().hide();
+
+			} else {
+
+				console.log('jaa');
+
+				$(tags[i]).parent().parent().show();
+				found[$(tags[i]).parent().parent().attr('id')] = true;
+
+			}
+
+		}
+
+	});
+
+</script>
+<style>
+	#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+</style>
+
+<div id='share-content'></div>
+
+<script>
+
+	(function() {
+
+		var share = Share.getInstance();
+
+		if (! share.username && ! share.password)
+			$('#myModal').modal({
+
+				backdrop: 'static',
+    				keyboard: false
+
+			});
+		else
+			share.getFiles(document.getElementById('share-content'));
+
+		$('#sign-up-modal').hide();
+
+	})();
+
+</script>
+
+<script>
+
+	$('#tags').tagsInput();
+
+	var file;
+
+	$('#share-upload').on('click', function(event) {
+
+		var tags = $('.tag span');
+
+		var tagList = [];
+
+		for (var i = 0; i < tags.length; i++)
+			tagList.push(tags[i].textContent);
+
+		var share = Share.getInstance();
+
+		var desc = $('#desc').val();
+
+		if (tagList.length && file && desc !== '') {
+
+			share.uploadFile(file, tagList, desc);
+
+		} else {
+
+			alert('Please, upload a file and use tags.');
+
+		}
+
+	});
+
+	$('#share-file').on('change', function(event) {
+
+		file = event.target.files[0];
+
+	});
+
+</script>
+
+<style>
+.log-frm {
+
+}
+
+.tagsinput {
+
+	display: inline-block;
+
+}
+
+#share-upload-div {
+
+	text-align: center;
+
+}
+
+.log-frm ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.log-frm ul li {
+    color: #666;
+    display: block;
+    font-size: 14px;
+    line-height: 25px;
+}
+.log-frm ul li a {
+    color: #f47521;
+    cursor: pointer;
+    display: block;
+    padding: 10px 0;
+}
+.log-frm ul li p {
+    border: 1px solid #ccc;
+    color: #666;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 10px 0;
+    padding: 2px 5px;
+}
+.log-frm ul li input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #000;
+    display: block;
+    font-size: 13px;
+    line-height: 19px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.model-l {    
+    padding-right: 0px;    
+}
+.model-r .o-r {
+    background: #fff none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 100%;
+    bottom: 0;
+    height: 40px;
+    margin: auto;
+    overflow: hidden;
+    position: absolute;
+    left: -19px;
+    top: 0;
+    width: 40px;
+    z-index: 99999;
+}
+.model-r .o-r span {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid #ccc;
+    color: #666;
+    display: block;
+    height: 100%;
+    padding: 8px 0 0;
+    text-align: center;
+    width: 100%;
+    border-radius: 100%;
+    display:block;
+    position: relative;
+}
+.model-r {
+    padding-left: 30px;
+    position: relative;
+    border-left: 1px dotted #cccccc;
+}
+.forgot {
+    display: none;
+}
+/*
+textarea {
+  margin-top: 10px;
+  margin-left: 50px;
+  width: 500px;
+  height: 100px;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+  border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+  border-image: none;
+  border-radius: 6px 6px 6px 6px;
+  border-style: none solid solid none;
+  border-width: medium 1px 1px medium;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+  color: #555555;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  padding: 5px 8px;
+  transition: background-color 0.2s ease 0s;
+}
+
+
+textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+}
+*/
+
+.content {
+  width:100%;
+  padding:16px;
+}
+
+.content.centered {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+ }
+
+/* UI Elements */
+h1 {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 300;
+} 
+
+textarea {
+  resize: none;
+  min-width:50%;
+  font-size:14px;
+  line-height:16px;
+  padding: 16px;
+  border:none;
+}
+
+textarea:focus {
+  outline:none;
+  box-shadow: 0 13px 38px 0 rgba(0, 0, 0, 0.4);
+}
+
+.separator {
+  width:50%;
+  height:2px;
+  background:rgba(0, 0, 0, .1);
+  margin:16px 0;
+  
+}
+
+
+
+
+.thumbnail {
+    padding:0px;
+}
+.panel {
+	position:relative;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+
+<script>
+
+	var autoExpandingTextArea = (function(){
+  var tag = document.querySelectorAll('textarea');
+ 
+  for (var i=0; i<tag.length; i++){
+    tag[i].addEventListener('paste',autoExpand);
+    tag[i].addEventListener('input',autoExpand);
+    tag[i].addEventListener('keyup',autoExpand);
+  }
+  
+  function autoExpand(e,el){
+    var el = el || e.target;
+    var paddingTop = parseInt(window.getComputedStyle(el, null).getPropertyValue('padding-top'));
+    var paddingBottom = parseInt(window.getComputedStyle(el, null).getPropertyValue('padding-bottom'));
+    el.style.height = 'auto';
+    console.log(el.scrollHeight);
+    el.style.height = (el.scrollHeight - (paddingTop + paddingBottom)) + 'px';
+  }
+  
+  window.addEventListener('load',expandAll);
+  window.addEventListener('resize',expandAll);
+  
+  function expandAll(e){
+    var tag = document.querySelectorAll('textarea');
+    
+    for (var i=0; i<tag.length; i++){
+      autoExpand(e,tag[i]);
+    }
+  }
+})();
+
+</script>
+
+</style>

@@ -16,15 +16,19 @@
 		<link rel='stylesheet' type='text/css' href='lib/jquery-timepicker/jquery.timepicker.min.css'>
 		<link rel='stylesheet' type='text/css' href='lib/navbar-fixed-side/navbar-fixed-side.css'>
 		<link rel='stylesheet' type='text/css' href='lib/font-awesome/font-awesome.min.css'>
-		<link rel='stylesheet' type='text/css' href='css/style.min.css'>
+		<link rel='stylesheet' type='text/css' href='css/style.css'><!-- in production, use minified instead -->
+		<!--<link rel='stylesheet' type='text/css' href='css/style.min.css'>-->
 		<link rel='stylesheet' type='text/css' href='lib/datetimepicker/css/style.css'>
 		<link rel='stylesheet' type='test/css' href='lib/dropzone/dropzone.css'>
+		<link rel='stylesheet' type='text/css' href='lib/tags/tags.min.css'>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 		<!-- for electron -->
 		<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-		<script src='lib/json-async/json-async.js'></script>
+		<script src='lib/json-async/json-async.js'></script>	
 		<script src='lib/jquery/jquery.js'></script>
 		<script src='lib/jquery-ui/jquery-ui.js'></script>
 		<script src='lib/jquery-timepicker/jquery.timepicker.min.js'></script>
+		<script src='lib/tags/tags.min.js'></script>
 		<script src='lib/bootstrap/js/bootstrap.min.js'></script>
 		<script src='lib/tablesorter/tablesorter.min.js'></script>
 		<script src='lib/jsonfn/jsonfn.min.js'></script>
@@ -43,12 +47,15 @@
 		<script src='lib/datetimepicker/js/datetimepicker.js'></script>
 		<script src='lib/dropzone/dropzone.js'></script>
 		<script src='lib/html2canvas/html2canvas.min.js'></script>
+		<script src='lib/bootbox/bootbox.min.js'></script>
 		<script src='js/analytics-ui.min.js'></script>
 		<script src="js/SelfEvaluation/MenuSelfEvaluation.js"></script>
 		<script src="js/SelfEvaluation/SelfEvaluationManager.js"></script>
 		<script src="js/SelfEvaluation/GroupsActivityList.js"></script>
 		<script src="js/SelfEvaluation/ActivityEvaluation.js"></script>
 		<script src="js/SelfEvaluation/ActivityList.js"></script>
+		<script src='js/share.js'></script>
+		<script src='js/oer.js'></script>
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
 	</head>
@@ -73,6 +80,8 @@
 							<li id='li-selfEvaluation' role='presentation' > <a href='javascript:void(0)' id='a-selfEvaluation' data-toggle='tooltip' title='For students evaluation and activity creation' >&nbsp;&nbsp;<span class='glyphicon glyphicon-star'></span> Self-Evaluation</span></a></li>
 							<li id='li-evaluation' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-evaluation' data-toggle='tooltip' title='Students evaluation tool' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Evaluate students performance</span></a></li>
 							<li id='li-activity' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-activity' data-toggle='tooltip' title='Create and modify activity for your students' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> View proposed activity</span></a></li>
+  							<li id='li-share' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Share experiences with other teachers</span></a></li>
+							<li id='li-oer' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Open educational resources</span></a></li>
 						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -141,6 +150,31 @@
 					window.sessionStorage.setItem(key, 0);
 			
 				new initSettings();
+
+				$('#a-oer').on('click', (event) => {
+
+
+					analysisObjects.uiConstants.removeContent();
+ 
+                                        var $container = $(analysisObjects.uiConstants.wrapper);
+
+                                        showLoader();
+
+                                        var uri = isChrome() ? analysisObjects.urls.templateUrl + 'oer.html' : 'templates/oer.html';
+
+                                        $container.load(uri, function() {
+ 
+                                                hideLoader();
+
+                                                var oer = OER.getInstance();
+
+						oer.getOERs(document.getElementById('oer-container'));
+                                                
+
+                                        });
+
+
+				});
 			
 				$('#a-home').on('click', function(event) {
 				
@@ -150,6 +184,7 @@
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
+					$('#li-share').removeClass('active');
 					
 					$('#li-home').addClass('active');
 					
@@ -165,6 +200,8 @@
 					$('#li-anomaly').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
+					$('#li-share').removeClass('active');
+					$('#li-home').removeClass('active');
 					
 					$('#li-settings').addClass('active');
 
@@ -180,6 +217,7 @@
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
+					$('#li-share').removeClass('active');
 					
 					$('#li-cluster').addClass('active');
 				
@@ -195,6 +233,7 @@
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
+					$('#li-share').removeClass('active');
 					
 					$('#li-classification').addClass('active');
 				
@@ -210,7 +249,8 @@
 					$('#li-charts').removeClass('active');
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
-					
+					$('#li-share').removeClass('active');					
+
 					$('#li-anomaly').addClass('active');
 				
 					new initAnomaly();
@@ -225,7 +265,8 @@
 					$('#li-home').removeClass('active');
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
-					
+					$('#li-share').removeClass('active');					
+
 					$('#li-charts').addClass('active');
 				
 					new initCharts();
@@ -240,12 +281,43 @@
 					$('#li-home').removeClass('active');
 					$('#li-charts').removeClass('active');
 					$('#li-settings').removeClass('active');
-					
+					$('#li-share').removeClass('active');					
+
 					$('#li-apriori').addClass('active');
 				
 					new initApriori();
 				
 				});
+
+				$('#a-share').on('click', function(event) {
+                                
+                                        $('#li-cluster').removeClass('active');
+                                        $('#li-classification').removeClass('active');
+                                        $('#li-anomaly').removeClass('active');
+                                        $('#li-home').removeClass('active');
+                                        $('#li-charts').removeClass('active');
+                                        $('#li-settings').removeClass('active');
+                                        
+                                        $('#li-share').addClass('active');
+                              
+					analysisObjects.uiConstants.removeContent();
+ 
+					var $container = $(analysisObjects.uiConstants.wrapper);
+
+        				showLoader();
+
+        				var uri = isChrome() ? analysisObjects.urls.templateUrl + 'share.html' : 'templates/share.html';
+
+        				$container.load(uri, function() {
+ 
+						hideLoader();
+
+                                        	var share = Share.getInstance();
+						
+
+					});
+                                
+                                });
 				
 				window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
 				window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls['uui']);
