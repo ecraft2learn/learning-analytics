@@ -1,0 +1,134 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        .grid-item {
+            max-width: 350px;
+        }
+
+        .grid-item:hover {
+            box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+            cursor: pointer;
+        }
+
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Ubuntu", "Helvetica Neue", sans-serif;
+            line-height: 1.5;
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        @media screen and (max-width: 770px) {
+            .grid-item {
+                width: 100%;
+                max-width: 790px;
+            }
+        }
+
+        .activity {
+            transition: all .5s;
+            margin-bottom: 25px;
+            height: auto;
+
+        }
+
+        .activity .activityHeader img {
+            width: 100%;
+        }
+
+        .activity .activityBody,
+        .activity {
+            padding: 15px;
+        }
+
+        .activity .activityBody {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+
+        .activity .activityBody a:hover {
+            text-decoration: none;
+        }
+
+        .row-eq-height {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        h4 {
+            margin-top: 25px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .row .row {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        [class*="col-"] {
+            margin: 5px;
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86, 61, 124, .2);
+        }
+
+        #tileGrid {
+            align-content: center;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+            getActivities(window.sessionStorage.getItem('pilotsite'), function (result, status) {
+
+                var list = JSON.parse(result);
+
+                for (i = 0; i < list.DATA.length; i++) {
+                    var riga = list.DATA[i];
+                    $("<div class=\"grid-item col-sm-4 col-xs-12\" onClick=\"divClick(" + riga.Id + ") \"/>")
+                        .append("<div class=\"activity\" >  <div class=\"activityHeader\" > <h5>" + riga.Title + "</h5> <div class=\"activityBody\">" + riga.Description)
+                        .appendTo("#tileGrid");
+                }
+            });
+        });
+
+        function divClick(activityId) {
+            //TODO --> CRUD ACTIVITY
+            //window.location = "ActivitySelfevaluation.html?activity=" + activityId;
+            return false;
+        };
+    </script>
+
+</head>
+
+
+<body>
+    <div class="container-fluid ">
+        <div class="row-fluid">
+            <br/>
+        </div>
+        <div class="container-fluid">
+            <div id="tileGrid" class="row row-eq-height container-fluid">
+                <!--dynamicaly generated activities cards-->
+            </div>
+        </div>
+    </div>
+
+
+</body>
