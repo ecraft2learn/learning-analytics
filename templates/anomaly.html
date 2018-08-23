@@ -1,37 +1,6 @@
-<blockquote id='anomaly-help'>
-	<p>Steps: 1: Select the threshold value that is being used by anomaly detection. 2: The outliers are marked in red in the table below</p>
-	<footer>Anomaly detection will let you find outliers and novelties from the data set. CAUTION: SELECT ONLY ATTRIBUTES THAT DIFFER FROM EACH OTHERS</footer>
-</blockquote>
-<div class='input-group' id='anomaly-settings'>
-  <span class='input-group-addon'>Anomaly threshold</span>
-  <input type='text' class='form-control' id='anomaly-threshold' placeholder='threshold' aria-describedby='basic-addon1' value='0.00056'>
-</div>
+<p>The outliers are marked in red in the table below</p>
 <button class='btn' id='apply-anomaly'><span class='glyphicon glyphicon-align-center'></span>Apply</button>
-<button class='btn btn-success' id='anomaly-show-help'>
-	<span class='glyphicon glyphicon-question-sign'><span>
-	Help
-</button>
-<button class='btn btn-success' id='anomaly-show-settings'>
-	<span class='glyphicon glyphicon-eye-open'></span>
-	Advanced
-</button>
 <div id='anomaly-table'></div>
-
 <script>
-
-    $('#anomaly-help').hide();
-    $('#anomaly-settings').hide();
-    
-    $('#anomaly-show-help').on('click', function(event) {
-       
-        $('#anomaly-help').toggle();
-        
-    });
-    
-    $('#anomaly-show-settings').on('click', function(event) {
-       
-        $('#anomaly-settings').toggle();
-        
-    });
-
+    $('#apply-anomaly').hide();
 </script>
