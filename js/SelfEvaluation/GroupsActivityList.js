@@ -22,6 +22,8 @@ function drawTables(result) {
     });
 
     $("#data").append(html);
+
+    hideLoader();
 }
 
 
@@ -52,5 +54,5 @@ function evaluateGroup(activityId, groupId) {
     window.sessionStorage.setItem("evaluatedGroup", groupId);
     window.sessionStorage.setItem("evaluatedActivity", activityId);
 
-    evaluateActivity(activityId, groupId);
+    evaluateActivity();
 }

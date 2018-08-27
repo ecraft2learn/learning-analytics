@@ -5,12 +5,16 @@
 
     <style>
         .grid-item {
-            max-width: 350px;
+            width: 300px;
+            height: 300px;
+            margin: 1em;
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86, 61, 124, .2);
         }
 
         .grid-item:hover {
             box-shadow: 0 0 11px rgba(33, 33, 33, .2);
-            cursor: pointer;
+
         }
 
         body {
@@ -20,34 +24,30 @@
             font-weight: 400;
         }
 
-        @media screen and (max-width: 770px) {
-            .grid-item {
-                width: 100%;
-                max-width: 790px;
-            }
-        }
-
         .activity {
             transition: all .5s;
             margin-bottom: 25px;
-            height: auto;
-
+            height: 100%;
+            position: relative;
+            margin: 0%;
         }
 
-        .activity .activityHeader img {
+        .activityFooter {
+            position: absolute;
+            bottom: 0;
+            clear: left;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .activity .activityHeader img,
+        .activityFooter {
             width: 100%;
         }
 
-        .activity .activityBody,
-        .activity {
+        .activityBody,
+        .activityFooter {
             padding: 15px;
-        }
-
-        .activity .activityBody {
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
         }
 
 
@@ -55,12 +55,6 @@
             text-decoration: none;
         }
 
-        .row-eq-height {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-        }
 
         .container {
             padding-right: 15px;
@@ -68,26 +62,18 @@
         }
 
         h4 {
-            margin-top: 25px;
-        }
-
-        .row {
-            margin-bottom: 20px;
-        }
-
-        .row .row {
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-
-        [class*="col-"] {
-            margin: 5px;
-            border: 1px solid #ddd;
-            border: 1px solid rgba(86, 61, 124, .2);
+            margin-top: 15px;
         }
 
         #tileGrid {
-            align-content: center;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #newActivity:hover {
+            cursor: pointer;
         }
     </style>
 
@@ -95,14 +81,9 @@
 
         $(document).ready(function () {
 
-            getActivities(window.sessionStorage.getItem('pilotsite'), addActivitie);
+            getActivities(window.sessionStorage.getItem('pilotsite'), addActivities);
         });
 
-        function divClick(activityId) {
-            //TODO --> CRUD ACTIVITY
-            //window.location = "ActivitySelfevaluation.html?activity=" + activityId;
-            return false;
-        };
     </script>
 
 </head>
@@ -114,11 +95,44 @@
             <br/>
         </div>
         <div class="container-fluid">
-            <div id="tileGrid" class="row row-eq-height container-fluid">
+            <div id="tileGrid" class="row container-fluid">
+
+                <div class="grid-item" id="newActivity" onclick="newActivity()">
+                    <div class="activity">
+                        <div class="activityHeader">
+                            <h4>
+                                Create new activity
+                            </h4>
+                        </div>
+                        <div class="activityBody">
+                            <img src="images/circle-add_icon.png" style="width: 75%">
+                        </div>
+                    </div>
+                </div>
+
                 <!--dynamicaly generated activities cards-->
+
             </div>
+
         </div>
     </div>
 
+    <div class="modal fade " id="deleteConfirmModal" tabindex="-1 " role="dialog " aria-labelledby="confirmModalLabel" aria-hidden="true ">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" aria-hidden="true ">&times;</button>
+                </div>
+                <div class="modal-body ">
+                    Are you sure?
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-default " data-dismiss="modal">Cancel</button>
+                    <button type="button " class="btn btn-primary " onclick="deleteActivity() " data-dismiss="modal">Yes, delete this activity</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>

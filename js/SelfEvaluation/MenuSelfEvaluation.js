@@ -26,7 +26,7 @@ function initActivitiesForEvaluation() {
     c.load(b, function () {
         //TODO
     });
-    hideLoader();
+    
 }
 
 function initActivities() {
@@ -38,11 +38,23 @@ function initActivities() {
     c.load(b, function () {
 
 
-    });
-    hideLoader();
+    });    
 }
 
-function evaluateActivity(activityId, groupId) {
+function initEditActivity(){
+    analysisObjects.uiConstants.removeContent();
+    var c = $(analysisObjects.uiConstants.wrapper);
+
+    showLoader();
+    var b = isChrome() ? analysisObjects.urls.templateUrl + "SelfEvaluation/ActivityEditForm.html" : "templates/SelfEvaluation/ActivityEditForm.html";
+    c.load(b, function () {
+
+
+    });  
+
+}
+
+function evaluateActivity() {
     analysisObjects.uiConstants.removeContent();
     var c = $(analysisObjects.uiConstants.wrapper);
 
@@ -53,23 +65,12 @@ function evaluateActivity(activityId, groupId) {
     });
 }
 
+function goBack(modalWinToClose, initFunction) {
+    $('#' + modalWinToClose).modal();
+        
+    //var modalWin = $('#' + modalWinToClose);
+    //modalWin.modal('hide');
+    $('.modal-backdrop').hide();
 
-
-/*
-
-"use strict";
-
-const { remote } = require('electron');
-
-
-function openModal(theUrl) {
-  let win = new BrowserWindow({
-    parent: remote.getCurrentWindow(),
-    modal: true
-  })
-
-  //var theUrl = 'file://' + __dirname + '/modal.html'
-  console.log('url', theUrl);
-
-  win.loadURL(theUrl);
-}*/
+    initFunction();
+}

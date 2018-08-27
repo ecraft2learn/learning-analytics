@@ -20,7 +20,6 @@ function getActivities(pilotSite, responseHandler) {
 
 function getActivityCategories(activityId, responseHandler) {
     var formData = new FormData();
-    console.log("getActivityCategories");
 
     formData.append("func", "getActivityCategories");
     formData.append("activity", activityId);
@@ -83,11 +82,46 @@ function getGroupListForEvaluation(responseHandler) {
     makeAjaxCall(formData, responseHandler);
 }
 
-function saveEvaluation(evaluation, responseHandler) {
+function submitEvaluation(evaluation, responseHandler) {
     var formData = new FormData();
 
     formData.append("func", "saveEvaluation");
     formData.append("evaluation", JSON.stringify(evaluation));
+
+    makeAjaxCall(formData, responseHandler);
+}
+
+function getActivityForEdit(activityId, responseHandler) {
+    var formData = new FormData();
+
+    formData.append("func", "getActivityForEdit");
+    formData.append("activity", activityId);
+
+    makeAjaxCall(formData, responseHandler);
+}
+
+function getAllCategories(responseHandler) {
+    var formData = new FormData();
+
+    formData.append("func", "getAllCategories");
+
+    makeAjaxCall(formData, responseHandler);
+}
+
+function submitActivity(activity, responseHandler) {
+    var formData = new FormData();
+
+    formData.append("func", "submitActivity");
+    formData.append("activity", JSON.stringify(activity));
+
+    makeAjaxCall(formData, responseHandler);
+}
+
+function submitSeleteActivity(activityId, responseHandler) {
+    var formData = new FormData();
+
+    formData.append("func", "deleteActivity");
+    formData.append("activity", activityId);
 
     makeAjaxCall(formData, responseHandler);
 }
@@ -105,7 +139,7 @@ function ping(handler) {
 var url = "http://localhost/php/selfEvaluationManager.php"; //'https://cs.uef.fi/~ec2l/WebDocs/SelfEvaluationManger.php'
 function makeAjaxCall(formData, handler, async = true) {
     //if (!handler)
-      //  handler = successHandler;
+    //  handler = successHandler;
     $.ajax({
         url: url,
         dataType: 'text',

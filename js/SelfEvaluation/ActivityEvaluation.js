@@ -168,13 +168,13 @@ function getGroupId() {
     return window.sessionStorage.getItem("evaluatedGroup");
 }
 
-function getTeacherId(){
+function getTeacherId() {
     //TODO
     //return window.sessionStorage.getItem();
     return 0;
 }
 
-function save() {
+function saveEvaluation() {
     var evaluation = {
         Activity: getActivityId(),
         GroupId: getGroupId(),
@@ -199,7 +199,7 @@ function save() {
 
     });
 
-    saveEvaluation(evaluation, succesfullSave);
+    submitEvaluation(evaluation, succesfullSave);
 }
 
 function succesfullSave(result, status) {
@@ -208,9 +208,7 @@ function succesfullSave(result, status) {
     console.log(result);
 }
 
-function goBack(modalWinToClose) {
-    var modalWin = $('#' + modalWinToClose);
-    modalWin.modal('hide');
-    $('.modal-backdrop').hide();
-    initActivitiesForEvaluation();
+function confirmEndEvaluationModal(){
+    $("#confirmEndEvaluationModal").modal();
 }
+
