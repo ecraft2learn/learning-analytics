@@ -203,9 +203,7 @@ function saveEvaluation() {
 }
 
 function succesfullSave(result, status) {
-    //alert("success!! " + result);
-
-    console.log(result);
+    $("#saveCompleteModal").modal();
 }
 
 function confirmEndEvaluationModal(){

@@ -1,6 +1,10 @@
 <head>
 
     <style>
+        html {
+            overflow-y: scroll;
+        }
+
         #activityContainer {
             width: 500px;
             text-align: left;
@@ -28,7 +32,7 @@
         }
 
         /* Style the list items */
-        #categoryList >  li {
+        #categoryList>li {
             cursor: pointer;
             position: relative;
             padding: 12px 8px 12px 40px;
@@ -46,23 +50,23 @@
         }
 
         /* Set all odd list items to a different color (zebra-stripes) */
-        #categoryList >  li:nth-child(odd) {
+        #categoryList>li:nth-child(odd) {
             background: #f9f9f9;
         }
 
         /* Darker background-color on hover */
-        #categoryList >  li:hover {
+        #categoryList>li:hover {
             background: #ddd;
         }
 
         /* When clicked on, add a background color and strike out text */
-        #categoryList >  li.checked {
+        #categoryList>li.checked {
             background: #337ab7;
             color: #fff;
         }
 
         /* Add a "checked" mark when clicked on */
-        #categoryList >  li.checked::before {
+        #categoryList>li.checked::before {
             content: '';
             position: absolute;
             border-color: #fff;
@@ -81,10 +85,10 @@
 
         $(document).ready(function () {
             getAllCategories(addCategories);
-            
+
         });
 
-        
+
     </script>
 </head>
 
@@ -135,11 +139,33 @@
 
                 </div>
                 <div class="modal-body ">
-                    Are you sure? 
+                    Are you sure?
                 </div>
                 <div class="modal-footer ">
                     <button type="button " class="btn btn-default " data-dismiss="modal">Cancel</button>
-                    <button type="button " class="btn btn-primary " onclick="goBack('confirmEditModal', initActivities)" data-dismiss="modal">Yes, go back!</button>
+                    <button type="button " class="btn btn-primary " onclick="goBack('confirmEditModal', initActivities)" data-dismiss="modal">Yes,
+                        go back!</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    Saving completed. Do you want to stay here or go back to the list of activities?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivities)" data-dismiss="modal">Go
+                        back!
+                    </button>
                 </div>
 
             </div>

@@ -48,7 +48,7 @@ function saveActivity() {
         var category = category.id;
         category = category.split("-")[1];
 
-        activity.Categories.push(category)  ;
+        activity.Categories.push(category);
     });
 
     submitActivity(activity, successfulActivitySubmit);
@@ -56,4 +56,6 @@ function saveActivity() {
 
 function successfulActivitySubmit(phpResult) {
     window.sessionStorage.setItem("evaluatedActivity", phpResult);
+
+    $('#saveCompleteModal').modal();
 }

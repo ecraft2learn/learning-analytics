@@ -13,6 +13,10 @@
     <script src="js/SelfEvaluationManager.js"></script>-->
 
     <style>
+        html {
+            overflow-y: scroll;
+        }
+
         header,
         footer {
             padding: 1em;
@@ -42,7 +46,7 @@
             border: 1px solid rgba(86, 61, 124, .2);
             padding: 1em;
             width: 900px;
-            
+
         }
 
         .category:focus-within,
@@ -58,8 +62,8 @@
             border-top: 0.5px dimgray dotted;
         }
 
-        .form-control{
-            width: 100%!important;
+        .form-control {
+            width: 100% !important;
         }
 
         @media screen and (min-width: 990px) {
@@ -89,8 +93,8 @@
 
 
 <body>
-    <div class="container-fluid" style="overflow-y: auto;">
-        <div id="categoryContainer" class="row-fluid " >
+    <div class="container-fluid" >
+        <div id="categoryContainer" class="row-fluid ">
 
         </div>
 
@@ -98,25 +102,27 @@
             <div style="padding-bottom: 10px;">
                 <div class="form-group container-fluid freeText">
                     <label for="whatWeKnow">What we know:</label>
-                    <p id="whatWeKnow"  style="width: 100%; display: block;" disabled></p>
+                    <p id="whatWeKnow" style="width: 100%; display: block;" disabled></p>
                 </div>
                 <div class="form-group container-fluid freeText">
                     <label for="notClear">What is not clear:</label>
-                    <p id="notClear"  style="width: 100%;" disabled></p>
+                    <p id="notClear" style="width: 100%;" disabled></p>
                 </div>
             </div>
         </div>
 
         <div class="row-fluid ">
             <div class="row-fluid " style="text-align: center; ">
-                <button type="submit" class="btn btn-primary btn-lg m-5" style="margin: 10px;" onclick="saveEvaluation()"><span class='glyphicon glyphicon-floppy-disk'></span> Submit</button>
-                <button type="button" name="goBack" class="btn btn-default btn-lg m-5" style="margin: 10px;" onclick="confirmEndEvaluation()">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-lg m-5" style="margin: 10px;" onclick="saveEvaluation()"><span
+                        class='glyphicon glyphicon-floppy-disk'></span> Submit</button>
+                <button type="button" name="goBack" class="btn btn-default btn-lg m-5" style="margin: 10px;" onclick="confirmEndEvaluationModal()">Cancel</button>
 
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="confirmEndEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="confirmEndEvaluationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmEndEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="confirmEndEvaluationModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -128,7 +134,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="goBack('confirmEndEvaluationModal', initActivitiesForEvaluation)" data-dismiss="modal">Go back!</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('confirmEndEvaluationModal', initActivitiesForEvaluation)"
+                        data-dismiss="modal">Go back!</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    Saving completed. Do you want to stay here or go back to the list of activities?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivitiesForEvaluation)" data-dismiss="modal">Go
+                        back!</button>
                 </div>
 
             </div>
