@@ -159,21 +159,6 @@ function groupEvaluations(list) {
     }
 }
 
-function getActivityId() {
-    return window.sessionStorage.getItem("evaluatedActivity");
-
-}
-
-function getGroupId() {
-    return window.sessionStorage.getItem("evaluatedGroup");
-}
-
-function getTeacherId() {
-    //TODO
-    //return window.sessionStorage.getItem();
-    return 0;
-}
-
 function saveEvaluation() {
     var evaluation = {
         Activity: getActivityId(),

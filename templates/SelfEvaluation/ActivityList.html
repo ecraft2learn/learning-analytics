@@ -79,13 +79,20 @@
         #newActivity:hover {
             cursor: pointer;
         }
+
+        .btn[disabled] {
+            /* don't let button block mouse events from reaching wrapper */
+            pointer-events: none;
+        }
     </style>
 
     <script>
 
         $(document).ready(function () {
 
-            getActivities(window.sessionStorage.getItem('pilotsite'), addActivities);
+            getTeachersActivities(getTeacherId(), addActivities);
+            
+
         });
 
     </script>

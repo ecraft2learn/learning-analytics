@@ -3,7 +3,7 @@ function addCategories(phpResult) {
     var categoryList = JSON.parse(phpResult);
 
     $.each(categoryList.DATA, function (index, category) {
-        $('#categoryList').append('<li id="li-' + category.Id + '" onClick="checkCategory(' + category.Id + ')" >' + category.Name + '</li> ');
+        $('#categoryList').append('<li name="category.Id" id="li-' + category.Id + '" onClick="checkCategory(' + category.Id + ')" class="category">' + category.Name + '</li> ');
     });
 
     getActivityForEdit(getActivityId(), fillActivityForm);
@@ -36,7 +36,7 @@ function checkCategory(liId) {
 function saveActivity() {
     var activity = {
         Id: getActivityId(),
-        Pilotsite: window.sessionStorage.getItem('pilotsite'),
+        Pilotsite: getPilotsite(),
         Title: $('#activityTitle').val(),
         Description: $('#activityDesc').val(),
         Teacher: getTeacherId(),
@@ -58,4 +58,28 @@ function successfulActivitySubmit(phpResult) {
     window.sessionStorage.setItem("evaluatedActivity", phpResult);
 
     $('#saveCompleteModal').modal();
+}
+
+
+function SelectAll() {
+
+    $.each($('li.category').not('.checked'), function (i, category) {
+
+        var category = category.id;
+        category = category.split("-")[1];
+
+        checkCategory(category);
+
+    });
+}
+
+
+function DeselectAll() {
+
+    $.each($('li.checked'), function (i, category) {
+        var category = category.id;
+        category = category.split("-")[1];
+
+        checkCategory(category);
+    });
 }

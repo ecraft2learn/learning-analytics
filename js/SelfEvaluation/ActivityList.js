@@ -12,7 +12,7 @@ function addActivities(result) {
         //footer
         html += " <div class=\"activityFooter row-fluid\"> <div class=\"btn-group btn-group-sm\" role=\"group\">";
         html += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"editActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-pencil'></span>&nbsp; Edit activity</button>";
-        html += " <button type=\"button\" class=\"btn btn-default\" onclick=\"confirmDeleteActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-trash'></span>&nbsp; Delete activity</button>";
+        html += " <button type=\"button\" id='delete-" + riga.Id + "' data-toggle='tooltip' title='' class=\"btn btn-default\" onclick=\"confirmDeleteActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-trash'></span>&nbsp; Delete activity</button>";
         html += "</div> </div> ";
 
         //activity card end
@@ -21,10 +21,25 @@ function addActivities(result) {
         $('#tileGrid').append(html);
     }
 
+    getEvaluatedActivities(getTeacherId(), disableEvaluatedActivities);
+
     hideLoader();
 }
 
-function confirmDeleteActivity(activityId){
+function disableEvaluatedActivities(result) {
+    var list = JSON.parse(result);
+
+    for (i = 0; i < list.DATA.length; i++) {
+        var riga = list.DATA[i];
+
+        $('#delete-' + riga.Id).prop("disabled", true);
+        $('#delete-' + riga.Id).prop("title", "You can't delete an activity if is present an evaluation!");
+    }
+
+    $("[data-toggle='tooltip']").tooltip();
+}
+
+function confirmDeleteActivity(activityId) {
     window.sessionStorage.setItem("evaluatedActivity", activityId);
     $("#deleteConfirmModal").modal();
 }
@@ -39,7 +54,7 @@ function deleteActivity() {
     submitSeleteActivity(getActivityId(), initActivities);
 }
 
-function newActivity(){
+function newActivity() {
     window.sessionStorage.setItem("evaluatedActivity", -1);
 
     initEditActivity();

@@ -1,15 +1,29 @@
 
+function getActivityId() {
+    return window.sessionStorage.getItem("evaluatedActivity");
+
+}
+
+function getGroupId() {
+    return window.sessionStorage.getItem("evaluatedGroup");
+}
+
+function getTeacherId() {
+    //TODO rimuovere questo!!!!
+    //return window.sessionStorage.getItem();
+    return 1;
+}
+
+function getPilotsite(){
+
+    //TODO rimuovere questo!!!!
+    window.sessionStorage.setItem("pilotsite", 10);
+
+    return window.sessionStorage.getItem('pilotsite');
+}
 
 function getActivities(pilotSite, responseHandler) {
-    if (pilotSite == null || pilotSite == undefined) {
-        //window.sessionStorage.setItem("errorStatus", "fail");
-        //return;
-        //TODO remove this
-        pilotSite = 10;
-        window.sessionStorage.setItem("pilotsite", 10);
-    }
-
-
+   
     var formData = new FormData();
     formData.append("func", "getActivities");
     formData.append("pilotSite", pilotSite);
@@ -23,7 +37,7 @@ function getActivityCategories(activityId, responseHandler) {
 
     formData.append("func", "getActivityCategories");
     formData.append("activity", activityId);
-    formData.append("pilotSite", window.sessionStorage.getItem('pilotsite'));
+    formData.append("pilotSite", getPilotsite());
 
     makeAjaxCall(formData, responseHandler);
 }
@@ -77,7 +91,7 @@ function getGroupListForEvaluation(responseHandler) {
 
     formData.append("func", "getGroupListForEvaluation");
 
-    formData.append("pilotSite", window.sessionStorage.getItem('pilotsite'));
+    formData.append("pilotSite", getPilotsite());
 
     makeAjaxCall(formData, responseHandler);
 }
@@ -126,6 +140,25 @@ function submitSeleteActivity(activityId, responseHandler) {
     makeAjaxCall(formData, responseHandler);
 }
 
+function getEvaluatedActivities(teacherId, responseHandler) {
+    var formData = new FormData();
+
+    formData.append("func", "getEvaluatedActivities");
+    formData.append("teacher", teacherId);
+    formData.append("pilotSite", getPilotsite());
+
+    makeAjaxCall(formData, responseHandler);
+}
+
+function getTeachersActivities(teacherId, responseHandler){
+    var formData = new FormData();
+
+    formData.append("func", "getTeachersActivities");
+    formData.append("teacher", teacherId);    
+    formData.append("pilotSite", getPilotsite());
+
+    makeAjaxCall(formData, responseHandler);
+}
 /////////
 
 
