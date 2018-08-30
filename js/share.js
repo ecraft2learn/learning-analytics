@@ -54,19 +54,50 @@ var Share = (function(){
 
 				for (var i = 0; i < list.length; i++) {
 
-					html += '<div id=\'shares-' + i  + '\' class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
-					html += '<pre>' + list[i].description + '</pre><br>';
-					
-					var tags = JSON.parse(list[i].tags);
-					
-					for (var j = 0; j < tags.length; j++)
-						html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';
 
-					html += '<br><br><br>';
+        				html += '<div class="col-sm-8">';
+            				html += '<div class="panel panel-white post panel-shadow">';
+                			html += '<div class="post-heading">';
+                    			html += '<div class="pull-left image">';
+
+                        		html += '<img src="images/t-icon.png" class="img-circle avatar" alt="user profile image">';
+                    			html += '</div>';
+
+                    			html += '<div class="pull-left meta">';
+                        		html += '<div class="title h5">';
+                            		html += '<b>' + list[i].user + '</b>';
+                        		html += '</div>';
+                    			html += '</div>';
+                			html += '</div>'; 
+                
+					html += '<div class="post-description">';
+
+                    			html += '<p>' + list[i].description + ' (<a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a>)</p>';
+                    		
+					var tags = JSON.parse(list[i].tags);
+	
+					for (var j = 0; j < tags.length; j++)
+                                        	html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';	
+					
+					html += '</div>';
+                			html += '</div>';
+            				html += '</div>';
+        				html += '</div>';
+	
+
+					//html += '<div id=\'shares-' + i  + '\' class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
+					//html += '<pre>' + list[i].description + '</pre><br>';
+					
+					//var tags = JSON.parse(list[i].tags);
+					
+					//for (var j = 0; j < tags.length; j++)
+					//	html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';
+
+					html += '<br><br><br><br><br><br><br><br>';
 
 					if (list[i].comments) {
 
-						html += '<h4>Comments for the share</h4>';
+						html += '<h4 style=\'margin-top: 30px;\'>Comments for the share</h4>';
 
 						html += '<div class=\'container\'>';
 
@@ -103,7 +134,7 @@ var Share = (function(){
 
 					}
 
-					html += '<div>';
+					html += '<div class=\'well\'>';
 					
 					html += '<textarea cols=\'5\' rows=\'5\' id=\'comment-' + list[i].id + '\'></textarea>';
 					html += '<br><br><br>';
