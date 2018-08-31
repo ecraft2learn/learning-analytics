@@ -42,6 +42,8 @@ var Share = (function(){
 
 	ShareClass.prototype.getFiles = function(container) {
 
+		var self = this;
+
 		$.ajax({
 
 			type: 'GET',
@@ -82,17 +84,16 @@ var Share = (function(){
 					html += '</div>';
                 			html += '</div>';
             				html += '</div>';
+
+
+					if (self.username === list[i].email) {
+
+						html += '<button class=\'btn btn-danger btn-xs\' onclick=\'removeShare(this)\' id=\'remove-' + list[i].id + '\'><span class=\'glyphicon glyphicon-trash\'></span></button>';
+
+					}
+
         				html += '</div>';
 	
-
-					//html += '<div id=\'shares-' + i  + '\' class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
-					//html += '<pre>' + list[i].description + '</pre><br>';
-					
-					//var tags = JSON.parse(list[i].tags);
-					
-					//for (var j = 0; j < tags.length; j++)
-					//	html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';
-
 					html += '<br><br><br><br><br><br><br><br>';
 
 					if (list[i].comments) {
@@ -297,5 +298,39 @@ function comment(param) {
 	share.comment(commentText, id);
 
 	//TODO
+
+};
+
+function removeShare(param) {
+
+	var id = param.id.split('-')[1];
+
+	var share = Share.getInstance();
+
+	$.ajax({
+
+		type: 'POST',
+		data: 'id=' + id + '&username=' + share.username + '&password=' + share.password,
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/delete_share.php',
+		success: function(data) {
+
+			if (data === 'ok') {
+
+				share.getFiles(document.getElementById('share-content'));
+
+
+			} else {
+
+				alert(data);
+
+			}
+
+		},
+		error: function(error) {
+
+
+		}
+
+	});
 
 };
