@@ -62,7 +62,7 @@ var Share = (function(){
                 			html += '<div class="post-heading">';
                     			html += '<div class="pull-left image">';
 
-                        		html += '<img src="images/t-icon.png" class="img-circle avatar" alt="user profile image">';
+                        		html += '<img src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\' class="img-circle avatar" alt="user profile image">';
                     			html += '</div>';
 
                     			html += '<div class="pull-left meta">';
@@ -74,8 +74,12 @@ var Share = (function(){
                 
 					html += '<div class="post-description">';
 
-                    			html += '<p>' + list[i].description + ' (<a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a>)</p>';
-                    		
+                    			html += '<p>' + list[i].description + ' ';
+
+					html += '<img src=\'' + list[i].file_url + '\' alt=\'\' width=\'250\'>';
+
+					html += '</p>';
+
 					var tags = JSON.parse(list[i].tags);
 	
 					for (var j = 0; j < tags.length; j++)
@@ -94,7 +98,7 @@ var Share = (function(){
 
         				html += '</div>';
 	
-					html += '<br><br><br><br><br><br><br><br>';
+					html += '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 					if (list[i].comments) {
 
@@ -135,7 +139,7 @@ var Share = (function(){
 
 					}
 
-					html += '<div class=\'well\'>';
+					html += '<div class=\'well comment-div\'>';
 					
 					html += '<textarea cols=\'5\' rows=\'5\' id=\'comment-' + list[i].id + '\'></textarea>';
 					html += '<br><br><br>';
@@ -148,6 +152,16 @@ var Share = (function(){
 				}
 
 				container.innerHTML = html;
+			
+				$('.comment-div').toggle();
+
+				$('#toggle-comments').on('click', (event) => {
+
+
+					$('.comment-div').toggle();
+
+				});
+				
 
 			},
 			error: function(error) {
@@ -333,4 +347,20 @@ function removeShare(param) {
 
 	});
 
+};
+
+function readURL(input) {
+
+	var reader = new FileReader();
+
+        reader.onload = function(e) {
+               
+		$('#upload-share-img')
+                	.attr('src', e.target.result)
+                    	.width(250);
+
+	};
+
+        reader.readAsDataURL(input);
+        
 };

@@ -115,14 +115,16 @@
 
 <div id='share-upload-div' class='well'>
 	
-	<h4>Share a file, tag your project and write a tiny description.</h4>
+	<h4>Share an image, tag your image and write a tiny description.</h4>
 	<input style='display: inline-block !important;' name='tags' id="tags" value='' >
-	<textarea style='display: inline-block;' id='desc' cols='5' rows='4' placeholder='add a description here'></textarea>
-	<input style='display: inline-block;' type='file' id='share-file'>
+	<textarea style='display: inline-block;' id='desc' cols='5' rows='4' maxlength='120' placeholder='add a description here'></textarea>
+	<input style='display: inline-block;' type='file' accept='image/gif, image/jpeg, image/png' id='share-file'>
+	<img id='upload-share-img' src='#' alt='' >
 	<br>
 	<br>
 	<br>
 	<button style='display: inline-block;' id='share-upload' class='btn btn-success'>Upload</button>
+	<button class='btn btn-info' id='toggle-comments'>Toggle commenting</button>	
 
 </div>
 
@@ -333,7 +335,7 @@
 
 		} else {
 
-			alert('Please, upload a file and use tags.');
+			alert('Please, select an image, write a descrption and use tags.');
 
 		}
 
@@ -342,6 +344,8 @@
 	$('#share-file').on('change', function(event) {
 
 		file = event.target.files[0];
+
+		readURL(file);
 
 	});
 
