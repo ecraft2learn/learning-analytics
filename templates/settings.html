@@ -576,12 +576,41 @@ Real-time classification interval
 			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/create_session.php',
 			success: (data) => {
 
-				alert('Session with id ' + data + ' has been created.');
-	
-				$('#session-id').val(data);
+				$('<div class=\'well\'><h4>You have created a session: ' + data + '</h4><input type=\'email\' id=\'session-email\' placeholder=\'Enter your email\'>' +
+					'<button class=\'btn btn-info\' id=\'send-email\'>Send the session id to me</button></div>').dialog({
+
+						width: 400,
+						height: 300
+
+					});
+
+				$('#send-email').on('click', (event) => {
+
+					var email = $('#session-email').val();
+
+					$.ajax({
+
+						type: 'POST',
+						data: 'email=' + email + '&sessionId=' + data,
+						url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/send_mail.php',
+						success: (d) => {
+
+							alert('Session id has been sent to your email');
+
+							$('#session-id').val(data);
                                         
-                                $('#connect-button').click();
-			
+                                			$('#connect-button').click();
+
+						},
+						error: (error) => {
+
+
+						}
+
+					});
+
+				});
+	
 
 			},
 			error: (error) => {
