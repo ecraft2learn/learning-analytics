@@ -576,8 +576,15 @@ Real-time classification interval
 			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/create_session.php',
 			success: (data) => {
 
-				$('<div class=\'well\'><h4>You have created a session: ' + data + '</h4><input type=\'email\' id=\'session-email\' placeholder=\'Enter your email\'>' +
-					'<button class=\'btn btn-info\' id=\'send-email\'>Send the session id to me</button></div>').dialog({
+				var str = '';
+
+				str += '<div class=\'well\'><div class="input-group">';
+    				str += '<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>';
+    				str += '<input id="session-email" type="text" class="form-control" name="email" placeholder="Email">';
+  				str += '</div>';
+				str += '<button class=\'btn btn-info\' id=\'send-email\'>Send the session id to me</button></div>';
+
+				$(str).dialog({
 
 						width: 400,
 						height: 300
