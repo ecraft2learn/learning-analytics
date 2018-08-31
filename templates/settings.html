@@ -8,6 +8,10 @@
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Load dataset from file
 </button>
+<button id='create-session' class='btn btn-danger'>
+	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
+	Create new session
+</button>
 <button id='reset-miners' class='btn btn-danger'>
 	<span class='glyphicon glyphicon-hand-down' aria-hidden='true'></span>
 	Reset all 
@@ -562,6 +566,32 @@ Real-time classification interval
 		
 		automatic = setInterval(realtimePrediction, interval);
 	
+	});
+
+	$('#create-session').on('click', (event) => {
+
+		$.ajax({
+
+			type: 'GET',
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/create_session.php',
+			success: (data) => {
+
+				alert('Session with id ' + data + ' has been created.');
+	
+				$('#session-id').val(data);
+                                        
+                                $('#connect-button').click();
+			
+
+			},
+			error: (error) => {
+
+				alert('Error while creating a session');
+
+			}
+
+		});
+
 	});
 	
 </script>
