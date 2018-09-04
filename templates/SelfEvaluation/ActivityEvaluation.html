@@ -67,10 +67,20 @@
         }
 
 
-        label{
+        label {
             font-size: 18px;
         }
-        
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #faa94c;
+            padding: 10px;
+            font-size: 20px;
+            z-index: 99; 
+        }
+
         @media screen and (min-width: 990px) {
             select {
                 float: right;
@@ -87,18 +97,23 @@
 
 </head>
 
+<div class="sticky">
+    <p id="evaluatedGroup">Group: </p>
+</div>
 
 <header>
 
     <h1 id="activityTitle"></h1>
 
     <p id="activitiDesc"></p>
-
+    <br>
+    <br>
+    
 </header>
 
 
 <body>
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <div id="categoryContainer" class="row-fluid ">
 
         </div>
@@ -138,9 +153,9 @@
                     Are you sure?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                     <button type="button" class="btn btn-primary" onclick="goBack('confirmEndEvaluationModal', initActivitiesForEvaluation)"
-                        data-dismiss="modal">Go back!</button>
+                        data-dismiss="modal">Yes</button>
                 </div>
 
             </div>
@@ -160,7 +175,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
                     <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivitiesForEvaluation)" data-dismiss="modal">Go
-                        back!</button>
+                        back!
+                    </button>
                 </div>
 
             </div>

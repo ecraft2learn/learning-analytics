@@ -47,6 +47,7 @@ function setSelfEvaluation(result, status) {
         var list = JSON.parse(result);
 
         if (list.DATA.length > 0) {
+            $('#evaluatedGroup').append(list.DATA[0].GroupName);
             $('#whatWeKnow').append(list.DATA[0].WhatWeKnow);
             $('#notClear').append(list.DATA[0].NotClear);
         }
