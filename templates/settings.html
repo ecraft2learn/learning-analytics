@@ -8,6 +8,10 @@
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Load dataset from file
 </button>
+<button id='create-session' class='btn btn-success'>
+	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
+	Create new session
+</button>
 <button id='reset-miners' class='btn btn-danger'>
 	<span class='glyphicon glyphicon-hand-down' aria-hidden='true'></span>
 	Reset all 
@@ -246,8 +250,6 @@ Real-time classification interval
 		
 			var dataset = JSON.parse(response);
 		
-			console.log(dataset);
-	
 			if (dataset.length > 0)
 				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['id']);
 			
@@ -340,8 +342,6 @@ Real-time classification interval
 		
 		}, function(error) {
 		
-			//console.log(error);
-			
 			hideLoader();
 		
 		});
@@ -562,6 +562,68 @@ Real-time classification interval
 		
 		automatic = setInterval(realtimePrediction, interval);
 	
+	});
+
+	$('#create-session').on('click', (event) => {
+
+		$.ajax({
+
+			type: 'GET',
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/create_session.php',
+			success: (data) => {
+
+				var str = '';
+
+				str += '<div class=\'well\'><div class="input-group">';
+    				str += '<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>';
+    				str += '<input id="session-email" type="text" class="form-control" name="email" placeholder="Email">';
+  				str += '</div>';
+				str += '<button class=\'btn btn-info\' id=\'send-email\'>Send the session id to me</button></div>';
+
+				$(str).dialog({
+
+						width: 400,
+						height: 300
+
+					});
+
+				$('#send-email').on('click', (event) => {
+
+					var email = $('#session-email').val();
+
+					$.ajax({
+
+						type: 'POST',
+						data: 'email=' + email + '&sessionId=' + data,
+						url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/send_mail.php',
+						success: (d) => {
+
+							alert('Session id has been sent to your email');
+
+							$('#session-id').val(data);
+                                        
+                                			$('#connect-button').click();
+
+						},
+						error: (error) => {
+
+
+						}
+
+					});
+
+				});
+	
+
+			},
+			error: (error) => {
+
+				alert('Error while creating a session');
+
+			}
+
+		});
+
 	});
 	
 </script>

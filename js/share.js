@@ -42,6 +42,8 @@ var Share = (function(){
 
 	ShareClass.prototype.getFiles = function(container) {
 
+		var self = this;
+
 		$.ajax({
 
 			type: 'GET',
@@ -54,19 +56,53 @@ var Share = (function(){
 
 				for (var i = 0; i < list.length; i++) {
 
-					html += '<div id=\'shares-' + i  + '\' class=\'well\'><a href=\'' + list[i].file_url + '\' target=\'_blank\'>' + 'Shared file by ' + list[i].user +  '</a><br>';
-					html += '<pre>' + list[i].description + '</pre><br>';
-					
-					var tags = JSON.parse(list[i].tags);
-					
-					for (var j = 0; j < tags.length; j++)
-						html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';
 
-					html += '<br><br><br>';
+        				html += '<div class="col-sm-8">';
+            				html += '<div class="panel panel-white post panel-shadow">';
+                			html += '<div class="post-heading">';
+                    			html += '<div class="pull-left image">';
+
+                        		html += '<img src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\' class="img-circle avatar" alt="user profile image">';
+                    			html += '</div>';
+
+                    			html += '<div class="pull-left meta">';
+                        		html += '<div class="title h5">';
+                            		html += '<b>' + list[i].user + '</b>';
+                        		html += '</div>';
+                    			html += '</div>';
+                			html += '</div>'; 
+                
+					html += '<div class="post-description">';
+
+                    			html += '<p>' + list[i].description + ' ';
+
+					html += '<img src=\'' + list[i].file_url + '\' alt=\'\' width=\'250\'>';
+
+					html += '</p>';
+
+					var tags = JSON.parse(list[i].tags);
+	
+					for (var j = 0; j < tags.length; j++)
+                                        	html += '<h4 style=\'float: left;\'><span class=\'label label-success tags\'>' + tags[j] + '</span></h4>';	
+					
+					html += '</div>';
+                			html += '</div>';
+            				html += '</div>';
+
+
+					if (self.username === list[i].email) {
+
+						html += '<button class=\'btn btn-danger btn-xs\' onclick=\'removeShare(this)\' id=\'remove-' + list[i].id + '\'><span class=\'glyphicon glyphicon-trash\'></span></button>';
+
+					}
+
+        				html += '</div>';
+	
+					html += '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 					if (list[i].comments) {
 
-						html += '<h4>Comments for the share</h4>';
+						html += '<h4 style=\'margin-top: 30px;\'>Comments for the share</h4>';
 
 						html += '<div class=\'container\'>';
 
@@ -103,7 +139,7 @@ var Share = (function(){
 
 					}
 
-					html += '<div>';
+					html += '<div class=\'well comment-div\'>';
 					
 					html += '<textarea cols=\'5\' rows=\'5\' id=\'comment-' + list[i].id + '\'></textarea>';
 					html += '<br><br><br>';
@@ -116,6 +152,16 @@ var Share = (function(){
 				}
 
 				container.innerHTML = html;
+			
+				$('.comment-div').toggle();
+
+				$('#toggle-comments').on('click', (event) => {
+
+
+					$('.comment-div').toggle();
+
+				});
+				
 
 			},
 			error: function(error) {
@@ -267,4 +313,54 @@ function comment(param) {
 
 	//TODO
 
+};
+
+function removeShare(param) {
+
+	var id = param.id.split('-')[1];
+
+	var share = Share.getInstance();
+
+	$.ajax({
+
+		type: 'POST',
+		data: 'id=' + id + '&username=' + share.username + '&password=' + share.password,
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/delete_share.php',
+		success: function(data) {
+
+			if (data === 'ok') {
+
+				share.getFiles(document.getElementById('share-content'));
+
+
+			} else {
+
+				alert(data);
+
+			}
+
+		},
+		error: function(error) {
+
+
+		}
+
+	});
+
+};
+
+function readURL(input) {
+
+	var reader = new FileReader();
+
+        reader.onload = function(e) {
+               
+		$('#upload-share-img')
+                	.attr('src', e.target.result)
+                    	.width(250);
+
+	};
+
+        reader.readAsDataURL(input);
+        
 };
