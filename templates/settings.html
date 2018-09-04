@@ -8,7 +8,7 @@
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Load dataset from file
 </button>
-<button id='create-session' class='btn btn-danger'>
+<button id='create-session' class='btn btn-success'>
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Create new session
 </button>
@@ -250,8 +250,6 @@ Real-time classification interval
 		
 			var dataset = JSON.parse(response);
 		
-			console.log(dataset);
-	
 			if (dataset.length > 0)
 				window.sessionStorage.setItem('lastId', dataset[dataset.length - 1]['id']);
 			
@@ -344,8 +342,6 @@ Real-time classification interval
 		
 		}, function(error) {
 		
-			//console.log(error);
-			
 			hideLoader();
 		
 		});
