@@ -626,5 +626,12 @@ Real-time classification interval
 		});
 
 	});
+
+	if (! window.localStorage.getItem('isNew')) {
+
+		$('<div><p>If you are new here, please go through the \'manual for LA\' to get started.</p></div>').dialog();
 	
+		window.localStorage.setItem('isNew', true);
+
+	}	
 </script>
