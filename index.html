@@ -22,6 +22,8 @@
 		<link rel='stylesheet' type='test/css' href='lib/dropzone/dropzone.css'>
 		<link rel='stylesheet' type='text/css' href='lib/tags/tags.min.css'>
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel='stylesheet' type='text/css' href='css/lnu/call4action-module/main.css'>
+
 		<!-- for electron -->
 		<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 		<script src='lib/json-async/json-async.js'></script>	
@@ -51,6 +53,11 @@
 		<script src='js/analytics-ui.min.js'></script>
 		<script src='js/share.js'></script>
 		<script src='js/oer.js'></script>
+
+		<!--LNU Call4Action module-->
+		<script src = 'js/lnu/call4action-module/main.js'></script>
+		<script src = 'js/lnu/call4action-module/api-calls.js'></script>
+
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
 	</head>
@@ -72,6 +79,7 @@
   							<li id='li-settings' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Customize UUI</span></a></li>
   							<li id='li-share' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-globe'></span> Social</span></a></li>
 							<li id='li-oer' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-paperclip'></span> Open educational resources</span></a></li>
+							<li id='li-call4action' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
 						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -306,6 +314,27 @@
 					});
                                 
                                 });
+
+				$('#li-call4action').on('click', function(event) {
+                    $('#li-cluster').removeClass('active');
+                    $('#li-classification').removeClass('active');
+                    $('#li-anomaly').removeClass('active');
+                    $('#li-home').removeClass('active');
+                    $('#li-charts').removeClass('active');
+                    $('#li-settings').removeClass('active');
+                    $('#li-share').removeClass('active');
+
+                    $('#li-call4action').addClass('active');
+
+                    analysisObjects.uiConstants.removeContent();
+                    var $container = $(analysisObjects.uiConstants.wrapper);
+
+                    var uri = isChrome() ? analysisObjects.urls.templateUrl + 'lnu/call4action-module/main.html' : 'templates/lnu/call4action-module/main.html';
+
+                    $container.load(uri, function () {
+                        init();
+                    });
+                });
 				
 				window.sessionStorage.setItem('dataSource', analysisObjects.dataFetchUrls['uui']);
 				window.sessionStorage.setItem('notifySource', analysisObjects.notifyUrls['uui']);
