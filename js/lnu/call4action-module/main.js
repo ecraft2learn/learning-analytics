@@ -182,7 +182,8 @@ function init() {
 function initStudentTable() {
 
     getStudents(function (students) {
-        console.log(students);
+        //console.log(students.length);
+        //console.log(students);
         if (students == "error") {
             displayErrorMsg();
         } else {

@@ -3,7 +3,7 @@
  */
 
 //var SERVER_URL   = "https://localhost/lnu-teachers-uui.php";
-var SERVER_URL = "https://cs.uef.fi/~ec2l/lnu-teachers-uui.php";
+var SERVER_URL = "https://cs.uef.fi/~ec2l/lnu-teacher-uui.php";
 //var SERVER_URL = "http://uui-teach.test:8888/lnu-teachers-uui.php";
 
 
@@ -28,7 +28,7 @@ function postAjaxRequest(url,data, callback) {
 
 function getStudents(callback){
     var pilotsite = window.sessionStorage.getItem("sessionId");
-
+    //console.log(pilotsite);
     var data = {"pilotsite":pilotsite,"func":"getStudents"};
 
     postAjaxRequest(SERVER_URL,data,callback);
