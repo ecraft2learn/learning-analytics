@@ -2,8 +2,8 @@
  * Created by asoadmin on 2018-09-27.
  */
 
-var SERVER_URL   = "https://localhost/lnu-teachers-uui.php";
-//var SERVER_URL = "https://cs.uef.fi/~ec2l/lnu.php";
+//var SERVER_URL   = "https://localhost/lnu-teachers-uui.php";
+var SERVER_URL = "https://cs.uef.fi/~ec2l/lnu-teachers-uui.php";
 //var SERVER_URL = "http://uui-teach.test:8888/lnu-teachers-uui.php";
 
 
