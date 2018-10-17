@@ -89,16 +89,17 @@ function init() {
                 }).map(function (students) {
                     return students.value;
                 });
-                console.log(formData);
+
                 var taskType = formData.find(function (obj) {
                     return obj.name === "task-type";
                 });
 
+                var isReflection = 0;
                 //check if this task is Reflection task
                 if ($('#reflection-checkbox').is(":checked")) {
-                    taskDescription.value += " <p> Please use this link to do reflection. </p> ";
+                    isReflection = 1;
                 }
-
+                console.log(isReflection);
 
 
                 //check if it is dependent task, if task choosen fomr the list
@@ -117,9 +118,9 @@ function init() {
                         var subtitle = "Note! This task can be done after <b>" + $("#taskList option:selected").text() + "</b>";
 
                         var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                        var preparedData = { "subtitle": subtitle, "taskId": taskId, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp };
+                        var preparedData = { "subtitle": subtitle, "taskId": taskId, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
 
-
+                        console.log(preparedData);
                         submitTask(preparedData, function (result) {
                             //clear form data
                             $("#taskForm").find("input[type=text], textarea").val("");
@@ -143,7 +144,7 @@ function init() {
 
 
                     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                    var preparedData = { "subtitle": "", "taskId": -1, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp };
+                    var preparedData = { "subtitle": "", "taskId": -1, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
 
 
                     submitTask(preparedData, function (result) {
@@ -178,6 +179,10 @@ function init() {
 
 }
 
+function generateReflectionLink() {
+    var link = "<a href='#' onclick=\"openSmallWindow('./lnu/reflection/index.html','Reflection',event);\"> Do Reflection</a>";
+    return link;
+}
 
 function initStudentTable() {
 
