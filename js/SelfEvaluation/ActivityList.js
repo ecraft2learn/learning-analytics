@@ -1,28 +1,31 @@
 function addActivities(result) {
+    if (result) {
 
-    var list = JSON.parse(result);
+        var list = JSON.parse(result);
 
-    for (i = 0; i < list.DATA.length; i++) {
-        var riga = list.DATA[i];
+        if (list) {
+            for (i = 0; i < list.DATA.length; i++) {
+                var riga = list.DATA[i];
 
-        var html = "<div class=\"grid-item\"> <div class=\"activity\"> <div class=\"activityHeader\">";
-        html += " <h4>" + riga.Title + "</h4> </div>";
-        html += "<div class=\"activityBody\">" + riga.Description + " </div>";
+                var html = "<div class=\"grid-item\"> <div class=\"activity\"> <div class=\"activityHeader\">";
+                html += " <h4>" + riga.Title + "</h4> </div>";
+                html += "<div class=\"activityBody\">" + riga.Description + " </div>";
 
-        //footer
-        html += " <div class=\"activityFooter row-fluid\"> <div class=\"btn-group btn-group-sm\" role=\"group\">";
-        html += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"editActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-pencil'></span>&nbsp; Edit activity</button>";
-        html += " <button type=\"button\" id='delete-" + riga.Id + "' data-toggle='tooltip' title='' class=\"btn btn-default\" onclick=\"confirmDeleteActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-trash'></span>&nbsp; Delete activity</button>";
-        html += "</div> </div> ";
+                //footer
+                html += " <div class=\"activityFooter row-fluid\"> <div class=\"btn-group btn-group-sm\" role=\"group\">";
+                html += "<button type=\"button\" class=\"btn btn-primary\" onclick=\"editActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-pencil'></span>&nbsp; Edit activity</button>";
+                html += " <button type=\"button\" id='delete-" + riga.Id + "' data-toggle='tooltip' title='' class=\"btn btn-default\" onclick=\"confirmDeleteActivity(" + riga.Id + ")\"><span class='glyphicon glyphicon-trash'></span>&nbsp; Delete activity</button>";
+                html += "</div> </div> ";
 
-        //activity card end
-        html += "</div> </div>";
+                //activity card end
+                html += "</div> </div>";
 
-        $('#tileGrid').append(html);
+                $('#tileGrid').append(html);
+            }
+
+            getEvaluatedActivities(getTeacherId(), disableEvaluatedActivities);
+        }
     }
-
-    getEvaluatedActivities(getTeacherId(), disableEvaluatedActivities);
-
     hideLoader();
 }
 

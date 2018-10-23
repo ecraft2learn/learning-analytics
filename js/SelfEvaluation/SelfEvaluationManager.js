@@ -11,19 +11,19 @@ function getGroupId() {
 function getTeacherId() {
     //TODO rimuovere questo!!!!
     //return window.sessionStorage.getItem();
-    return 1;
+    return Share.getInstance().id;
 }
 
-function getPilotsite(){
+function getPilotsite() {
 
     //TODO rimuovere questo!!!!
-    window.sessionStorage.setItem("pilotsite", 10);
+    //window.sessionStorage.setItem("pilotsite", 10);
 
-    return window.sessionStorage.getItem('pilotsite');
+    return window.sessionStorage.getItem('sessionId');
 }
 
 function getActivities(pilotSite, responseHandler) {
-   
+
     var formData = new FormData();
     formData.append("func", "getActivities");
     formData.append("pilotSite", pilotSite);
@@ -150,11 +150,11 @@ function getEvaluatedActivities(teacherId, responseHandler) {
     makeAjaxCall(formData, responseHandler);
 }
 
-function getTeachersActivities(teacherId, responseHandler){
+function getTeachersActivities(teacherId, responseHandler) {
     var formData = new FormData();
 
     formData.append("func", "getTeachersActivities");
-    formData.append("teacher", teacherId);    
+    formData.append("teacher", teacherId);
     formData.append("pilotSite", getPilotsite());
 
     makeAjaxCall(formData, responseHandler);
@@ -169,18 +169,20 @@ function ping(handler) {
     makeAjaxCall(formData, handler);
 }
 
-var url = "http://localhost/php/selfEvaluationManager.php"; //'https://cs.uef.fi/~ec2l/WebDocs/SelfEvaluationManger.php'
+//var url = "http://cs.uef.fi/~ec2l/seval.php";
+var url = "http://cs.uef.fi/~ec2l/selfEvaluationManager.php";
+//var url = "http://localhost/php/selfEvaluationManager.php"; 
 function makeAjaxCall(formData, handler, async = true) {
     //if (!handler)
     //  handler = successHandler;
     $.ajax({
         url: url,
         dataType: 'text',
-        cache: false,
+        //cache: false,
         contentType: false,
         processData: false,
         data: formData,
-        type: 'post',
+        type: 'POST',
         async: async,
         success: function (php_script_response) {
             handler(php_script_response);

@@ -1,0 +1,85 @@
+/*LOGIN FORM STYLES*/
+
+#lnu-c4a .modal-body p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+#lnu-c4a .login-dialog {
+    width: 360px !important;
+}
+
+#lnu-c4a .login-form .form-control {
+    width: 100% !important;
+}
+
+#lnu-c4a .btn .btn-primary {
+    background: #f0ad4e none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+/*TASK FORM STYLES*/
+
+#lnu-c4a .task-control {
+    width: 100% !important;
+    margin-left: 0px !important;
+}
+
+#lnu-c4a .radio-inline .tooltip-inner {
+    width: 250px;
+}
+
+#lnu-c4a #select-error-message {
+    margin-bottom: 20px;
+    display: block;
+}
+
+#lnu-c4a .error-message {
+    color: #90111A;
+}
+
+#lnu-c4a textarea {
+    height: 185px;
+}
+
+/*
+    General
+*/
+
+#lnu-c4a {
+    text-align: left;
+}
+
+#lnu-c4a label, #lnu-c4a th {
+    font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#lnu-c4a th {
+    vertical-align: middle;
+}
+
+/*
+    Header / Title "Call For Action"
+*/
+
+#lnu-c4a .mainTitle {
+    text-align: center;
+    color: #16499a;
+}
+
+#lnu-c4a #studentTable th {
+    background-color:#3396ce;
+    color:#f9f9f9;
+}
+
+#lnu-c4a #studentTable tbody tr:hover {
+    cursor: pointer;
+}

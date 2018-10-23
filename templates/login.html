@@ -1,0 +1,304 @@
+    <div id="login-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Login & Register</h4>
+                </div>               
+                
+                <div class="modal-body">                                       
+                <div class="col-md-6 col-sm-6 no-padng">
+                    <div class="model-l">                    
+                    <form method="post" id="logFrm" class="log-frm" name="logFrm"> 
+                    <ul>                                                     
+                        <li>Email</li>
+                        <li> <input type="text" placeholder="User ID" id="userName" class="form-control" ></li>
+                        <li>Password</li>
+                        <li><input type="password" placeholder="Password" id="password-login" class="form-control" ></li>                                                
+                        <li><br/><button type="button" onclick="userLogin();" id="logBtn" class="btn btn-default">Submit</button></li>
+                        <div style="display:none;" id="loginFail" class="sign">
+                        <li> <font color="red">  Username or password is incorrect.</font></li>
+                        </div>
+                           </ul>
+                            </form>                      
+                                <div class="clearfix"></div>
+                                 <form method="post" id="logFrm1" class="log-frm" name="logFrm1"> 
+                                <ul>                                    
+                                    <li>
+                                        <div class="forgot">
+                                        <ul>                                          
+                                        <li><p>Enter your Email Address here to receive a link to change password.</p></li>
+                                        <li>Email Id</li>
+                                        <li><input type="text" placeholder="Your email id" id="forgetemailId" class="form-control" name="forgetemailId"></li>
+                                        <li><button type="button" class="btn btn-default" onclick="forgot();">Send Mail</button></li>
+                                    </ul> 
+                                </div>
+                            </li>
+                        </ul>
+                 </form>
+                    </div>
+                    </div>    
+                    <div class="col-md-6 col-sm-6 no-padng">
+                        <div class="model-r">
+                        <div class="o-r">
+                        <span>OR</span>
+                        </div>
+                             <form method="post" id="userRegisterFrm" class="log-frm" name="userRegisterFrm">  
+                            <ul>
+                             <li>First Name</li>
+                            <li><input type="text" placeholder="First Name" id="fName" class="form-control"></li>
+                             <li>Last Name</li>
+                            <li><input type="text" placeholder="Last Name" id="lName" class="form-control"></li>
+                            <li>Email</li>
+                            <li><input type="text" placeholder="Email Id" id="emailId" class="form-control"></li>
+                            <li>Password</li>
+                            <li><input type="password" placeholder="Password" id="password" class="form-control"></li>
+                            <li>Confirm Password</li>
+                            <li><input type="password" placeholder="Confirm Password" id="repassword" class="form-control"></li>
+                           <br> <li><button type="button" name="userRegBtn" id='share-register' class="btn btn-default">Signup Now</button></li>
+                             <div style="display:none;" class="sign greenglow">
+                                 <li>   <i class="icon-check"></i><br>
+                                     <font color="red"> 
+                                     User registration successful.<br>
+                                      Your login Url already send to your email.
+                                     
+                                     </font></li>
+                          </div>
+                           <div style="display:none;" id="regnSuc11" class="sign redglow">
+                               <li>   <i class="icon-mail"></i><br>
+                                   <font color="red">    Email Exist.</font></li>
+                          </div> 
+                        </ul>
+                    </form>
+                        </div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+<script>
+	$('#share-register').on('click', function(event) {
+
+		var firstName = $('#fName').val();
+		var lastName = $('#lName').val();
+		var email = $('#emailId').val();
+		var password = $('#password').val();
+
+		var share = Share.getInstance();
+
+		share.register(email, password, firstName, lastName, email);
+
+	});
+
+	function userLogin() {
+
+		var email = $('#userName').val();
+		var pw = $('#password-login').val();
+
+		var share = Share.getInstance();
+
+		share.login(email, pw);
+
+	}
+
+</script>
+<style>
+.log-frm {
+
+}
+
+.tagsinput {
+
+	display: inline-block;
+
+}
+
+#share-upload-div {
+
+	text-align: center;
+
+}
+
+.log-frm ul {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.log-frm ul li {
+    color: #666;
+    display: block;
+    font-size: 14px;
+    line-height: 25px;
+}
+.log-frm ul li a {
+    color: #f47521;
+    cursor: pointer;
+    display: block;
+    padding: 10px 0;
+}
+.log-frm ul li p {
+    border: 1px solid #ccc;
+    color: #666;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 10px 0;
+    padding: 2px 5px;
+}
+.log-frm ul li input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #000;
+    display: block;
+    font-size: 13px;
+    line-height: 19px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.model-l {    
+    padding-right: 0px;    
+}
+.model-r .o-r {
+    background: #fff none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 100%;
+    bottom: 0;
+    height: 40px;
+    margin: auto;
+    overflow: hidden;
+    position: absolute;
+    left: -19px;
+    top: 0;
+    width: 40px;
+    z-index: 99999;
+}
+.model-r .o-r span {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid #ccc;
+    color: #666;
+    display: block;
+    height: 100%;
+    padding: 8px 0 0;
+    text-align: center;
+    width: 100%;
+    border-radius: 100%;
+    display:block;
+    position: relative;
+}
+.model-r {
+    padding-left: 30px;
+    position: relative;
+    border-left: 1px dotted #cccccc;
+}
+.forgot {
+    display: none;
+}
+/*
+textarea {
+  margin-top: 10px;
+  margin-left: 50px;
+  width: 500px;
+  height: 100px;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+  border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+  border-image: none;
+  border-radius: 6px 6px 6px 6px;
+  border-style: none solid solid none;
+  border-width: medium 1px 1px medium;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+  color: #555555;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  padding: 5px 8px;
+  transition: background-color 0.2s ease 0s;
+}
+
+
+textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+}
+*/
+
+.content {
+  width:100%;
+  padding:16px;
+}
+
+.content.centered {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+ }
+
+/* UI Elements */
+h1 {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 300;
+} 
+
+textarea {
+  resize: none;
+  min-width:50%;
+  font-size:14px;
+  line-height:16px;
+  padding: 16px;
+  border:none;
+}
+
+textarea:focus {
+  outline:none;
+  box-shadow: 0 13px 38px 0 rgba(0, 0, 0, 0.4);
+}
+
+.separator {
+  width:50%;
+  height:2px;
+  background:rgba(0, 0, 0, .1);
+  margin:16px 0;
+  
+}
+
+
+
+
+.thumbnail {
+    padding:0px;
+}
+.panel {
+	position:relative;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+
+</style>

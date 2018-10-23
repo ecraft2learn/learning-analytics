@@ -1,19 +1,36 @@
 
 function initSelfEvaluation() {
-    /*analysisObjects.uiConstants.removeContent();
-    this.createUI();*/
+    /*analysisObjects.uiConstants.removeContent();*/
+    this.createUI();
+
+
 }
 
 initSelfEvaluation.prototype.createUI = function () {
-    /*var c = $(analysisObjects.uiConstants.wrapper);
-    
-    showLoader();
-    var b = isChrome() ? analysisObjects.urls.templateUrl + "SelfEvaluation/index.html" : "templates/SelfEvaluation/index.html";
-    c.load(b, function () {
 
+    var teacherId = getTeacherId();
 
-    });
-    hideLoader();*/
+    analysisObjects.uiConstants.removeContent();
+    if (!teacherId) {
+
+        //if not logged-in i prompt the login form
+        analysisObjects.uiConstants.removeContent();
+        var c = $(analysisObjects.uiConstants.wrapper);
+
+        showLoader();
+        var b = isChrome() ? analysisObjects.urls.templateUrl + 'share.html' : 'templates/share.html';
+        c.load(b, function () {
+            $('#myModal').modal({
+
+                backdrop: 'static',
+                keyboard: false
+
+            });
+
+            hideLoader();
+        });
+
+    }
 };
 
 
@@ -26,7 +43,7 @@ function initActivitiesForEvaluation() {
     c.load(b, function () {
         //TODO
     });
-    
+
 }
 
 function initActivities() {
@@ -38,10 +55,10 @@ function initActivities() {
     c.load(b, function () {
 
 
-    });    
+    });
 }
 
-function initEditActivity(){
+function initEditActivity() {
     analysisObjects.uiConstants.removeContent();
     var c = $(analysisObjects.uiConstants.wrapper);
 
@@ -50,7 +67,7 @@ function initEditActivity(){
     c.load(b, function () {
 
 
-    });  
+    });
 
 }
 
@@ -67,7 +84,7 @@ function evaluateActivity() {
 
 function goBack(modalWinToClose, initFunction) {
     $('#' + modalWinToClose).modal();
-        
+
     //var modalWin = $('#' + modalWinToClose);
     //modalWin.modal('hide');
     $('.modal-backdrop').hide();

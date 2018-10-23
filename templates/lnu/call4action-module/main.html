@@ -1,0 +1,182 @@
+<div class="container" id="lnu-c4a">
+    <div class="row">
+
+        <!-- Login modal-->
+        <div id="loginModal" class="modal fade">
+            <div class="modal-dialog login-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Teacher Login</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col no-pading">
+                            <p>Please enter your email and password</p>
+                            <form id="logFrm" method="post" class="login-form">
+
+                                <div class="form-group">
+                                    <label for="inputEmail">Email address</label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password...">
+                                </div>
+
+                                <button type="button" class="btn btn-primary" onclick="userLogin();">Login</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="mainTitle well well-lg">
+            <h2>Call For Action<br><small>Create and assign tasks</small></h2>
+        </div>
+        
+        <div id="warning-message" class="hidden">
+            <p class="alert alert-warning">
+                You should <a href="#" class="alert-link" onclick="init();">login</a> as a teacher in order to use this
+                module.</p>
+        </div>
+
+        <div id="error-message" class="hidden">
+            <p class="alert alert-danger">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Could not fetch the student list, make sure you have a working internet connection.
+            </p>
+        </div>
+
+        <div id="mainContent" class="hidden">
+            <p>In the form below you can create a task and assign it to students.</p>
+            <div id="alert"></div>
+
+            <!--Task form-->
+            <form id="taskForm" class="task-form" method="post">
+
+                <h3>Create a new task</h3>
+
+                <!--
+                    TASK CONTENT, TASK TYPE & TASK SUBMIT
+                -->
+
+                <div class="col-md-6">
+                    <!--Task name-->
+                    <div class="form-group">
+                        <label for="title">Task title <span class="glyphicon glyphicon-question-sign icon_info"
+                                data-toggle="tooltip" data-html="true" data-placement="right" title="<p style='text-align:left; margin:0;'>
+                            Provide a title for the task the students will receive.</p>
+                            "></span></label>
+                        <input type="text" class="form-control task-control" name="title" placeholder="Task title..."
+                            required maxlength="64">
+                    </div>
+
+                    <!--Task description-->
+                    <div class="form-group">
+                        <label for="description">Task description <span class="glyphicon glyphicon-question-sign icon_info"
+                                data-toggle="tooltip" data-html="true" data-placement="right" title="<p style='text-align:left; margin:0;'>
+                            Provide a description for the task the students will receive.</p>
+                            "></span></label>
+                        <textarea class="form-control task-control" placeholder="Task description..." rows="3" name="description"
+                            required maxlength="200"></textarea>
+                    </div>
+
+                    <!--Is this reflection task-->
+                    <div class="well">
+                    <div class="form-group">
+                        <label>Task functionality <span class="glyphicon glyphicon-question-sign icon_info" data-toggle="tooltip"
+                                data-html="true" data-placement="right" title="<p style='text-align:left; margin:0;'>
+                                <u>A reflection task</u> is a task that will also contain a link to open a reflection window for the student to reflect on their work.</p>
+                                "></span></label>
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="checkbox" id="reflection-checkbox" />
+                            This task is a reflection task
+                        </label>
+                    </div>
+
+                    <!--Task type-->
+                    <div class="form-group">
+                        <label>Task dependence <span class="glyphicon glyphicon-question-sign icon_info" data-toggle="tooltip"
+                                data-html="true" data-placement="right" title="<p style='text-align:left; margin:0;'>
+                                <u>An independent task</u> is a task that can be finished at any time. <br><br>
+                                <u>A dependent task</u> is a task that requires that <em>another</em> task is finished before it. <br><br>
+                                If you create a dependent task you need to first have created an independent task that the task should depend on.</p>
+                                "></span></label>
+                        <br>
+                        <label class="radio-inline">
+                            <input type="radio" name="task-type" value="0" checked>
+                            Independent Task
+                        </label>
+                        <br>
+                        <label class="radio-inline">
+                            <input type="radio" name="task-type" value="1">
+                            Dependent Task
+                        </label>
+                    </div>
+
+                    <!--Assigned Tasks-->
+                    <div class="form-group">
+                        <div class="hidden" id="taskDiv">
+                            <label>Select which task this task depends on</label>
+                            <span id="task-error-message" class="error-message hidden">
+                                Please select a task in the list below.
+                            </span>
+                            <select class="form-control  task-control" id="taskList" name="tasks"></select>
+                        </div>
+                    </div>
+                </div>
+                    <!--this button needs for validation checkboxes and select by using html5 validator-->
+                    <button type="submit" class="hidden">Create Task</button>
+                    <button id="submit-btn" type="button" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-th-list"></span>
+                        Create Task</button>
+
+                </div>
+
+                <!--
+                    STUDENT SELECT
+                -->
+
+                <div class="col-md-6">
+
+                    <!--Assigned Students-->
+                    <div>
+                        <span id="select-error-message" class="error-message hidden alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-alert"></span> Please select students in the table below.
+                        </span>
+                        <label>Select Students <span class="glyphicon glyphicon-question-sign icon_info" data-toggle="tooltip"
+                                data-html="true" data-placement="right" title="<p style='text-align:left; margin:0;'>
+                                Select which students should receive the task. <br><br> You can also select all students.</p>
+                                "></span></label>
+                        <table class="table table-striped table-hover" id="studentTable">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-1 active">
+                                        <input type="checkbox" class="select-all checkbox icon_info" name="select-all" value="Select All" data-toggle="tooltip" data-placement="top" title="Select all students"/>
+                                    </th>
+                                    <th class="active">
+                                        Student username
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
