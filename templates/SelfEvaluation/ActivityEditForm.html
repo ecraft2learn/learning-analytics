@@ -1,0 +1,186 @@
+<head>
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+
+        #activityContainer {
+            width: 500px;
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100% !important;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+
+        /* Include the padding and border in an element's total width and height */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Remove margins and padding from the list */
+        #categoryList {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the list items */
+        #categoryList>li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+            text-align: left;
+
+            /* make the list items unselectable */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Set all odd list items to a different color (zebra-stripes) */
+        #categoryList>li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        /* Darker background-color on hover */
+        #categoryList>li:hover {
+            background: #ddd;
+        }
+
+        /* When clicked on, add a background color and strike out text */
+        #categoryList>li.checked {
+            background: #337ab7;
+            color: #fff;
+        }
+
+        /* Add a "checked" mark when clicked on */
+        #categoryList>li.checked::before {
+            content: '';
+            position: absolute;
+            border-color: #fff;
+            border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 15px;
+            left: 16px;
+            transform: rotate(45deg);
+            height: 15px;
+            width: 7px;
+        }
+    </style>
+
+
+    <script>
+
+        $(document).ready(function () {
+            getAllCategories(addCategories);
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+
+    <div class="container-fluid" style="width: 600px;">
+
+
+        <div id="activityContainer " class="row-fluid ">
+            <div class="form-group ">
+                <label for="activityTitle ">Activity title: </label>
+                <input type="text " class="form-control " id="activityTitle" placeholder="Activity title (Max 150 char)" maxlength="150"
+                />
+            </div>
+
+            <div class="form-group ">
+                <label for="activityDesc ">Activity description: </label>
+                <textarea type="text " class="form-control " id="activityDesc" placeholder="Activity description (Max 1500 char)" rows="10"
+                    maxlength="1500"></textarea>
+            </div>
+
+        </div>
+
+        <div class="form-group ">
+            <label for="categoryContainer">Select all the categories associated whit this activity: </label>
+            <div class="row-fluid" style=" padding-bottom:1em; ">
+                <button type="button " name="selectAll " class="btn btn-default btn-md " onclick="SelectAll()">Select all</button>
+                <button type="button " name="deselectAll " class="btn btn-default btn-md " onclick="DeselectAll()">Deselect all</button>
+            </div>
+            <div id="categoryContainer" class="row-fluid">
+                <ul id="categoryList">
+                    <!--Added dynamically-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="row-fluid ">
+            <div class="row-fluid " style="text-align: center; ">
+                <button type="submit " class="btn btn-primary btn-lg m-5 " style="margin: 10px; " onclick="saveActivity() ">
+                    <span class='glyphicon glyphicon-floppy-disk'></span> Submit
+                </button>
+                <button type="button " name="goBack " class="btn btn-danger btn-lg m-5 " style="margin: 10px;" data-toggle="modal" data-target="#confirmEditModal">Cancel</button>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal fade " id="confirmEditModal" tabindex="-1 " role="dialog " aria-labelledby="confirmEditModalLabel" aria-hidden="true ">
+        <div class="modal-dialog ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" aria-hidden="true ">&times;</button>
+
+                </div>
+                <div class="modal-body ">
+                    Are you sure?
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-default " data-dismiss="modal">Cancel</button>
+                    <button type="button " class="btn btn-primary " onclick="goBack('confirmEditModal', initActivities)" data-dismiss="modal">Yes,
+                        go back!</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    Saving completed. Do you want to stay here or go back to the list of activities?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivities)" data-dismiss="modal">Go
+                        back!
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>

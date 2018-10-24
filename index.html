@@ -51,6 +51,12 @@
 		<script src='lib/html2canvas/html2canvas.min.js'></script>
 		<script src='lib/bootbox/bootbox.min.js'></script>
 		<script src='js/analytics-ui.min.js'></script>
+		<script src="js/SelfEvaluation/MenuSelfEvaluation.js"></script>
+		<script src="js/SelfEvaluation/SelfEvaluationManager.js"></script>
+		<script src="js/SelfEvaluation/GroupsActivityList.js"></script>
+		<script src="js/SelfEvaluation/ActivityEvaluation.js"></script>
+		<script src="js/SelfEvaluation/ActivityList.js"></script>
+		<script src="js/SelfEvaluation/ActivityEditForm.js"></script>
 		<script src='js/share.js'></script>
 		<script src='js/oer.js'></script>
 
@@ -79,6 +85,12 @@
   							<li id='li-settings' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Customize UUI</span></a></li>
   							<li id='li-share' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-globe'></span> Social</span></a></li>
 							<li id='li-oer' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-paperclip'></span> Open educational resources</span></a></li>
+							<!--SELF EVALUATION-->
+							<li id='li-selfEvaluation' role='presentation' > <a href='javascript:void(0)' id='a-selfEvaluation' data-toggle='tooltip' title='For students evaluation and activity creation' >&nbsp;&nbsp;<span class='glyphicon glyphicon-star'></span> Self-Evaluation</span></a></li>
+							<li id='li-evaluation' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-evaluation' data-toggle='tooltip' title='Students evaluation tool' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Evaluate students performance</span></a></li>
+							<li id='li-activity' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-activity' data-toggle='tooltip' title='Create and modify activity for your students' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> View proposed activity</span></a></li>
+  							
+  							
 							<li id='li-call4action' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
 						</ul>
   						
@@ -92,6 +104,7 @@
 						</form>
 						<select id='select-pilot'>
 							<option value='' selected='selected'>Or select pilot</option>
+							<option value='10'>Not at a pilot site</option>
 							<option value='11'>Pataluoto</option>
 							<option value='12'>Lyseo</option>
 							<option value='13'>Athens informal</option>
@@ -184,7 +197,8 @@
 					$('#li-share').removeClass('active');
 					
 					$('#li-home').addClass('active');
-	
+					
+					hideSelfEvaluation();
 					new initSettings();
 				
 				});
@@ -703,7 +717,55 @@
 
                                 }
 
+
+			
+			$('#a-selfEvaluation').on('click', function(event) {
+				
+				$.each($('.active'), function(index, element){
+					$(this).removeClass('active');
+				});
+
+				$('.analysis-tools').hide();
+
+				$('#li-selfEvaluation').addClass('active');
+				$('.evaluation-tools').show();
+			
+			});
+
+			
+			$('#a-evaluation').on('click', function(event) {
+				$.each($('.active'), function(index, element){
+					$(this).removeClass('active');
+				});
+
+				$('#li-selfEvaluation').addClass('active');
+				$('#li-evaluation').addClass('active');
+
+				initActivitiesForEvaluation();
+			});
+
+			
+			$('#a-activity').on('click', function(event) {
+				$.each($('.active'), function(index, element){
+					$(this).removeClass('active');
+				});
+
+				$('#li-selfEvaluation').addClass('active');
+				$('#li-activity').addClass('active');
+
+				initActivities();
+			});
+			
+			function hideSelfEvaluation(){
+				$('#li-selfEvaluation').removeClass('active');
+				$('.evaluation-tools').removeClass('active');
+				$('.evaluation-tools').hide();
+			}
 		
 		</script>
+
+	
 	</body>
+
+	
 </html>

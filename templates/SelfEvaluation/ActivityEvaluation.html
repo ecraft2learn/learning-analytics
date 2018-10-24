@@ -1,0 +1,193 @@
+<html>
+
+<head>
+
+    <!--<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script src="../libraries/js/jquery-3.2.1.min.js"></script>
+    <script src="../libraries/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../libraries/css/bootstrap.min.css">
+
+    <script src="js/SelfEvaluationManager.js"></script>-->
+
+    <style>
+        html {
+            overflow-y: scroll;
+        }
+
+        header,
+        footer {
+            padding: 1em;
+            color: white;
+            background-color: #1d1d1d !important;
+            clear: left;
+            text-align: center;
+        }
+
+
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Ubuntu", "Helvetica Neue", sans-serif;
+            line-height: 1.5;
+            font-style: normal;
+            font-weight: 400;
+
+        }
+
+        button {
+            padding: 1em;
+        }
+
+        .category,
+        .freeText {
+            margin: 10px;
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86, 61, 124, .2);
+            padding: 1em;
+            width: 900px;
+
+        }
+
+        .category:focus-within,
+        .category:hover,
+        .freeText:focus-within,
+        .freeText:hover {
+            box-shadow: 0 0 20px rgba(33, 33, 33, .2);
+        }
+
+        .category-footer {
+            padding-top: 1em;
+            margin-top: 10px;
+            border-top: 0.5px dimgray dotted;
+        }
+
+        .form-control {
+            width: 100% !important;
+        }
+
+
+        label {
+            font-size: 18px;
+        }
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #faa94c;
+            padding: 10px;
+            font-size: 20px;
+            z-index: 99; 
+        }
+
+        @media screen and (min-width: 990px) {
+            select {
+                float: right;
+                clear: both;
+            }
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(getActivityCategories(getActivityId(), setCategory));
+
+    </script>
+
+</head>
+
+<div class="sticky">
+    <p id="evaluatedGroup">Group: </p>
+</div>
+
+<header>
+
+    <h1 id="activityTitle"></h1>
+
+    <p id="activitiDesc"></p>
+    <br>
+    <br>
+    
+</header>
+
+
+<body>
+    <div class="container-fluid">
+        <div id="categoryContainer" class="row-fluid ">
+
+        </div>
+
+        <div class="row-fluid">
+            <div style="padding-bottom: 10px;">
+                <div class="form-group container-fluid freeText">
+                    <label for="whatWeKnow">What we know:</label>
+                    <p id="whatWeKnow" style="width: 100%; display: block;" disabled></p>
+                </div>
+                <div class="form-group container-fluid freeText">
+                    <label for="notClear">What is not clear:</label>
+                    <p id="notClear" style="width: 100%;" disabled></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid ">
+            <div class="row-fluid " style="text-align: center; ">
+                <button type="submit" class="btn btn-primary btn-lg m-5" style="margin: 10px;" onclick="saveEvaluation()"><span
+                        class='glyphicon glyphicon-floppy-disk'></span> Submit</button>
+                <button type="button" name="goBack" class="btn btn-default btn-lg m-5" style="margin: 10px;" onclick="confirmEndEvaluationModal()">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmEndEvaluationModal" tabindex="-1" role="dialog" aria-labelledby="confirmEndEvaluationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    Are you sure?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('confirmEndEvaluationModal', initActivitiesForEvaluation)"
+                        data-dismiss="modal">Yes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    Saving completed. Do you want to stay here or go back to the list of activities?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
+                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivitiesForEvaluation)" data-dismiss="modal">Go
+                        back!
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<footer>
+
+</footer>
+
+</html>
