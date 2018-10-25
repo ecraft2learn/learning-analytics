@@ -1,0 +1,51 @@
+
+
+/*TABS nav-tabs>li.active>a*/
+.nav-tabs>li.active>a{
+    color: deepskyblue;
+    border: 1px solid deepskyblue;
+    border-bottom-color: transparent;
+}
+
+.nav-pills>li.active>a:hover{
+    color: deepskyblue;
+    border: 1px solid deepskyblue;
+    border-bottom-color: transparent;
+}
+
+.nav-pills>li.active>a:focus{
+    color: deepskyblue;
+    border: 1px solid deepskyblue;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a{
+    color: deepskyblue;
+}
+
+.nav-pills>li.active>a{
+   background-color: deepskyblue;
+}
+
+a{
+    color: deepskyblue;
+}
+
+.form-control{
+    border: 1px solid deepskyblue;
+}
+
+.btn-primary{
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+.tableHeader{
+    background-color: deepskyblue;
+    color: white;
+}
+
+#approvalCount{
+    background-color: cornflowerblue;
+}
+

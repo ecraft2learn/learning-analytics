@@ -49,6 +49,56 @@
                 module.</p>
         </div>
 
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs " role="tablist">
+                <li role="presentation" class="active"><a href="#student-work"  class="sharing-tabs" aria-controls="student-work" role="tab" data-toggle="tab">Student Work</a></li>
+                <li role="presentation" ><a href="#teacher-work" aria-controls="teacher-work" role="tab" data-toggle="tab">Teacher Work</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!--Student Work Tab Content-->
+                <div role="tabpanel" class="tab-pane active" id="student-work">
+
+                    <!--TOOL BAR-->
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="" onclick="showAllWork();return false;">All works</a></li>
+                        <li role="presentation"><a href="" onclick="showRemovalWork();return false;">Awaiting removal <span id="removalCount"></span></a></li>
+                        <li role="presentation"><a href="" onclick="showApprovalWork();return false;">Awaiting approval <span id="approvalCount"></span> </a></li>
+
+                    </ul>
+
+                    <div id="dynamicContent">
+
+                        <!--TABLE-->
+                        <table id="studentWork" class="table table-bordered table-hover" style="width:100%">
+                            <thead class="tableHeader">
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Project</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+                <!--Teacher Work Tab Content-->
+                <div role="tabpanel" class="tab-pane" id="teacher-work">...</div>
+            </div>
+
+        </div>
+
+
 
     </div>
 </div>
