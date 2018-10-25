@@ -179,10 +179,7 @@ function init() {
 
 }
 
-function generateReflectionLink() {
-    var link = "<a href='#' onclick=\"openSmallWindow('./lnu/reflection/index.html','Reflection',event);\"> Do Reflection</a>";
-    return link;
-}
+
 
 function initStudentTable() {
 
