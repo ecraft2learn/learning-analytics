@@ -1,0 +1,54 @@
+<div class="container" id="lnu-c4a">
+    <div class="row">
+
+        <!-- Login modal-->
+        <div id="loginModal" class="modal fade">
+            <div class="modal-dialog login-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Teacher Login</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col no-pading">
+                            <p>Please enter your email and password</p>
+                            <form id="logFrm" method="post" class="login-form">
+
+                                <div class="form-group">
+                                    <label for="inputEmail">Email address</label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password...">
+                                </div>
+
+                                <button type="button" class="btn btn-primary" onclick="userLogin();">Login</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main content -->
+        <div class="mainTitle well well-lg">
+            <h2>Sharing Module</h2>
+        </div>
+
+        <div id="warning-message" class="hidden">
+            <p class="alert alert-warning">
+                You should <a href="#" class="alert-link" onclick="init();">login</a> as a teacher in order to use this
+                module.</p>
+        </div>
+
+
+    </div>
+</div>
