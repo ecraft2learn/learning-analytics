@@ -124,6 +124,7 @@
 				</div>
 			</div>
 		</noscript>
+		<div id='lm'></div>
 		<div id='messages'></div>
 		<div id='loader'></div>
 		<div class='center-wrapper' id='index-img-div'>
@@ -729,7 +730,18 @@
 
 				$('#li-selfEvaluation').addClass('active');
 				$('.evaluation-tools').show();
-			
+		
+				if (! Share.getInstance().id) {
+
+					$('#lm').load('templates/login.html', () => {
+
+						$('#login-modal').modal();
+						
+
+					});
+
+				}
+	
 			});
 
 			

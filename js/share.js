@@ -28,6 +28,10 @@ var Share = (function(){
 
                                         self.getFiles(document.getElementById('share-content'));
 
+					$('#myModal').modal('hide');
+
+                                        $('#login-modal').modal('hide');
+
 				}
 
 			},
@@ -41,6 +45,9 @@ var Share = (function(){
 	};
 
 	ShareClass.prototype.getFiles = function(container) {
+
+		if (! container) 
+			return;
 
 		var self = this;
 
@@ -193,7 +200,8 @@ var Share = (function(){
 					self.id = data;
 
 					$('#myModal').modal('hide');
-	
+
+					$('#login-modal').modal('hide');
 					self.getFiles(document.getElementById('share-content'));
 
 
