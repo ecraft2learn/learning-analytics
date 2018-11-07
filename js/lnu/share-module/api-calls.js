@@ -17,7 +17,8 @@ function postAjaxRequest(url,data, callback) {
         url: url,
         data: data,
         success: function (data,result) {
-            console.log(data);
+            // console.log(data);
+            // console.log(result);
             callback(JSON.parse(data),result);
         },
         error: function (jqXHR, exception) {
@@ -74,4 +75,32 @@ function removeStudentsWork(sharingId,callback){
     //remove file from server
     var data = {"id":sharingId,"func":"stopSharing"};
     postAjaxRequest(SERVER_URL2,data,callback);
+}
+
+
+/**
+ * FOR TESTING PURPOSE
+ */
+function awatingForApprovalTestStudentsWork(sharingId,callback){
+
+    var data = {"sharingId":sharingId,"status":3,"func":"updateSharingFileStatus"};
+    postAjaxRequest(SERVER_URL2,data,callback);
+
+}
+
+
+/**
+ * DOWNLOAD STUDENT WORK
+ * @param filename
+ */
+function download(filename) {
+    var element = document.createElement('a');
+    element.setAttribute('href', "https://cs.uef.fi/~ec2l/download_file.php?file=" + filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
 }
