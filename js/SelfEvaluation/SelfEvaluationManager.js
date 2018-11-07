@@ -171,7 +171,7 @@ function ping(handler) {
 }
 
 //var url = "http://cs.uef.fi/~ec2l/seval.php";
-var url = "http://cs.uef.fi/~ec2l/selfEvaluationManager.php";
+var url = "https://cs.uef.fi/~ec2l/selfEvaluationManager.php";
 //var url = "http://localhost/php/selfEvaluationManager.php"; 
 function makeAjaxCall(formData, handler, async = true) {
     //if (!handler)
