@@ -1,77 +1,112 @@
+/*
+    General
+*/
 
+#lnu-ts *:not(.glyphicon) {
+    font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serifs;
+}
 
-/*TABS nav-tabs>li.active>a*/
-.nav-tabs>li.active>a{
-    color: deepskyblue;
-    border: 1px solid deepskyblue;
+#lnu-ts a {
+    color: #3396CE;
+}
+
+#lnu-ts .form-control {
+    border: 1px solid #3396CE;
+}
+
+/*
+    nav pills
+*/
+
+#lnu-ts .nav-pills>li.active>a:hover {
+    border: 1px solid #027cc1;
     border-bottom-color: transparent;
 }
 
-.nav-pills>li.active>a:hover{
-    color: deepskyblue;
-    border: 1px solid deepskyblue;
+#lnu-ts .nav-pills>li.active>a:focus {
+    color: #3396CE;
+    border: 1px solid #3396CE;
     border-bottom-color: transparent;
 }
 
-.nav-pills>li.active>a:focus{
-    color: deepskyblue;
-    border: 1px solid deepskyblue;
-    border-bottom-color: transparent;
+#lnu-ts .nav-pills>li.active>a {
+    border: 1px solid #3396CE;
+    background-color: #3396CE;
 }
 
-.nav-tabs>li>a{
-    color: deepskyblue;
+#lnu-ts .nav-pills>.active>a>.badge {
+    background: white;
+    color: #3396ce;
 }
 
-.nav-pills>li.active>a{
-   background-color: deepskyblue;
+#lnu-ts #student-work>ul {
+    margin: 15px 0;
 }
 
-a{
-    color: deepskyblue;
+#lnu-ts .badge {
+    background-color: #3396CE;
 }
 
-.form-control{
-    border: 1px solid deepskyblue;
+/*
+    Nav tabs
+*/
+
+#lnu-ts .nav-tabs>li>a {
+    color: #3396CE;
 }
 
-.btn-primary{
-    background-color: cornflowerblue;
-    border-color: cornflowerblue;
-}
-
-.tableHeader{
-    background-color: deepskyblue;
+#lnu-ts #student-work>ul>li.active>a {
     color: white;
 }
 
-#approvalCount{
-    background-color: cornflowerblue;
+/*
+    Data tables
+*/
+
+#lnu-ts table.dataTable tbody td {
+    vertical-align: middle;
 }
 
-
-
-/***
- *Sharing action buttons
- */
-
-.removeButton{
-    background-color: cornflowerblue;
+#lnu-ts .tableHeader {
+    background-color: #3396CE;
+    color: white;
 }
 
-.downloadButton{
-    background-color: cornflowerblue;
-}
-.approveButton{
-    background-color: #13b568;
-}
-
-.rejectButton{
-    background-color: #b5331e;
+#lnu-ts #studentWork_filter>label>input[type="search"] {
+    width: 250px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    padding: 5px;
+    color: #333333;
 }
 
+#lnu-ts table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+    background-color: #cecece;
+}
 
+#lnu-ts table.dataTable.no-footer, #lnu-ts table.dataTable thead th {
+    border-bottom:none;
+}
 
+/*
+    Sharing action buttons
+*/
+
+#lnu-ts .removeButton {
+    background-color: #bbbbbb;
+}
+
+#lnu-ts .downloadButton {
+    background-color: #43abe6;
+}
+
+#lnu-ts .approveButton {
+    background-color: #19d47b;
+}
+
+#lnu-ts .rejectButton {
+    background-color: #ef5b2e;
+}
 
 /*-----------------------------------------------------------
  * Sharing status
@@ -89,7 +124,7 @@ a{
  * [Yellow] - .sharing-status-awaiting-removal
  *----------------------------------------------------------*/
 
-.sharing-status-indicator::before {
+#lnu-ts .sharing-status-indicator::before {
     content: "";
     height: 16px;
     width: 16px;
@@ -97,20 +132,19 @@ a{
     border: 2px solid hsla(0, 0%, 0%, 0.2);
     border-radius: 50%;
     display: inline-block;
-    margin-right:5px;
+    margin-right: 5px;
     position: relative;
     top: 3px;
 }
 
-.sharing-status-approved::before {
+#lnu-ts .sharing-status-approved::before {
     background-color: #6bbd17;
 }
 
-.sharing-status-rejected::before {
+#lnu-ts .sharing-status-rejected::before {
     background-color: #D15353;
 }
 
-.sharing-status-awaiting-removal::before {
+#lnu-ts .sharing-status-awaiting-removal::before {
     background-color: #ffef2c;
 }
-
