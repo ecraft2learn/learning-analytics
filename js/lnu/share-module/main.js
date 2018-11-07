@@ -71,50 +71,48 @@ function generateStudentWorkTable(){
                 visible: false,
                 searchable: false,
                 data:"id"
-
             },
             {   targets:1,
                 visible: false,
                 searchable: false,
                 data:"description"
-
             },
             {   targets:2,
                 visible: false,
                 searchable: false,
                 data:"file_path"
-
             },
             {   targets:3,
-                data:"title"
-
+                data:"title",
+                className:"text-left"
             },
             {   targets:4,
-                data:"keywords"
-
+                data:"keywords",
+                width: "10%",
+                className:"text-left"
             },
             {   targets:5,
-                data:"author"
-
+                data:"author",
+                className:"text-left"
             },
             {   targets:6,
-                data:"project"
-
+                data:"project",
+                className:"text-left"
             },
             {   targets:7,
-                data:"status"
-
+                data:"status",
+                className:"text-left"
             },
             {   targets:8,
-                data:"date"
-
+                data:"date",
+                className:"text-left"
             },
 
             {
                 targets: -1,
                 data: null,
                 width: "17%",
-                defaultContent:"<button type='button' class='btn downloadButton' title='Download' ><span class='glyphicon glyphicon-download-alt' ></span></button><button type='button' class='btn approveButton' title='Approve' ><span class='glyphicon glyphicon-ok-sign' ></span></button><button type='button' class='btn rejectButton' title='Disapprove'><span class='glyphicon glyphicon-remove-sign' ></span></button> <button type='button' class='btn  removeButton' title='Remove'><span class='glyphicon glyphicon-trash' ></span></button>  "
+                defaultContent:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"
             }
         ]});
 
@@ -147,6 +145,13 @@ function generateStudentWorkTable(){
             }
         ]
     });*/
+
+    // Activate data tables action button tooltips
+
+    $(".icon_info").tooltip();
+
+    // Sum the count of awaiting items in the top tab
+    updateAwaitingCount();
 
     //ROW SELECTION, SHOW DESCRIPTION OF THE FILE
     $('#studentWork tbody').on( 'click', 'tr', function () {
@@ -220,7 +225,7 @@ function generateStudentWorkTable(){
                 removeElement(data.id);
                 //remove row in the table
                 row.remove().draw();
-
+                updateAwaitingCount()
             }
             else{
 
@@ -242,6 +247,30 @@ function generateStudentWorkTable(){
 }
 
 
+function sumAwaitingCount() {
+    var remCount = parseInt(document.getElementById("removalCount").textContent) || 0;
+    var appCount = parseInt(document.getElementById("approvalCount").textContent) || 0;
+    return remCount + appCount;
+}
+
+function updateAwaitingCount() {
+    var awaitCount = sumAwaitingCount();
+    if (awaitCount > 0) {
+        var topTab = document.getElementById("studentWorkTab");
+        if (topTab.children.length > 0) {
+            topTab.removeChild(topTab.children[0]);
+        }
+        topTab.innerHTML += " ";
+        var span = document.createElement("span");
+        span.classList.add("badge");
+        span.textContent = awaitCount;
+        topTab.appendChild(span);
+    } else {
+        var topTab = document.getElementById("studentWorkTab");
+        topTab.removeChild(topTab.children[0]);
+    }
+}
+
 function updateStatusWorkInTable(status,data,row){
     //update data
     var workIndex = studentWorks.findIndex(function(work){
@@ -258,6 +287,7 @@ function updateStatusWorkInTable(status,data,row){
     // update table
     data.status =m_createStatusIndicator(status);
     row.data(data).invalidate();
+    updateAwaitingCount()
 }
 
 function removeElement(id){
@@ -303,9 +333,18 @@ function updateApprovalWork(){
 
 }
 
+function activateCurrentNavPill(target) {
+    target = target.closest("a").parentNode;
+    var pills = document.getElementById("lnu-ts").getElementsByClassName("nav-pills");
+    for(var i = 0; i < pills[0].children.length; i++) {
+        pills[0].children[i].classList.remove("active");
+    }
+    target.classList.add("active");
+}
 
-function showAllWork() {
-
+function showAllWork(event) {
+    activateCurrentNavPill(event.target);
+    event.preventDefault();
     //prepare data for datatable
     var data = studentWorks.map(function(work) {
         return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:""};
@@ -325,9 +364,10 @@ function showAllWork() {
 
 }
 
-function showRemovalWork() {
-//prepare data for datatable
-
+function showRemovalWork(event) {
+    activateCurrentNavPill(event.target);
+    event.preventDefault();
+    //prepare data for datatable
     var removalWorks = studentWorks.filter(function(work){
         return work["STATUS"]==="3";
     });
@@ -349,8 +389,10 @@ function showRemovalWork() {
 
 }
 
-function showApprovalWork(){
+function showApprovalWork(event){
 
+    activateCurrentNavPill(event.target);
+    event.preventDefault();
     //prepare data for datatable
 
     var approvalWorks = studentWorks.filter(function(work){
