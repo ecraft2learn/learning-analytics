@@ -87,7 +87,7 @@
 
 		var share = Share.getInstance();
 
-		share.register(email, password, firstName, lastName, email);
+		share.register(email, password, firstName, lastName, email, false);
 
 	});
 
@@ -98,7 +98,7 @@
 
 		var share = Share.getInstance();
 
-		share.login(email, pw);
+		share.login(email, pw, false);
 
 	}
 

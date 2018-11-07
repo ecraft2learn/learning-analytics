@@ -4,7 +4,7 @@ var Share = (function(){
     	
 	}
 
-	ShareClass.prototype.register = function(username, password, firstName, lastName, email) {
+	ShareClass.prototype.register = function(username, password, firstName, lastName, email, useFiles) {
 
 		var self = this;
 
@@ -26,11 +26,12 @@ var Share = (function(){
 		
 					self.id = data;
 
-                                        self.getFiles(document.getElementById('share-content'));
-
 					$('#myModal').modal('hide');
 
                                         $('#login-modal').modal('hide');
+
+					if (useFiles)
+						self.getFiles(document.getElementById('share-content'));
 
 				}
 
@@ -181,7 +182,7 @@ var Share = (function(){
 
 	};
 
-	ShareClass.prototype.login = function(username, password) {
+	ShareClass.prototype.login = function(username, password, useFiles) {
 
 		var self = this;
 
@@ -202,8 +203,9 @@ var Share = (function(){
 					$('#myModal').modal('hide');
 
 					$('#login-modal').modal('hide');
-					self.getFiles(document.getElementById('share-content'));
 
+					if (useFiles)
+						self.getFiles(document.getElementById('share-content'));
 
 				} else {
 
