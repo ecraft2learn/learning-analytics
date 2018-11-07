@@ -182,7 +182,7 @@ function generateStudentWorkTable(){
     $('#studentWork tbody').on( 'click', 'button.approveButton', function () {
         var row = studentTable.row( $(this).parents('tr') );
         var data = row.data();
-        console.log(data);
+        //console.log(data);
         approveStudentsWork(data.id,function (result) {
 
             if(result["RESULT"]==="SUCCESS"){
@@ -196,12 +196,12 @@ function generateStudentWorkTable(){
     } );
 
     $('#studentWork tbody').on( 'click', 'button.rejectButton', function () {
-
+        console.log("here");
         var row = studentTable.row( $(this).parents('tr') );
         var data = row.data();
-        rejectStudentsWork(data.id,function (result) {
+        awatingForApprovalTestStudentsWork(data.id,function (result) {
             if(result["RESULT"]==="SUCCESS"){
-                updateStatusWorkInTable("2",data,row);
+                updateStatusWorkInTable("0",data,row);
             }
             else{
                 //TODO:show message something wrong happend
@@ -247,7 +247,7 @@ function updateStatusWorkInTable(status,data,row){
     var workIndex = studentWorks.findIndex(function(work){
         return work["ID"]===data.id;
     });
-    console.log(workIndex);
+
     if(workIndex>-1){
 
             studentWorks[workIndex]["STATUS"] = status;
@@ -256,7 +256,7 @@ function updateStatusWorkInTable(status,data,row){
     }
 
     // update table
-    data.status =status;
+    data.status =m_createStatusIndicator(status);
     row.data(data).invalidate();
 }
 
@@ -308,7 +308,7 @@ function showAllWork() {
 
     //prepare data for datatable
     var data = studentWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:work["STATUS"],date:work["TIME_STAMP"],action:""};
+        return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:""};
     });
     if(data.length>0){
 
@@ -335,7 +335,7 @@ function showRemovalWork() {
     if(removalWorks.length>0){
 
         var data = removalWorks.map(function(work) {
-            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:work["STATUS"],date:work["TIME_STAMP"],action:""};
+            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:""};
         });
         //update data table
 
@@ -360,7 +360,7 @@ function showApprovalWork(){
 
     if(approvalWorks.length>0){
         var data = approvalWorks.map(function(work) {
-            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:work["STATUS"],date:work["TIME_STAMP"],action:""};
+            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:""};
         });
         //update data table
         $('#studentWork').dataTable().fnClearTable();
@@ -409,7 +409,7 @@ function m_createStatusIndicator(content) {
         default:
             break;
     }
-    console.log(span.outerHTML);
+    //console.log(span.outerHTML);
     return span.outerHTML;
 }
 
