@@ -92,6 +92,7 @@ function getGroupListForEvaluation(responseHandler) {
     formData.append("func", "getGroupListForEvaluation");
 
     formData.append("pilotSite", getPilotsite());
+    formData.append("teacher", getTeacherId());
 
     makeAjaxCall(formData, responseHandler);
 }
