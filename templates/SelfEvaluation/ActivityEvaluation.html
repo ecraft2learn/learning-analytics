@@ -72,6 +72,7 @@
         }
 
         div.sticky {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Ubuntu", "Helvetica Neue", sans-serif;
             position: -webkit-sticky;
             position: sticky;
             top: 0;
@@ -99,6 +100,7 @@
 
 <div class="sticky">
     <p id="evaluatedGroup">Group: </p>
+    <p id="learninAnalyticsScore">Group score : </p>
 </div>
 
 <header>
@@ -108,7 +110,7 @@
     <p id="activitiDesc"></p>
     <br>
     <br>
-    
+
 </header>
 
 
@@ -162,7 +164,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="saveCompleteModal" tabindex="-1" role="dialog" aria-labelledby="saveCompleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -174,7 +177,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Stay here</button>
-                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivitiesForEvaluation)" data-dismiss="modal">Go
+                    <button type="button" class="btn btn-primary" onclick="goBack('saveCompleteModal',initActivitiesForEvaluation)"
+                        data-dismiss="modal">Go
                         back!
                     </button>
                 </div>
@@ -188,6 +192,20 @@
 
 <footer>
 
+    <script>
+        var checkeventcount = 1, prevTarget;
+        $('.modal').on('show.bs.modal', function (e) {
+            if (typeof prevTarget == 'undefined' || (checkeventcount == 1 && e.target != prevTarget)) {
+                prevTarget = e.target;
+                checkeventcount++;
+                e.preventDefault();
+                $(e.target).appendTo('body').modal('show');
+            }
+            else if (e.target == prevTarget && checkeventcount == 2) {
+                checkeventcount--;
+            }
+        });
+    </script>
 </footer>
 
 </html>

@@ -160,6 +160,24 @@ function getTeachersActivities(teacherId, responseHandler) {
 
     makeAjaxCall(formData, responseHandler);
 }
+
+function getGroupEvaluationFromLearningAnalytics(groupName, responseHandler) {
+    
+    
+    $.ajax({
+        url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_student_models_pilot_2.php',
+        //dataType: 'text',
+        //cache: false,
+        //contentType: false,
+        //processData: false,
+        data: 'sessionId=' + getPilotsite() + '&users=' + groupName,
+        type: 'POST',
+        async: false,
+        success: function (php_script_response) {
+            responseHandler(php_script_response);
+        }
+    });
+}
 /////////
 
 

@@ -53,8 +53,16 @@ function setSelfEvaluation(result, status) {
             $('#evaluatedGroup').append(list.DATA[0].GroupName);
             $('#whatWeKnow').append(list.DATA[0].WhatWeKnow);
             $('#notClear').append(list.DATA[0].NotClear);
+
+            getGroupEvaluationFromLearningAnalytics(list.DATA[0].GroupName, setGroupScore);
         }
     }
+}
+
+function setGroupScore(result, satus){
+    //alert(result);
+    var list = JSON.parse(result);
+    $('#learninAnalyticsScore').append(list.status_code);
 }
 
 function addCriterias(result, status) {
