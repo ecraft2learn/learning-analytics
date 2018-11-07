@@ -9,30 +9,33 @@ function setCategory(result, status) {
     for (i = 0; i < list.DATA.length; i++) {
         var riga = list.DATA[i];
 
-        var html = "<div id=\"category_" + riga.CategoryId + "\" class=\"category row-fluid container-fluid form-horizontal\">";
-        html += "<div class=\"row-fluid  container-fluid category-header\">    <div class=\"categoryTitle col-xs-12\">";
-        html += "<h3>" + riga.CategoryName + "</h3>    </div> </div> <div class=\"row-fluid  container-fluid category-body\">";
+        if (riga.CategoryId) {
+            var html = "<div id=\"category_" + riga.CategoryId + "\" class=\"category row-fluid container-fluid form-horizontal\">";
+            html += "<div class=\"row-fluid  container-fluid category-header\">    <div class=\"categoryTitle col-xs-12\">";
+            html += "<h3>" + riga.CategoryName + "</h3>    </div> </div> <div class=\"row-fluid  container-fluid category-body\">";
 
-        //category criteria
-        html += "<div id=\"category_" + riga.CategoryId + "-criterias\" class=\"col-sm-4 \" style=\"padding-left: 0px; padding-right:opx;\"> </div>";
+            //category criteria
+            html += "<div id=\"category_" + riga.CategoryId + "-criterias\" class=\"col-sm-4 \" style=\"padding-left: 0px; padding-right:opx;\"> </div>";
 
-        //students remarks
-        html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
+            //students remarks
+            html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
 
-        //self-evaluation
-        html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
+            //self-evaluation
+            html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
 
-        //teacher evaluation
-        html += "<div class=\"row-fluid container-fluid category-footer\"> <div class=\"col-md-2 container-fluid\"> <label for=\"category_" + riga.CategoryId + "-teacherEvaluation\">Teacher evaluation: </label>";
-        html += "<select id=\"category_" + riga.CategoryId + "-teacherEvaluation\" class=\"form-control\"> <option value=\"\"></option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option></select> </div>";
+            //teacher evaluation
+            html += "<div class=\"row-fluid container-fluid category-footer\"> <div class=\"col-md-2 container-fluid\"> <label for=\"category_" + riga.CategoryId + "-teacherEvaluation\">Teacher evaluation: </label>";
+            html += "<select id=\"category_" + riga.CategoryId + "-teacherEvaluation\" class=\"form-control\"> <option value=\"\"></option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option></select> </div>";
 
-        //teacher remark
-        html += "<div class=\"col-md-10\" style=\"text-align: justify; text-justify: inter-word;\"> <label for=\"category_" + riga.CategoryId + "-teacherNote\"> Teacher's note: </label> <textarea id=\"category_" + riga.CategoryId + "-teacherNote\" class=\"form-control\"  placeholder=\"Teacher's note\" rows=\"5\" width=\"100%\"> </textarea>    </div></div></div>";
+            //teacher remark
+            html += "<div class=\"col-md-10\" style=\"text-align: justify; text-justify: inter-word;\"> <label for=\"category_" + riga.CategoryId + "-teacherNote\"> Teacher's note: </label> <textarea id=\"category_" + riga.CategoryId + "-teacherNote\" class=\"form-control\"  placeholder=\"Teacher's note\" rows=\"5\" width=\"100%\"> </textarea>    </div></div></div>";
 
-        $('#categoryContainer').append(html);
+            $('#categoryContainer').append(html);
 
-
-        getCategoryCriterias(riga.CategoryId, addCriterias);
+            getCategoryCriterias(riga.CategoryId, addCriterias);
+        }
+        else
+            hideLoader();
     }
 
     getSelfEvaluation(getActivityId(), getGroupId(), setSelfEvaluation);
@@ -62,23 +65,25 @@ function addCriterias(result, status) {
 
     var html = "";
 
+    if (gruppedCriterias.length > 0) {
+        $.each(gruppedCriterias, function (index, criteria) {
+            html += "<div class=\"row-fluid container-fluid form-group\" style=\"width: 100%; padding-bottom: 5px; padding-right: 0px; padding-left: 0px; margin:0px; \">";
+            //html += "<div class=\"col-md-8\">" + criteria.Name + "</div>  <div class=\"col-md-4\">  <select id=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "-value\" class=\"form-control\"> <option value=\"\">-</option>";
+            html += "<label for=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "_value\">" + criteria.Name + "</label>  <label id=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "_value\" name=\"criteria\" class=\"form-control\" disabled>";
 
-    $.each(gruppedCriterias, function (index, criteria) {
-        html += "<div class=\"row-fluid container-fluid form-group\" style=\"width: 100%; padding-bottom: 5px; padding-right: 0px; padding-left: 0px; margin:0px; \">";
-        //html += "<div class=\"col-md-8\">" + criteria.Name + "</div>  <div class=\"col-md-4\">  <select id=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "-value\" class=\"form-control\"> <option value=\"\">-</option>";
-        html += "<label for=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "_value\">" + criteria.Name + "</label>  <label id=\"category_" + criteria.Category + "-criteria_" + criteria.CritId + "_value\" name=\"criteria\" class=\"form-control\" disabled>";
+            /*
+            for (i = 0; i < criteria.CritValues.length; i++) {
+                html += "<option value=\"" + criteria.CritValues[i] + "\">" + criteria.CritValues[i] + "</option>";
+            }*/
 
-        /*
-        for (i = 0; i < criteria.CritValues.length; i++) {
-            html += "<option value=\"" + criteria.CritValues[i] + "\">" + criteria.CritValues[i] + "</option>";
-        }*/
+            html += "</label> </div>";
+        });
 
-        html += "</label> </div>";
-    });
+        $('#category_' + list.DATA[0].Category + '-criterias').append(html);
+        //alert("added criterias");
+        getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
+    }
 
-    $('#category_' + list.DATA[0].Category + '-criterias').append(html);
-    //alert("added criterias");
-    getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
 }
 
 function setCategorySelfEvaluation(result, status) {
@@ -192,7 +197,7 @@ function succesfullSave(result, status) {
     $("#saveCompleteModal").modal();
 }
 
-function confirmEndEvaluationModal(){
+function confirmEndEvaluationModal() {
     $("#confirmEndEvaluationModal").modal();
 }
 
