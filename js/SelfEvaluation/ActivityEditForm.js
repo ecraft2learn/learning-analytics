@@ -19,7 +19,7 @@ function addCriterias(phpResults) {
 
 		if (! document.getElementById('criteria-' + category.name + '-' + category.id)) {
 
-			var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.name + '-' + category.id + '\'>;
+			var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.name + '-' + category.id + '\'>';
 
 			for (let j = 0; j < category.content.length; j++) {
 
@@ -71,7 +71,7 @@ function getCriterias() {
 
 	for (let i = 0; i < $criterias.length; i++) {
 
-		let ul = $criterias[i].attr('id');
+		let ul = $($criterias[i]).attr('id');
 
 		let $li = $('#' + ul + ' li.checked');
 
@@ -83,7 +83,7 @@ function getCriterias() {
 
 		for (let j = 0; j < $li.length; j++) {
 
-			obj.content.push($li.text());	
+			obj.content.push($($li[i]).text());	
 
 		}
 
