@@ -9,7 +9,112 @@ function addCategories(phpResult) {
     getActivityForEdit(getActivityId(), fillActivityForm);
 }
 
+function addCriterias(phpResults) {
 
+	var criterias = JSON.parse(phpResults);
+
+	for (let i = 0; i < criterias.length; i++) {
+
+		var category = criterias[i];
+
+		if (! document.getElementById('criteria-' + category.name + '-' + category.id)) {
+
+			var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.name + '-' + category.id + '\'>;
+
+			for (let j = 0; j < category.content.length; j++) {
+
+				html += '<li onclick=\'checkCriteria(criteria-content-' + category.content[j].id + ')\' id=\'criteria-content-' + category.content[j].id + '\'>' + category.content[j].name + '</li>';
+
+			}
+
+			html += '</ul>';
+
+			$('#criteriaContainer').append(html);
+
+		} else {
+
+			$('#criteria-' + category.name + '-' + category.id).remove(); // toggle
+
+		}
+
+	}	
+
+}
+
+function criterias(request) {
+
+	$.ajax({
+
+		type: '',
+		url: '',
+		data: request,
+		success: (data) => {
+		
+			addCriterias(data);
+
+		},
+		error: (error) => {
+
+			console.log(error);
+
+		}
+
+	});
+
+}
+
+function getCriterias() {
+
+	let $criterias = $('.criterial-ul');
+
+	let criterias = [];
+
+	for (let i = 0; i < $criterias.length; i++) {
+
+		let ul = $criterias[i].attr('id');
+
+		let $li = $('#' + ul + ' li.checked');
+
+		let criteria = ul.split('-')[1];
+
+		let id = ul.split('-')[2];
+
+		let obj = { category: criteria, id: id, content: [] };
+
+		for (let j = 0; j < $li.length; j++) {
+
+			obj.content.push($li.text());	
+
+		}
+
+		criterias.push(obj);
+
+	}
+
+	return JSON.stringify(criterias);
+
+}
+
+function postCriterias(array) {
+
+	$.ajax({
+
+		type: '',
+		url: '',
+		data: 'data=' + data,
+		success: (data) => {
+
+
+		},
+		error: (error) => {
+
+			console.log(error);
+
+		}
+
+	});
+
+}
 
 function fillActivityForm(phpResult) {
 
@@ -30,6 +135,17 @@ function fillActivityForm(phpResult) {
 
 function checkCategory(liId) {
     $('#li-' + liId).toggleClass('checked');
+
+    let request = 'category=' + liId;
+
+    criterias(request);
+	
+}
+
+function checkCriteria(id) {
+
+	$('#' + id).toggleClass('checked');
+
 }
 
 

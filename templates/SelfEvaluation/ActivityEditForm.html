@@ -29,13 +29,13 @@
         }
 
         /* Remove margins and padding from the list */
-        #categoryList {
+        #categoryList, .criteria-ul {
             margin: 0;
             padding: 0;
         }
 
         /* Style the list items */
-        #categoryList>li {
+        #categoryList>li, .criteria-ul > li {
             cursor: pointer;
             position: relative;
             padding: 12px 8px 12px 40px;
@@ -53,23 +53,23 @@
         }
 
         /* Set all odd list items to a different color (zebra-stripes) */
-        #categoryList>li:nth-child(odd) {
+        #categoryList>li:nth-child(odd), .criteria-ul > li:nth-child(odd) {
             background: #f9f9f9;
         }
 
         /* Darker background-color on hover */
-        #categoryList>li:hover {
+        #categoryList>li:hover, .criteria-ul > li:hover {
             background: #ddd;
         }
 
         /* When clicked on, add a background color and strike out text */
-        #categoryList>li.checked {
+        #categoryList>li.checked, .criteria-ul > li.checked {
             background: #337ab7;
             color: #fff;
         }
 
         /* Add a "checked" mark when clicked on */
-        #categoryList>li.checked::before {
+        #categoryList>li.checked::before, .criteria-ul > li.checked::before {
             content: '';
             position: absolute;
             border-color: #fff;
@@ -126,6 +126,9 @@
                     <!--Added dynamically-->
                 </ul>
             </div>
+	    <div id="criteriaContainer" class="row-fluid">
+                    <!--Added dynamically-->
+            </div> 
         </div>
 
         <div class="row-fluid ">
