@@ -189,6 +189,7 @@ function initStudentTable() {
         if (students == "error") {
             displayErrorMsg();
         } else {
+            console.log(students.length);
             generateStudentTable(students["DATA"]);
         }
     });

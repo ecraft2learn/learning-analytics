@@ -83,7 +83,7 @@ function removeStudentsWork(sharingId,callback){
  */
 function awatingForApprovalTestStudentsWork(sharingId,callback){
     console.log("here1");
-    var data = {"sharingId":sharingId,"status":0,"func":"updateSharingFileStatus"};
+    var data = {"sharingId":sharingId,"status":3,"func":"updateSharingFileStatus"};
     postAjaxRequest(SERVER_URL2,data,callback);
 
 }
