@@ -64,11 +64,11 @@
 		<script src='js/oer.js'></script>
 
 		<!--LNU Call4Action module-->
-		<script src = 'js/lnu/call4action-module/main.js'></script>
+		<script src = 'js/lnu/call4action-module/call4action-main.js'></script>
 		<script src = 'js/lnu/call4action-module/api-calls.js'></script>
 
 		<!--LNU Share module-->
-		<script src = 'js/lnu/share-module/main.js'></script>
+		<script src = 'js/lnu/share-module/share-module-main.js'></script>
 		<script src = 'js/lnu/share-module/api-calls.js'></script>
 		<script src = 'js/lnu/share-module/dataTables/dataTables.bootstrap.min.js'></script>
 
@@ -340,7 +340,7 @@
                                 
                                 });
 
-				$('#li-call4action').on('click', function(event) {
+				$('#call4action').on('click', function(event) {
                     $('#li-cluster').removeClass('active');
                     $('#li-classification').removeClass('active');
                     $('#li-anomaly').removeClass('active');
@@ -363,7 +363,7 @@
                 });
 
 
-				$('#li-share-lnu').on('click', function(event) {
+				$('#share-lnu').on('click', function(event) {
                     $('#li-cluster').removeClass('active');
                     $('#li-classification').removeClass('active');
                     $('#li-anomaly').removeClass('active');
@@ -381,7 +381,7 @@
                     var uri = isChrome() ? analysisObjects.urls.templateUrl + 'lnu/sharing-module/main.html' : 'templates/lnu/sharing-module/main.html';
 
                     $container.load(uri, function () {
-                        init();
+                        initSharing();
                     });
                 });
 				

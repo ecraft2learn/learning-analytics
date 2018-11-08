@@ -5,10 +5,11 @@ var studentWorks= [];
 
 
 function initSharing() {
+
     //loadCSS('/css/lnu/share-module/cerulean-bootsrap.bootstrap.min.css');
     //console.log(window.sessionStorage);
     var teacher = window.sessionStorage.getItem("teacherId");
-    console.log(teacher);
+
     if (teacher == null) {
 
         //show login dialog

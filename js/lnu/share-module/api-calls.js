@@ -4,7 +4,7 @@
 
 
 var SERVER_URL1   = "https://localhost/lnu-teachers-uui.php";
-var SERVER_URL2   = "https://cs.uef.fi/~ec2l/lnu.php";
+var SERVER_URL   = "https://cs.uef.fi/~ec2l/lnu.php";
 var SERVER_URL3   = "https://localhost/lnu.php";
 //var SERVER_URL = "https://cs.uef.fi/~ec2l/lnu-teacher-uui.php";
 //var SERVER_URL = "http://uui-teach.test:8888/lnu-teachers-uui.php";
@@ -40,7 +40,7 @@ function getStudentsWork(callback){
     //console.log(pilotsite);
     var data = {"pilotsite":pilotsite,"role":0,"func":"getSchoolSharedFiles"};
 
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 }
 
 /**
@@ -50,7 +50,7 @@ function approveStudentsWork(sharingId,callback){
 
     var data = {"sharingId":sharingId,"status":1,"func":"updateSharingFileStatus"};
 
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 }
 
 /**
@@ -60,7 +60,7 @@ function rejectStudentsWork(sharingId,callback){
 
     var data = {"sharingId":sharingId,"status":2,"func":"updateSharingFileStatus"};
 
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 }
 
 
@@ -70,11 +70,11 @@ function rejectStudentsWork(sharingId,callback){
 function removeStudentsWork(sharingId,callback){
 
     var data = {"sharingId":sharingId,"status":3,"func":"updateSharingFileStatus"};
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 
     //remove file from server
     var data = {"id":sharingId,"func":"stopSharing"};
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 }
 
 
@@ -84,7 +84,7 @@ function removeStudentsWork(sharingId,callback){
 function awatingForApprovalTestStudentsWork(sharingId,callback){
     console.log("here1");
     var data = {"sharingId":sharingId,"status":3,"func":"updateSharingFileStatus"};
-    postAjaxRequest(SERVER_URL2,data,callback);
+    postAjaxRequest(SERVER_URL,data,callback);
 
 }
 
