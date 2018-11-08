@@ -26,7 +26,7 @@ function addActivityCriterias(phpResults) {
 
                 //for (let j = 0; j < category.content.length; j++) {
 
-                html += '<li onclick=\'checkCriteria("criteria-content-' + category.Id + '")\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
+                html += '<li name="category.Id" onclick=\'checkCriteria("criteria-content-' + category.Id + '")\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
 
                 //}
 
@@ -139,15 +139,26 @@ function saveActivity() {
         Title: $('#activityTitle').val(),
         Description: $('#activityDesc').val(),
         Teacher: getTeacherId(),
-        Categories: []
+        Categories: [],
+        Criterias:[]
     };
 
-    $.each($('li.checked'), function (i, category) {
+    //get the selected categories
+    $.each($('#categoryList > li.checked'), function (i, category) {
 
         var category = category.id;
         category = category.split("-")[1];
 
         activity.Categories.push(category);
+    });
+
+     //get the selected criterias
+     $.each($('#criteriaContainer > li.checked'), function (i, criteria) {
+
+        var criteria = criteria.id;
+        criteria = criteria.split("-")[1];
+
+        activity.Criterias.push(criteria);
     });
 
     submitActivity(activity, successfulActivitySubmit);
