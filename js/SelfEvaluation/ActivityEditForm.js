@@ -26,7 +26,7 @@ function addActivityCriterias(phpResults) {
 
                 //for (let j = 0; j < category.content.length; j++) {
 
-                html += '<li onclick=\'checkCriteria(criteria-content-' + category.Id + ')\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
+                html += '<li onclick=\'checkCriteria("criteria-content-' + category.Id + '")\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
 
                 //}
 
