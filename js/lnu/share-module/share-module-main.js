@@ -188,9 +188,9 @@ function generateStudentWorkTable(){
 
         var row = studentTable.row( $(this).parents('tr') );
         var data = row.data();
-        awatingForApprovalTestStudentsWork(data.id,function (result) {
+        rejectStudentsWork(data.id,function (result) {
             if(result["RESULT"]==="SUCCESS"){
-                updateStatusWorkInTable("3",data,row);
+                updateStatusWorkInTable("2",data,row);
             }
             else{
                 //TODO:show message something wrong happend
