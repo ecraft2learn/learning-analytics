@@ -9,110 +9,93 @@ function addCategories(phpResult) {
     getActivityForEdit(getActivityId(), fillActivityForm);
 }
 
-function addCriterias(phpResults) {
+function addActivityCriterias(phpResults) {
 
-	var criterias = JSON.parse(phpResults);
+    var criterias = JSON.parse(phpResults);
 
-	for (let i = 0; i < criterias.length; i++) {
 
-		var category = criterias[i];
+    if (criterias.DATA[0]) {
+        var category = criterias.DATA[0];
+        if (!document.getElementById('criteria-' + category.CategoryName + '-' + category.CategoryId)) {
 
-		if (! document.getElementById('criteria-' + category.name + '-' + category.id)) {
+            var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.CategoryName + '-' + category.CategoryId + '\'>';
+            for (let i = 0; i < criterias.DATA.length; i++) {
 
-			var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.name + '-' + category.id + '\'>;
+                var category = criterias.DATA[i];
 
-			for (let j = 0; j < category.content.length; j++) {
 
-				html += '<li onclick=\'checkCriteria(criteria-content-' + category.content[j].id + ')\' id=\'criteria-content-' + category.content[j].id + '\'>' + category.content[j].name + '</li>';
+                //for (let j = 0; j < category.content.length; j++) {
 
-			}
+                html += '<li onclick=\'checkCriteria(criteria-content-' + category.Id + ')\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
 
-			html += '</ul>';
+                //}
 
-			$('#criteriaContainer').append(html);
 
-		} else {
+            }
+            html += '</ul>';
 
-			$('#criteria-' + category.name + '-' + category.id).remove(); // toggle
+            $('#criteriaContainer').append(html);
 
-		}
+        } else {
 
-	}	
+            $('#criteria-' + category.CategoryName + '-' + category.CategoryId).remove(); // toggle
 
+        }
+
+    }
 }
 
-function criterias(request) {
-
-	$.ajax({
-
-		type: '',
-		url: '',
-		data: request,
-		success: (data) => {
-		
-			addCriterias(data);
-
-		},
-		error: (error) => {
-
-			console.log(error);
-
-		}
-
-	});
-
-}
 
 function getCriterias() {
 
-	let $criterias = $('.criterial-ul');
+    let $criterias = $('.criterial-ul');
 
-	let criterias = [];
+    let criterias = [];
 
-	for (let i = 0; i < $criterias.length; i++) {
+    for (let i = 0; i < $criterias.length; i++) {
 
-		let ul = $criterias[i].attr('id');
+        let ul = $criterias[i].attr('id');
 
-		let $li = $('#' + ul + ' li.checked');
+        let $li = $('#' + ul + ' li.checked');
 
-		let criteria = ul.split('-')[1];
+        let criteria = ul.split('-')[1];
 
-		let id = ul.split('-')[2];
+        let id = ul.split('-')[2];
 
-		let obj = { category: criteria, id: id, content: [] };
+        let obj = { category: criteria, id: id, content: [] };
 
-		for (let j = 0; j < $li.length; j++) {
+        for (let j = 0; j < $li.length; j++) {
 
-			obj.content.push($li.text());	
+            obj.content.push($li.text());
 
-		}
+        }
 
-		criterias.push(obj);
+        criterias.push(obj);
 
-	}
+    }
 
-	return JSON.stringify(criterias);
+    return JSON.stringify(criterias);
 
 }
 
 function postCriterias(array) {
 
-	$.ajax({
+    $.ajax({
 
-		type: '',
-		url: '',
-		data: 'data=' + data,
-		success: (data) => {
+        type: '',
+        url: '',
+        data: 'data=' + data,
+        success: (data) => {
 
 
-		},
-		error: (error) => {
+        },
+        error: (error) => {
 
-			console.log(error);
+            console.log(error);
 
-		}
+        }
 
-	});
+    });
 
 }
 
@@ -136,15 +119,15 @@ function fillActivityForm(phpResult) {
 function checkCategory(liId) {
     $('#li-' + liId).toggleClass('checked');
 
-    let request = 'category=' + liId;
+    //let request = 'category=' + liId;
 
-    criterias(request);
-	
+    criterias(liId);
+
 }
 
 function checkCriteria(id) {
 
-	$('#' + id).toggleClass('checked');
+    $('#' + id).toggleClass('checked');
 
 }
 

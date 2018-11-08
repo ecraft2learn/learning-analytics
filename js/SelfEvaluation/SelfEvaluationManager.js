@@ -178,6 +178,17 @@ function getGroupEvaluationFromLearningAnalytics(groupName, responseHandler) {
         }
     });
 }
+
+
+function criterias(categoryId) {
+
+    var formData = new FormData();
+
+    formData.append("func", "getCategortCriterias");
+    formData.append("category", categoryId);
+
+    makeAjaxCall(formData, addActivityCriterias);
+}
 /////////
 
 
@@ -189,8 +200,8 @@ function ping(handler) {
 }
 
 //var url = "http://cs.uef.fi/~ec2l/seval.php";
-var url = "https://cs.uef.fi/~ec2l/selfEvaluationManager.php";
-//var url = "http://localhost/php/selfEvaluationManager.php"; 
+//var url = "https://cs.uef.fi/~ec2l/selfEvaluationManager.php";
+var url = "http://localhost/php/selfEvaluationManager.php"; 
 function makeAjaxCall(formData, handler, async = true) {
     //if (!handler)
     //  handler = successHandler;
@@ -205,7 +216,10 @@ function makeAjaxCall(formData, handler, async = true) {
         async: async,
         success: function (php_script_response) {
             handler(php_script_response);
-        }
+        },
+        error: (error) => {
+			console.log(error);
+		}
     });
 }
 
