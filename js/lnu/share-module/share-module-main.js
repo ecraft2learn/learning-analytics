@@ -607,13 +607,13 @@ function generateMyWorkTable(){
         var data = row.data();
         removeStudentsWork(data.id,function (result) {
             if(result["RESULT"]==="SUCCESS"){
-
+                //remove row in the table
+                row.remove().draw();
             }
             else{
 
             }
         });
-
 
     } );
 
