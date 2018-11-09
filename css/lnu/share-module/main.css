@@ -43,6 +43,10 @@
     margin: 15px 0;
 }
 
+#lnu-ts #teacher-work>ul {
+    margin: 15px 0;
+}
+
 #lnu-ts .badge {
     background-color: #3396CE;
 }
@@ -56,6 +60,9 @@
 }
 
 #lnu-ts #student-work>ul>li.active>a {
+    color: white;
+}
+#lnu-ts #teacher-work>ul>li.active>a {
     color: white;
 }
 
