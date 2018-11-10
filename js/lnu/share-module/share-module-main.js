@@ -335,6 +335,11 @@ function activateCurrentNavPill(target) {
     target.classList.add("active");
 }
 
+function contentDidLoad() {
+    $(".icon_info").tooltip('destroy')
+    $(".icon_info").tooltip();
+}
+
 function showAllWork(event) {
     activateCurrentNavPill(event.target);
     event.preventDefault();
@@ -346,6 +351,7 @@ function showAllWork(event) {
 
         $('#studentWork').dataTable().fnClearTable();
         $('#studentWork').dataTable().fnAddData(data);
+        contentDidLoad();
     }
     else{
         //show message no data available
@@ -374,6 +380,7 @@ function showRemovalWork(event) {
 
         $('#studentWork').dataTable().fnClearTable();
         $('#studentWork').dataTable().fnAddData(data);
+        contentDidLoad();
     }
     else{
         //show message no data available
@@ -400,6 +407,7 @@ function showApprovalWork(event){
         //update data table
         $('#studentWork').dataTable().fnClearTable();
         $('#studentWork').dataTable().fnAddData(data);
+        contentDidLoad();
     }
     else{
         //show message no data available
@@ -500,6 +508,7 @@ function showMyWork(event){
 
                 $('#teachersMyWork').dataTable().fnClearTable();
                 $('#teachersMyWork').dataTable().fnAddData(data);
+                contentDidLoad();
             }
             else{
                 //show message no data available
@@ -658,6 +667,7 @@ function showTeachersPublicWork(event){
 
                 $('#publicWork').dataTable().fnClearTable();
                 $('#publicWork').dataTable().fnAddData(data);
+                contentDidLoad();
             }
             else{
                 //show message no data available
