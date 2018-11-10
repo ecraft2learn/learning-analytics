@@ -328,9 +328,9 @@ function updateApprovalWork(){
 
 function activateCurrentNavPill(target) {
     target = target.closest("a").parentNode;
-    var pills = document.getElementById("lnu-ts").getElementsByClassName("nav-pills");
-    for(var i = 0; i < pills[0].children.length; i++) {
-        pills[0].children[i].classList.remove("active");
+    var pills = target.parentNode;
+    for(var i = 0; i < pills.children.length; i++) {
+        pills.children[i].classList.remove("active");
     }
     target.classList.add("active");
 }
