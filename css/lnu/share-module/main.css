@@ -15,6 +15,24 @@
 }
 
 /*
+    Sharing form
+*/
+
+#lnu-ts #sharingForm {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#lnu-ts #sharingForm label {
+    text-align: left;
+}
+
+#lnu-ts #sharingForm input {
+    width: 100% !important;
+}
+
+
+/*
     nav pills
 */
 
@@ -79,7 +97,7 @@
     color: white;
 }
 
-#lnu-ts #studentWork_filter>label>input[type="search"] {
+#lnu-ts input[type="search"] {
     width: 250px;
     border: 1px solid #cecece;
     border-radius: 5px;

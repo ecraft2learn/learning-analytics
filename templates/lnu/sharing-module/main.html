@@ -135,30 +135,37 @@
 
                     <!--SHARING FORM-->
                     <form id="sharingForm" style="display: none">
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+                        <div class="well panel panel-default">
+                            <div class="panel-body">
+                                <h3>Describe & share your work</h3>
+                                <div class="form-group">
+                                    <label class="pull-left" for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="pull-left" for="description">Description</label>
+                                    <input type="text" class="form-control" id="description" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="pull-left" for="keywords">Keywords</label>
+                                    <input type="text" class="form-control" id="keywords" name="keywords" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="btn" for="fileInput" style="border-color: #3396ce;background-color: #3396ce; color: white">
+                                        <input id="fileInput" type="file" style="display:none" name="file"
+                                               onchange="$('#upload-file-info').html(this.files[0].name)">
+                                               <span class="glyphicon glyphicon-file"></span>
+                                        Select file to share
+                                    </label>
+                                    <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-share"></span> Share</button>
+                                <button type="button" class="btn btn-link" onclick="cancelSharing()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <input type="text" class="form-control" id="description" name="description" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="keywords">Keywords</label>
-                            <input type="text" class="form-control" id="keywords" name="keywords" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="btn btn-primary" for="fileInput">
-                                <input id="fileInput" type="file" style="display:none" name="file"
-                                       onchange="$('#upload-file-info').html(this.files[0].name)">
-                                Upload
-                            </label>
-                            <span class='label label-info' id="upload-file-info"></span>
 
-                        </div>
-
-                        <button type="submit" class="btn btn-default">Share</button>
-                        <button type="button" class="btn btn-default" onclick="cancelSharing()">Cancel</button>
                     </form>
 
 
