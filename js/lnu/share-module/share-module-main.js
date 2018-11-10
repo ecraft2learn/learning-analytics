@@ -211,7 +211,7 @@ function generateStudentWorkTable(){
                 removeElement(data.id);
                 //remove row in the table
                 row.remove().draw();
-                updateAwaitingCount()
+                updateAwaitingCount();
             }
             else{
 
@@ -240,7 +240,7 @@ function sumAwaitingCount(element1, element2) {
         return element1 + element2;
     } else {
         return 0;
-}
+    }
 }
 
 // At the moment it only sums the student work tab, if the teacher tab should be summed as well, it needs to be refactored to allow that.
@@ -280,7 +280,7 @@ function updateStatusWorkInTable(status,data,row){
     // update table
     data.status =m_createStatusIndicator(status);
     row.data(data).invalidate();
-    updateAwaitingCount()
+    updateAwaitingCount();
 }
 
 function removeElement(id){
@@ -478,12 +478,11 @@ function initTeacherTables(){
 
 /*Show teachers shared work*/
 function showMyWork(event){
-
     $('#myWorkContent').show();
     $('#publicWorkContent').hide();
-
+    
     if(event!=undefined){
-        //activateCurrentNavPill(event.target);
+        activateCurrentNavPill(event.target);
         event.preventDefault();
     }
 
@@ -639,8 +638,8 @@ function showTeachersPublicWork(event){
     $('#myWorkContent').hide();
     $('#publicWorkContent').show();
 
-    //activateCurrentNavPill(event.target);
     if(event!=undefined){
+        activateCurrentNavPill(event.target);
         event.preventDefault();
     }
 
