@@ -233,15 +233,19 @@ function generateStudentWorkTable(){
 }
 
 
-function sumAwaitingCount() {
-    var remCount = parseInt(document.getElementById("removalCount").textContent) || 0;
-    var appCount = parseInt(document.getElementById("approvalCount").textContent) || 0;
-    return remCount + appCount;
+function sumAwaitingCount(element1, element2) {
+    if (element1 || element2) {
+        element1 = parseInt(element1.textContent) || 0;
+        element2 = parseInt(element2.textContent) || 0;
+        return element1 + element2;
+    } else {
+        return 0;
+}
 }
 
+// At the moment it only sums the student work tab, if the teacher tab should be summed as well, it needs to be refactored to allow that.
 function updateAwaitingCount() {
-    var awaitCount = sumAwaitingCount();
-    //console.log(awaitCount);
+    var awaitCount = sumAwaitingCount(document.getElementById("removalCount"), document.getElementById("approvalCount"));
     if (awaitCount > 0) {
         var topTab = document.getElementById("studentWorkTab");
         if (topTab.children.length > 0) {
