@@ -17,8 +17,8 @@ function postAjaxRequest(url,data, callback) {
         url: url,
         data: data,
         success: function (data,result) {
-            // console.log(data);
-            // console.log(result);
+             //console.log(data);
+             //console.log(result);
             callback(JSON.parse(data),result);
         },
         error: function (jqXHR, exception) {
@@ -38,7 +38,7 @@ function postAjaxRequest(url,data, callback) {
 function getStudentsWork(callback){
     var pilotsite = window.sessionStorage.getItem("sessionId");
     //console.log(pilotsite);
-    var data = {"pilotsite":pilotsite,"role":0,"func":"getSchoolSharedFiles"};
+    var data = {"pilotsite":pilotsite,"role":0,"func":"getStudentsSharedFiles"};
 
     postAjaxRequest(SERVER_URL,data,callback);
 }
