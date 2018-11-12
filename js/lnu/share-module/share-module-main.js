@@ -237,7 +237,10 @@ function updateAwaitingCount() {
         }
         topTab.innerHTML += " ";
         var span = document.createElement("span");
-        span.classList.add("badge");
+        span.classList.add("badge", "icon_info");
+        span.dataset['toggle'] = "tooltip";
+        span.dataset['placement'] = "top";
+        span.title = "Awaiting actions";
         span.textContent = awaitCount;
         topTab.appendChild(span);
     } else {
