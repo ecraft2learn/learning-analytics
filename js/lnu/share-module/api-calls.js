@@ -131,7 +131,7 @@ function shareTeacherWork(data,callback){
 
     if(data.length>0){
 
-        console.log($("#fileInput")[0].files[0]);
+        //console.log($("#fileInput")[0].files[0]);
 
         var formData = new FormData();
         formData.append("file", $("#fileInput")[0].files[0]);
@@ -168,7 +168,7 @@ function shareTeacherWork(data,callback){
 function saveSharing(data,callback) {
 
     var formData = new FormData();
-    formData.append("userId",window.sessionStorage.getItem("userId"));
+    formData.append("userId",window.sessionStorage.getItem("teacherId"));
     formData.append("pilotsite",window.sessionStorage.getItem("sessionId"));
 
     if(data.length>0){

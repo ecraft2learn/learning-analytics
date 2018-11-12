@@ -6,7 +6,7 @@
             <div class="modal-dialog login-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelLogin();">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title">Teacher Login</h4>
@@ -50,11 +50,11 @@
 
         <div id="warning-message" class="hidden">
             <p class="alert alert-warning">
-                You should <a href="#" class="alert-link" onclick="initSharing();">login</a> as a teacher in order to use this
+                You should <a href="#" class="alert-link" onclick="initSharing();return false;">login</a> as a teacher in order to use this
                 module.</p>
         </div>
 
-        <div>
+        <div id="main-content">
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs " role="tablist">
@@ -71,7 +71,7 @@
                     <!--TOOL BAR-->
                     <ul class="nav nav-pills">
                         <li role="presentation" class="active"><a href="" onclick="showAllWork(event);">All works</a></li>
-                        <li role="presentation"><a href="" onclick="showRemovalWork(event);">Awaiting unsharing <span class="badge" id="removalCount"></span></a></li>
+                        <li role="presentation"><a href="" onclick="showRemovalWork(event);">Awaiting removal <span class="badge" id="removalCount"></span></a></li>
                         <li role="presentation"><a href="" onclick="showApprovalWork(event);">Awaiting approval <span class="badge" id="approvalCount"></span> </a></li>
                     </ul>
 

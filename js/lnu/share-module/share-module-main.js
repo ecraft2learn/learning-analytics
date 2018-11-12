@@ -5,13 +5,6 @@ var studentWorks= [];
 
 
 function initSharing() {
-
-    //loadCSS('/css/lnu/share-module/cerulean-bootsrap.bootstrap.min.css');
-    //console.log(window.sessionStorage);
-    var teacher = window.sessionStorage.getItem("teacherId");
-
-    if (teacher == null) {
-
         //show login dialog
         $('#loginModal').modal({
 
@@ -20,7 +13,7 @@ function initSharing() {
 
         });
 
-        $("#loginModal").on("hidden.bs.modal", function () {
+        /*$("#loginModal").on("hidden.bs.modal", function () {
 
             if (window.sessionStorage.getItem("teacherId") == null) {
                 // put your default event here
@@ -29,18 +22,12 @@ function initSharing() {
             else {
                 $("#warning-message").addClass("hidden");
                 //show content
-                $("#mainContent").removeClass("hidden");
+                $("#main-content").removeClass("hidden");
+
+
             }
 
-        });
-    }
-    else {
-        //show content
-        showContent();
-        //load teacher work
-        initTeacherTables();
-
-    }
+        });*/
 }
 
 
@@ -374,7 +361,7 @@ function showRemovalWork(event) {
     if(removalWorks.length>0){
 
         var data = removalWorks.map(function(work) {
-            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button> <button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
         });
         //update data table
 
@@ -488,6 +475,8 @@ function initTeacherTables(){
 function showMyWork(event){
     $('#myWorkContent').show();
     $('#publicWorkContent').hide();
+    $('#sharingForm').hide();
+
     
     if(event!=undefined){
         activateCurrentNavPill(event.target);
@@ -604,7 +593,7 @@ function generateMyWorkTable(){
             var rowData = myWorkTable.row($(this)).data();
 
             $('.hoverToolTip').tooltip();
-            $(this).attr('title',rowData.description);
+            //$(this).attr('title',rowData.description);
             //TODO: show work description
 
         }
@@ -646,6 +635,7 @@ function generateMyWorkTable(){
 function showTeachersPublicWork(event){
     $('#myWorkContent').hide();
     $('#publicWorkContent').show();
+    $('#sharingForm').hide();
 
     if(event!=undefined){
         activateCurrentNavPill(event.target);
@@ -842,7 +832,7 @@ function cancelSharing(){
  */
 
 function userLogin() {
-    console.log("here");
+
     var email = $('#inputEmail').val();
     var pw = $('#inputPassword').val();
 
@@ -852,12 +842,18 @@ function userLogin() {
         url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/login_teacher_pilot_2.php',
         data: 'username=' + email + '&password=' + pw,
         success: function (data) {
-
+             console.log(data);
             if (!isNaN(data)) {
 
                 window.sessionStorage.setItem("teacherId", data);
                 $('#loginModal').modal('hide');
-                init();
+                $("#warning-message").addClass("hidden");
+                //show content
+                $("#main-content").removeClass("hidden");
+                //show content
+                showContent();
+                //load teacher work
+                initTeacherTables();
 
 
 
@@ -875,4 +871,11 @@ function userLogin() {
 
     });
 
+}
+
+function cancelLogin() {
+    console.log("here");
+    $("#warning-message").removeClass("hidden");
+    //show content
+    $("#main-content").addClass("hidden");
 }
