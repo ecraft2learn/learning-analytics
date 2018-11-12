@@ -453,7 +453,7 @@ var teacherPublicWorks=[];
 function initTeacherTables(){
     //load teachers work
     getTeacherWork(function(result){
-        console.log(result);
+        //console.log(result);
         if(result["DATA"]!=undefined){
             //generate teacher my work table
             teacherWorks = result["DATA"];
@@ -462,7 +462,7 @@ function initTeacherTables(){
     });
 
     getTeachersPublicWork(function(result){
-        console.log(result);
+        //console.log(result);
         if(result["DATA"]!=undefined){
             teacherPublicWorks=result["DATA"];
             generatePublicWorkTable();
@@ -651,7 +651,7 @@ function showTeachersPublicWork(event){
 
             //prepare data for datatable
             var data = teacherPublicWorks.map(function(work) {
-                return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["USERNAME"],date:work["TIME_STAMP"],action:""};
+                return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["first_name"] + " " +work["last_name"] ,date:work["TIME_STAMP"],action:""};
             });
             if(data.length>0){
 
@@ -678,7 +678,7 @@ var publicWorkTable;
 function generatePublicWorkTable(){
     //select inrested data to show in the table
     var data = teacherPublicWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["USERNAME"],date:work["TIME_STAMP"],action:""};
+        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["first_name"] + " " +work["last_name"],date:work["TIME_STAMP"],action:""};
     });
     publicWorkTable = $('#publicWork').DataTable({
         select:true,
@@ -763,7 +763,7 @@ function generatePublicWorkTable(){
             var rowData = publicWorkTable.row($(this)).data();
 
             $('.hoverToolTip').tooltip();
-            $(this).attr('title',rowData.description);
+            //$(this).attr('title',rowData.description);
             //TODO: show work description
 
         }
@@ -842,7 +842,7 @@ function userLogin() {
         url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/login_teacher_pilot_2.php',
         data: 'username=' + email + '&password=' + pw,
         success: function (data) {
-             console.log(data);
+             console.log("user id: " + data);
             if (!isNaN(data)) {
 
                 window.sessionStorage.setItem("teacherId", data);

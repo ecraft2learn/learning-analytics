@@ -122,7 +122,7 @@ function getTeacherWork(callback){
 function getTeachersPublicWork(callback){
     var pilotsite = window.sessionStorage.getItem("sessionId");
     //console.log(pilotsite);
-    var data = {"pilotsite":pilotsite,"role":1,"func":"getSchoolSharedFiles"};
+    var data = {"pilotsite":pilotsite,"role":1,"func":"getTeachersSchoolSharedFiles"};
 
     postAjaxRequest(SERVER_URL,data,callback);
 }
