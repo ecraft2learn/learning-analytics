@@ -48,9 +48,10 @@ function showContent() {
 
 
 function generateStudentWorkTable(){
+    console.log(studentWorks);
     //select inrested data to show in the table
     var data = studentWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["USERNAME"],project:work["PRJ_NAME"],status:work["STATUS"],date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button> "};
+        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["USERNAME"],project:work["PRJ_NAME"],status:work["STATUS"],date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button> "};
     });
     studentTable = $('#studentWork').DataTable({
         select:true,
@@ -192,17 +193,13 @@ function generateStudentWorkTable(){
 
         var row = studentTable.row( $(this).parents('tr') );
         var data = row.data();
-        removeStudentsWork(data.id,function (result) {
-            if(result["RESULT"]==="SUCCESS"){
-                //remove work from studentWork
-                removeElement(data.id);
-                //remove row in the table
-                row.remove().draw();
-                updateAwaitingCount();
-            }
-            else{
 
-            }
+        stopShareWork(data.id,function (result) {
+            //remove work from studentWork
+            removeElement(data.id);
+            //remove row in the table
+            row.remove().draw();
+            updateAwaitingCount();
         });
 
 
@@ -274,11 +271,13 @@ function removeElement(id){
     var workIndex = studentWorks.findIndex(function(work){
         return work["ID"]===id;
     });
-    console.log(workIndex);
+    //console.log(workIndex);
     if(workIndex>-1){
         studentWorks.splice(workIndex, 1);
     }
     updateRemovalWork();
+    updateAwaitingCount();
+    updateApprovalWork();
 
 }
 
@@ -332,7 +331,7 @@ function showAllWork(event) {
     event.preventDefault();
     //prepare data for datatable
     var data = studentWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+        return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
     });
     if(data.length>0){
 
@@ -361,7 +360,7 @@ function showRemovalWork(event) {
     if(removalWorks.length>0){
 
         var data = removalWorks.map(function(work) {
-            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button> <button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button> <button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
         });
         //update data table
 
@@ -389,7 +388,7 @@ function showApprovalWork(event){
 
     if(approvalWorks.length>0){
         var data = approvalWorks.map(function(work) {
-            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+            return {id:work["ID"],description:work["DESCRIPTION"],title:work["TITLE"],keywords:work["KEYWORDS"],file_path:work["FILE_PATH"],author:work["USERNAME"],project:work["PRJ_NAME"],status:m_createStatusIndicator(work["STATUS"]),date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn approveButton' title='Approve' data-toggle='tooltip' data-placement='top' title='Approve'><span class='glyphicon glyphicon-ok-sign'></span></button><button type='button' class='icon_info btn rejectButton' title='Disapprove' data-toggle='tooltip' data-placement='top' title='disapprove'><span class='glyphicon glyphicon-remove-sign'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
         });
         //update data table
         $('#studentWork').dataTable().fnClearTable();
@@ -491,7 +490,7 @@ function showMyWork(event){
             teacherWorks = result["DATA"];
             //prepare data for datatable
             var data = teacherWorks.map(function(work) {
-                return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+                return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
             });
             if(data.length>0){
 
@@ -514,7 +513,7 @@ var myWorkTable;
 function generateMyWorkTable(){
     //select inrested data to show in the table
     var data = teacherWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],date:work["TIME_STAMP"],action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
+        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],date:formatdate(work["TIME_STAMP"]),action:"<button type='button' class='icon_info btn downloadButton' title='Download' data-toggle='tooltip' data-placement='top' title='Download'><span class='glyphicon glyphicon-download-alt'></span></button><button type='button' class='icon_info btn removeButton' title='Remove' data-toggle='tooltip' data-placement='top' title='Remove'><span class='glyphicon glyphicon-trash'></span></button>"};
     });
     myWorkTable = $('#teachersMyWork').DataTable({
         select:true,
@@ -606,14 +605,8 @@ function generateMyWorkTable(){
 
         var row = myWorkTable.row( $(this).parents('tr') );
         var data = row.data();
-        removeStudentsWork(data.id,function (result) {
-            if(result["RESULT"]==="SUCCESS"){
-                //remove row in the table
-                row.remove().draw();
-            }
-            else{
-
-            }
+        stopShareWork(data.id,function (result) {
+            row.remove().draw();
         });
 
     } );
@@ -678,7 +671,7 @@ var publicWorkTable;
 function generatePublicWorkTable(){
     //select inrested data to show in the table
     var data = teacherPublicWorks.map(function(work) {
-        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["first_name"] + " " +work["last_name"],date:work["TIME_STAMP"],action:""};
+        return {id:work["ID"],description:work["DESCRIPTION"],file_path:work["FILE_PATH"],title:work["TITLE"],keywords:work["KEYWORDS"],author:work["first_name"] + " " +work["last_name"],date:formatdate(work["TIME_STAMP"]),action:""};
     });
     publicWorkTable = $('#publicWork').DataTable({
         select:true,
@@ -737,7 +730,7 @@ function generatePublicWorkTable(){
     $(".icon_info").tooltip();
 
     // Sum the count of awaiting items in the top tab
-    updateAwaitingCount();
+    //updateAwaitingCount();
 
     //ROW SELECTION, SHOW DESCRIPTION OF THE FILE
     $('#publicWork tbody').on( 'click', 'tr', function () {
@@ -776,6 +769,24 @@ function generatePublicWorkTable(){
 
         var filename = data.file_path.split("/")[1];
         download(filename)
+
+    } );
+
+    $('#publicWork tbody').on( 'click', 'button.removeButton', function () {
+
+        var row = publicWorkTable.row( $(this).parents('tr') );
+        var data = row.data();
+        stopShareWork(data.id,function (result) {
+            console.log(result);
+            if(result["RESULT"]==="SUCCESS"){
+                //remove row in the table
+                row.remove().draw();
+            }
+            else{
+
+            }
+        });
+
 
     } );
 }
@@ -878,4 +889,9 @@ function cancelLogin() {
     $("#warning-message").removeClass("hidden");
     //show content
     $("#main-content").addClass("hidden");
+}
+
+function formatdate(date){
+    var formatteddate = moment(new Date(date)).format("DD-MM-YYYY hh:mm:ss");
+    return formatteddate;
 }

@@ -67,14 +67,14 @@ function rejectStudentsWork(sharingId,callback){
 /**
  * REMOVE STUDENTS WORK
  */
-function removeStudentsWork(sharingId,callback){
+function stopShareWork(sharingId, callback){
 
-    var data = {"sharingId":sharingId,"status":3,"func":"updateSharingFileStatus"};
+    var data = {"id":sharingId,"func":"stopSharing"};
     postAjaxRequest(SERVER_URL,data,callback);
 
     //remove file from server
-    var data = {"id":sharingId,"func":"stopSharing"};
-    postAjaxRequest(SERVER_URL,data,callback);
+    // var data = {"id":sharingId,"func":"stopSharing"};
+    // postAjaxRequest(SERVER_URL,data,callback);
 }
 
 
