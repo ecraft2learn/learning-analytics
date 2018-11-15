@@ -47,6 +47,7 @@ function getCategoryCriterias(categoryId, responseHandler) {
 
     formData.append("func", "getCategoryCriterias");
     formData.append("category", categoryId);
+    formData.append("activity", getActivityId());
 
     makeAjaxCall(formData, responseHandler);
 }
@@ -161,6 +162,16 @@ function getTeachersActivities(teacherId, responseHandler) {
     makeAjaxCall(formData, responseHandler);
 }
 
+function getSelectedActivityCriterias(activityId, categoryId, responseHandler){
+    var formData = new FormData();
+
+    formData.append("func", "getSelectedActivityCriterias");
+    formData.append("activity", activityId);
+    formData.append("category", categoryId);
+
+    makeAjaxCall(formData, responseHandler);
+}
+
 function getGroupEvaluationFromLearningAnalytics(groupName, responseHandler) {
     
     
@@ -200,8 +211,8 @@ function ping(handler) {
 }
 
 //var url = "http://cs.uef.fi/~ec2l/seval.php";
-//var url = "https://cs.uef.fi/~ec2l/selfEvaluationManager.php";
-var url = "http://localhost/php/selfEvaluationManager.php"; 
+var url = "https://cs.uef.fi/~ec2l/selfEvaluationManager.php";
+//var url = "http://localhost/php/selfEvaluationManager.php"; 
 function makeAjaxCall(formData, handler, async = true) {
     //if (!handler)
     //  handler = successHandler;

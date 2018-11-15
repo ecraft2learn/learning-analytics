@@ -18,19 +18,15 @@ function addActivityCriterias(phpResults) {
         var category = criterias.DATA[0];
         if (!document.getElementById('criteria-' + category.CategoryName + '-' + category.CategoryId)) {
 
-            var html = '<ul class=\'criteria-ul\' id=\'criteria-' + category.CategoryName + '-' + category.CategoryId + '\'>';
+            var html = '<ul class=\'criteria-ul\' id=\'category-' + category.CategoryId + '\'>';
             for (let i = 0; i < criterias.DATA.length; i++) {
 
                 var category = criterias.DATA[i];
-
-
                 //for (let j = 0; j < category.content.length; j++) {
 
                 html += '<li name="category.Id" onclick=\'checkCriteria("criteria-content-' + category.Id + '")\' id=\'criteria-content-' + category.Id + '\'>' + category.Name + '</li>';
 
                 //}
-
-
             }
             html += '</ul>';
 
@@ -39,9 +35,10 @@ function addActivityCriterias(phpResults) {
         } else {
 
             $('#criteria-' + category.CategoryName + '-' + category.CategoryId).remove(); // toggle
-
         }
 
+
+        getSelectedActivityCriterias(getActivityId(), category.CategoryId, fillCriterias);
     }
 }
 
@@ -54,7 +51,7 @@ function getCriterias() {
 
     for (let i = 0; i < $criterias.length; i++) {
 
-		let ul = $($criterias[i]).attr('id');
+        let ul = $($criterias[i]).attr('id');
 
         let $li = $('#' + ul + ' li.checked');
 
@@ -66,7 +63,7 @@ function getCriterias() {
 
         for (let j = 0; j < $li.length; j++) {
 
-			obj.content.push($($li[i]).text());	
+            obj.content.push($($li[i]).text());
 
         }
 
@@ -112,6 +109,16 @@ function fillActivityForm(phpResult) {
     $.each(activity.DATA, function (index, category) {
         checkCategory(category.CategoryId);
     });
+}
+
+function fillCriterias(phpResult) {
+
+    var activity = JSON.parse(phpResult);
+
+    //if (activity.DATA)
+    $.each(activity.DATA, function (index, criteria) {
+        checkCriteria("criteria-content-" + criteria.Criteria);
+    });
 
     hideLoader();
 }
@@ -140,7 +147,7 @@ function saveActivity() {
         Description: $('#activityDesc').val(),
         Teacher: getTeacherId(),
         Categories: [],
-        Criterias:[]
+        Criterias: []
     };
 
     //get the selected categories
@@ -152,13 +159,19 @@ function saveActivity() {
         activity.Categories.push(category);
     });
 
-     //get the selected criterias
-     $.each($('#criteriaContainer > li.checked'), function (i, criteria) {
+    //get the selected criterias
+    $.each($('#criteriaContainer > ul > li.checked'), function (i, criteria) {
+
+        //get the owning category of the selected criteria
+        var category = $('#' + criteria.id).closest('ul').attr('id');
+        category = category.split("-")[1];
 
         var criteria = criteria.id;
-        criteria = criteria.split("-")[1];
+        criteria = criteria.split("-")[2];
 
-        activity.Criterias.push(criteria);
+
+
+        activity.Criterias.push([criteria, category]);
     });
 
     submitActivity(activity, successfulActivitySubmit);
