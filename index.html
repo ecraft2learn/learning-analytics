@@ -23,6 +23,9 @@
 		<link rel='stylesheet' type='text/css' href='lib/tags/tags.min.css'>
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel='stylesheet' type='text/css' href='css/lnu/call4action-module/main.css'>
+		<link rel='stylesheet' type='text/css' href='css/lnu/share-module/main.css'>
+		<link rel='stylesheet' type='text/css' href='css/lnu/share-module/dataTables.bootstrap.min.css'>
+
 
 		<!-- for electron -->
 		<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
@@ -61,8 +64,14 @@
 		<script src='js/oer.js'></script>
 
 		<!--LNU Call4Action module-->
-		<script src = 'js/lnu/call4action-module/main.js'></script>
+		<script src = 'js/lnu/call4action-module/call4action-main.js'></script>
 		<script src = 'js/lnu/call4action-module/api-calls.js'></script>
+
+		<!--LNU Share module-->
+		<script src = 'js/lnu/share-module/share-module-main.js'></script>
+		<script src = 'js/lnu/share-module/api-calls.js'></script>
+		<script src = 'js/lnu/share-module/dataTables/dataTables.bootstrap.min.js'></script>
+
 
 		<script>if (window.module) module = window.module;</script>
 		<!-- end load and electron -->
@@ -90,8 +99,10 @@
 							<li id='li-evaluation' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-evaluation' data-toggle='tooltip' title='Students evaluation tool' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Evaluate students performance</span></a></li>
 							<li id='li-activity' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-activity' data-toggle='tooltip' title='Create and modify activity for your students' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> View proposed activity</span></a></li>
   							
-  							
+  							<!--LNU modeules-->
 							<li id='li-call4action' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
+							<li id='li-share-lnu' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='share-lnu'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Sharing</span></a></li>
+
 						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -330,7 +341,7 @@
                                 
                                 });
 
-				$('#li-call4action').on('click', function(event) {
+				$('#call4action').on('click', function(event) {
                     $('#li-cluster').removeClass('active');
                     $('#li-classification').removeClass('active');
                     $('#li-anomaly').removeClass('active');
@@ -338,6 +349,7 @@
                     $('#li-charts').removeClass('active');
                     $('#li-settings').removeClass('active');
                     $('#li-share').removeClass('active');
+                    $('#li-share-lnu').removeClass('active');
 
                     $('#li-call4action').addClass('active');
 
@@ -348,6 +360,29 @@
 
                     $container.load(uri, function () {
                         init();
+                    });
+                });
+
+
+				$('#share-lnu').on('click', function(event) {
+                    $('#li-cluster').removeClass('active');
+                    $('#li-classification').removeClass('active');
+                    $('#li-anomaly').removeClass('active');
+                    $('#li-home').removeClass('active');
+                    $('#li-charts').removeClass('active');
+                    $('#li-settings').removeClass('active');
+                    $('#li-share').removeClass('active');
+                    $('#li-call4action').removeClass('active');
+
+                    $('#li-share-lnu').addClass('active');
+
+                    analysisObjects.uiConstants.removeContent();
+                    var $container = $(analysisObjects.uiConstants.wrapper);
+
+                    var uri = isChrome() ? analysisObjects.urls.templateUrl + 'lnu/sharing-module/main.html' : 'templates/lnu/sharing-module/main.html';
+
+                    $container.load(uri, function () {
+                        initSharing();
                     });
                 });
 				

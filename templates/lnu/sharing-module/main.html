@@ -1,0 +1,208 @@
+<div class="container" id="lnu-ts">
+    <div class="row">
+
+        <!-- Login modal-->
+        <div id="loginModal" class="modal fade">
+            <div class="modal-dialog login-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelLogin();">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Teacher Login</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col no-pading">
+                            <p>Please enter your email and password</p>
+                            <form id="logFrm" method="post" class="login-form">
+
+                                <div class="form-group">
+                                    <label for="inputEmail">Email address</label>
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address...">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password...">
+                                </div>
+
+                                <button type="button" class="btn btn-primary" onclick="userLogin();">Login</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main content -->
+        <div class="mainTitle well well-lg">
+            <h2>
+                Sharing Module
+                <br>
+                <small>Moderate works by students, and share your work with other teachers</small>
+            </h2>
+            
+        </div>
+
+        <div id="warning-message" class="hidden">
+            <p class="alert alert-warning">
+                You should <a href="#" class="alert-link" onclick="initSharing();return false;">login</a> as a teacher in order to use this
+                module.</p>
+        </div>
+
+        <div id="main-content">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs " role="tablist">
+                <li role="presentation" class="active"><a href="#student-work" id="studentWorkTab" class="sharing-tabs" aria-controls="student-work" role="tab" data-toggle="tab">Student Work</a></li>
+                <li role="presentation" ><a href="#teacher-work" id="teacherWorkTab"aria-controls="teacher-work" role="tab" data-toggle="tab">Teacher Work</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <!--Student Work Tab Content-->
+                <div role="tabpanel" class="tab-pane active" id="student-work">
+
+                    <!--TOOL BAR-->
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="" onclick="showAllWork(event);">All works</a></li>
+                        <li role="presentation"><a href="" onclick="showRemovalWork(event);">Awaiting removal <span class="badge" id="removalCount"></span></a></li>
+                        <li role="presentation"><a href="" onclick="showApprovalWork(event);">Awaiting approval <span class="badge" id="approvalCount"></span> </a></li>
+                    </ul>
+
+                    <div id="dynamicContent">
+
+                        <!--TABLE-->
+                        <table id="studentWork" class="table table-bordered table-hover" style="width:100%">
+                            <thead class="tableHeader">
+                            <tr>
+                                <th>Id</th>
+                                <th>Description</th>
+                                <th>FilePath</th>
+                                <th>Title</th>
+                                <th>Keywords</th>
+                                <th>Author</th>
+                                <th>Project</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+
+
+                </div>
+
+                <!--Teacher Work Tab Content-->
+                <div role="tabpanel" class="tab-pane" id="teacher-work">
+                    <!--TOOL BAR-->
+                    <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="" onclick="showMyWork(event);">My Work</a></li>
+                        <li role="presentation"><a href="" onclick="showTeachersPublicWork(event);return false;">Public Work</a></li>
+
+
+                    </ul>
+
+                    <div id="myWorkContent">
+                        <!--SHARE WORK BUTTON-->
+                        <button type="button" class="btn btn-default" onclick="shareMyWorkForm()">
+                            <span class="glyphicon glyphicon-share" aria-hidden="true"></span> Share My Work
+                        </button>
+
+                        <!--MY WORK TABLE-->
+                        <table id="teachersMyWork" class="table table-bordered table-hover" style="width:100%">
+                            <thead class="tableHeader">
+                            <tr>
+                                <th>Id</th>
+                                <th>FilePath</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Keywords</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+
+                    <!--SHARING FORM-->
+                    <form id="sharingForm" style="display: none">
+                        <div class="well panel panel-default">
+                            <div class="panel-body">
+
+                                <div id="error-message" class="hidden">
+                                    <p class="alert alert-danger">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                      File was not uploaded. Please try again later.
+                                    </p>
+                                </div>
+
+                                <h3>Describe & share your work</h3>
+                                <div class="form-group">
+                                    <label class="pull-left" for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="pull-left" for="description">Description</label>
+                                    <input type="text" class="form-control" id="description" name="description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="pull-left" for="keywords">Keywords</label>
+                                    <input type="text" class="form-control" id="keywords" name="keywords" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="btn" for="fileInput" style="border-color: #3396ce;background-color: #3396ce; color: white">
+                                        <input id="fileInput" type="file" style="display:none" name="file"
+                                               onchange="$('#upload-file-info').html(this.files[0].name)">
+                                               <span class="glyphicon glyphicon-file"></span>
+                                        Select file to share (max size 10MB)
+                                    </label>
+                                    <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-share"></span> Share</button>
+                                <button type="button" class="btn btn-link" onclick="cancelSharing()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                    <div id="publicWorkContent" style="display: none">
+                        <!--PUBLIC WORK TABLE-->
+                        <table id="publicWork" class="table table-bordered table-hover" style="width:100%;">
+                            <thead class="tableHeader">
+                            <tr>
+                                <th>Id</th>
+                                <th>FilePath</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Keywords</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
