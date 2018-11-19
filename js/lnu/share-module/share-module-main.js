@@ -804,6 +804,7 @@ function shareMyWorkForm(){
 
      $("#sharingForm").submit(shareFile);
 
+
 }
 
 
@@ -820,7 +821,11 @@ function shareFile(event) {
             //clear sharing form
             $('#sharingForm').find("input[type=text], textarea,span").val("");
             //show success message
+            $('#error-message').addClass('hidden');
 
+        }
+        else{
+            $('#error-message').removeClass('hidden');
         }
     })
 
@@ -831,6 +836,8 @@ function shareFile(event) {
  * Cancel sharing file
  */
 function cancelSharing(){
+
+    $('#error-message').addClass('hidden');
 
     $('#sharingForm').hide();
     //clear sharing form

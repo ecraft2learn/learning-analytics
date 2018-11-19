@@ -150,9 +150,14 @@ function shareTeacherWork(data,callback){
             async: false,
             success: function (php_script_response) {
                 console.log(php_script_response);
-                var fileId = JSON.parse(php_script_response)["DATA"]["ID"];
-                data.push({"name":"fileId","value":fileId});
-                saveSharing(data,callback);
+                try{
+                    var fileId = JSON.parse(php_script_response)["DATA"]["ID"];
+                    data.push({"name":"fileId","value":fileId});
+                    saveSharing(data,callback);
+                    }
+                catch(e){
+                    callback("error");
+                }
             }
         });
 

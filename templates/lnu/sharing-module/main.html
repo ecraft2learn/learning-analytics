@@ -137,6 +137,14 @@
                     <form id="sharingForm" style="display: none">
                         <div class="well panel panel-default">
                             <div class="panel-body">
+
+                                <div id="error-message" class="hidden">
+                                    <p class="alert alert-danger">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                      File was not uploaded. Please try again later.
+                                    </p>
+                                </div>
+
                                 <h3>Describe & share your work</h3>
                                 <div class="form-group">
                                     <label class="pull-left" for="title">Title</label>
@@ -155,7 +163,7 @@
                                         <input id="fileInput" type="file" style="display:none" name="file"
                                                onchange="$('#upload-file-info').html(this.files[0].name)">
                                                <span class="glyphicon glyphicon-file"></span>
-                                        Select file to share
+                                        Select file to share (max size 10MB)
                                     </label>
                                     <span class='label label-info' id="upload-file-info"></span>
                                 </div>
