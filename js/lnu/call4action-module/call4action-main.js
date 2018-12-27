@@ -50,129 +50,129 @@ function init() {
                 document.getElementById("taskDiv").classList.add("hidden");
             }
         });
+        /**
+         * SUBMIT TASK
+         */
+        document.getElementById("submit-btn").addEventListener('click', function () {
+
+            var form = document.getElementById("taskForm");
+            if (form.checkValidity()) {
 
 
-    }
+                //check if any students were selected
+                if ($('table.table.table-striped :checkbox:checked').length > 0) {
+                    $("#select-error-message").addClass("hidden");
 
-    /**
-     * SUBMIT TASK
-     */
-    document.getElementById("submit-btn").addEventListener('click', function () {
+                    var formData = $('#taskForm').serializeArray();
+                    //check if select all in the data, remove it
+                    var data = formData.filter(function (el) {
+                        return el.name !== "select-all";
+                    });
 
-        var form = document.getElementById("taskForm");
-        if (form.checkValidity()) {
+                    //prepare data to be send on server
+                    var taskName = formData.find(function (obj) {
+                        return obj.name === "title";
+                    });
+                    var taskDescription = formData.find(function (obj) {
+                        return obj.name === "description";
+                    });
+                    var studentIDs = formData.filter(function (obj) {
+                        return obj.name === "student";
 
+                    }).map(function (students) {
+                        return students.value;
+                    });
 
-            //check if any students were selected
-            if ($('table.table.table-striped :checkbox:checked').length > 0) {
-                $("#select-error-message").addClass("hidden");
+                    var taskType = formData.find(function (obj) {
+                        return obj.name === "task-type";
+                    });
 
-                var formData = $('#taskForm').serializeArray();
-                //check if select all in the data, remove it
-                var data = formData.filter(function (el) {
-                    return el.name !== "select-all";
-                });
-
-                //prepare data to be send on server
-                var taskName = formData.find(function (obj) {
-                    return obj.name === "title";
-                });
-                var taskDescription = formData.find(function (obj) {
-                    return obj.name === "description";
-                });
-                var studentIDs = formData.filter(function (obj) {
-                    return obj.name === "student";
-
-                }).map(function (students) {
-                    return students.value;
-                });
-
-                var taskType = formData.find(function (obj) {
-                    return obj.name === "task-type";
-                });
-
-                var isReflection = 0;
-                //check if this task is Reflection task
-                if ($('#reflection-checkbox').is(":checked")) {
-                    isReflection = 1;
-                }
-                console.log(isReflection);
+                    var isReflection = 0;
+                    //check if this task is Reflection task
+                    if ($('#reflection-checkbox').is(":checked")) {
+                        isReflection = 1;
+                    }
+                    console.log(isReflection);
 
 
-                //check if it is dependent task, if task choosen fomr the list
+                    //check if it is dependent task, if task choosen fomr the list
 
-                if (taskType.value === "1") {
-                    if ($("#taskList").val() === "0") {
-                        //show error message
-                        $("#task-error-message").removeClass("hidden");
+                    if (taskType.value === "1") {
+                        if ($("#taskList").val() === "0") {
+                            //show error message
+                            $("#task-error-message").removeClass("hidden");
 
+                        }
+                        else {
+                            $("#task-error-message").addClass("hidden");
+                            var taskId = $("#taskList").val();
+
+                            //autogenerate additional text "Note! This task can be done after Task Name"
+                            // Finish action item '' before you start doing this action item!
+                            // var subtitle = "Note! This task can be done after <b>" + $("#taskList option:selected").text() + "</b>";
+                            var subtitle = `Finish action item: <b>${$("#taskList option:selected").text()}</b> before you start doing this action item!`;
+
+                            var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+                            var preparedData = { "subtitle": subtitle, "taskId": taskId, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
+
+                            console.log(preparedData);
+                            submitTask(preparedData, function (result) {
+                                //clear form data
+                                $("#taskForm").find("input[type=text], textarea").val("");
+                                emptyCheckboxes();
+
+                                //show success notification
+                                if (result["RESULT"] === "SUCCESS") {
+                                    showMessage("Task was created successfully!", "alert-success");
+
+                                }
+                                else {
+                                    showMessage("Some issue is occurred, please try again later.", "alert-danger");
+                                }
+                                document.getElementById("taskDiv").classList.add("hidden");
+                            });
+                        }
                     }
                     else {
-                        $("#task-error-message").addClass("hidden");
-                        var taskId = $("#taskList").val();
 
-                        //autogenerate additional text "Note! This task can be done after Task Name"
-                        // Finish action item '' before you start doing this action item!
-                        // var subtitle = "Note! This task can be done after <b>" + $("#taskList option:selected").text() + "</b>";
-                        var subtitle = `Finish action item: <b>${$("#taskList option:selected").text()}</b> before you start doing this action item!`;
+
+
 
                         var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                        var preparedData = { "subtitle": subtitle, "taskId": taskId, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
+                        var preparedData = { "subtitle": "", "taskId": -1, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
 
-                        console.log(preparedData);
+
                         submitTask(preparedData, function (result) {
                             //clear form data
                             $("#taskForm").find("input[type=text], textarea").val("");
                             emptyCheckboxes();
-
                             //show success notification
                             if (result["RESULT"] === "SUCCESS") {
                                 showMessage("Task was created successfully!", "alert-success");
-
                             }
                             else {
                                 showMessage("Some issue is occurred, please try again later.", "alert-danger");
                             }
-                            document.getElementById("taskDiv").classList.add("hidden");
                         });
                     }
+
                 }
                 else {
-
-
-
-
-                    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                    var preparedData = { "subtitle": "", "taskId": -1, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
-
-
-                    submitTask(preparedData, function (result) {
-                        //clear form data
-                        $("#taskForm").find("input[type=text], textarea").val("");
-                        emptyCheckboxes();
-                        //show success notification
-                        if (result["RESULT"] === "SUCCESS") {
-                            showMessage("Task was created successfully!", "alert-success");
-                        }
-                        else {
-                            showMessage("Some issue is occurred, please try again later.", "alert-danger");
-                        }
-                    });
+                    $("#select-error-message").removeClass("hidden");
                 }
+
+
 
             }
             else {
-                $("#select-error-message").removeClass("hidden");
+
+                form.querySelector('button[type="submit"]').click();
             }
+        }, false);
+
+    }
 
 
-
-        }
-        else {
-
-            form.querySelector('button[type="submit"]').click();
-        }
-    }, false);
 
 
 
