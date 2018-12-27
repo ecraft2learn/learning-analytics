@@ -112,7 +112,9 @@ function init() {
                         var taskId = $("#taskList").val();
 
                         //autogenerate additional text "Note! This task can be done after Task Name"
-                        var subtitle = "Note! This task can be done after <b>" + $("#taskList option:selected").text() + "</b>";
+                        // Finish action item '' before you start doing this action item!
+                        // var subtitle = "Note! This task can be done after <b>" + $("#taskList option:selected").text() + "</b>";
+                        var subtitle = `Finish action item: <b>${$("#taskList option:selected").text()}</b> before you start doing this action item!`;
 
                         var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
                         var preparedData = { "subtitle": subtitle, "taskId": taskId, "func": "addTask", "type": taskType.value, "taskName": taskName.value, "taskDescription": taskDescription.value, "teacherId": window.sessionStorage.getItem("teacherId"), "pilotsite": window.sessionStorage.getItem("sessionId"), "students": studentIDs, "status": 0, "timestamp": timestamp,"isReflection":isReflection };
