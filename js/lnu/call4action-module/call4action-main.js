@@ -3,11 +3,8 @@
  */
 
 function init() {
-    //console.log(window.sessionStorage);
-    var teacher = window.sessionStorage.getItem("teacherId");
-
-    if (teacher == null) {
-
+    var { id: teacherId } = Share.getInstance();
+    if (!teacherId) {
         //show login dialog
         $('#loginModal').modal({
 
@@ -17,8 +14,8 @@ function init() {
         });
 
         $("#loginModal").on("hidden.bs.modal", function () {
-
-            if (window.sessionStorage.getItem("teacherId") == null) {
+            var { id: teacherId } = Share.getInstance();
+            if (!teacherId) {
                 // put your default event here
                 $("#warning-message").removeClass("hidden");
             }
@@ -297,10 +294,11 @@ function emptyCheckboxes() {
  * USER LOGIN
  */
 
-function userLogin() {
+function LNUC4aUserLogin() {
 
     var email = $('#inputEmail').val();
     var pw = $('#inputPassword').val();
+    var share = Share.getInstance();
 
     $.ajax({
 
@@ -311,8 +309,12 @@ function userLogin() {
 
             if (!isNaN(data)) {
 
-                window.sessionStorage.setItem("teacherId", data);
+                share.password = pw;
+                share.username = email;
+                share.id = data;
+
                 $('#loginModal').modal('hide');
+                $("#warning-message").addClass("hidden");
                 init();
 
 

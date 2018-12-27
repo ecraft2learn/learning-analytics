@@ -5,13 +5,18 @@ var studentWorks= [];
 
 
 function initSharing() {
-        //show login dialog
+    var { id: teacherId } = Share.getInstance();
+    if (!teacherId) {
+                //show login dialog
         $('#loginModal').modal({
 
             backdrop: 'static',
             keyboard: false
 
-        });
+        }); 
+    } else {
+        showContent();
+    }
 
         /*$("#loginModal").on("hidden.bs.modal", function () {
 
@@ -852,10 +857,11 @@ function cancelSharing(){
  * USER LOGIN
  */
 
-function userLogin() {
+function LNUShareUserLogin() {
 
     var email = $('#inputEmail').val();
-    var pw = $('#inputPassword').val();
+    var pw = $('#inputPassword').val(); 
+    var share = Share.getInstance();
 
     $.ajax({
 
@@ -863,10 +869,13 @@ function userLogin() {
         url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/login_teacher_pilot_2.php',
         data: 'username=' + email + '&password=' + pw,
         success: function (data) {
-             console.log("user id: " + data);
+            
             if (!isNaN(data)) {
 
-                window.sessionStorage.setItem("teacherId", data);
+                share.password = pw;
+                share.username = email;
+                share.id = data;
+
                 $('#loginModal').modal('hide');
                 $("#warning-message").addClass("hidden");
                 //show content
