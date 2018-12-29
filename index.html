@@ -258,8 +258,21 @@
 					$('#li-share').removeClass('active');
 					
 					$('#li-classification').addClass('active');
+					
+					var dataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+					
+					let init = false;
+										
+					for (let i = 0; i < dataset.length; i++)
+						if (dataset[i].wellPerformed !== -2)
+							init = true;
+					
+					if (init)
+						new initClassification();
+					else
+						alert('You have to label the students first');
 				
-					new initClassification();
+					//new initClassification();
 				
 				});
 				
@@ -275,7 +288,20 @@
 
 					$('#li-anomaly').addClass('active');
 				
-					new initAnomaly();
+					var dataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+					
+									
+					
+					let init = false;
+					
+					for (let i = 0; i < dataset.length; i++)
+						if (dataset[i].anomaly !== 0)
+							init = true;
+					
+					if (init)
+						new initAnomaly();
+					else
+						alert('You have to label the students first');
 				
 				});
 				
