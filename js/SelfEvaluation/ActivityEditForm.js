@@ -190,6 +190,8 @@ function saveActivity() {
 function successfulActivitySubmit(phpResult) {
     window.sessionStorage.setItem("evaluatedActivity", phpResult);
 
+    console.log(phpResult);
+
     $('#saveCompleteModal').modal();
 }
 
