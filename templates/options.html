@@ -1,7 +1,7 @@
 <div id='teacher-settings'>
 	<textarea id='teacher-settings-textarea'></textarea>
 	<button class='btn btn-success' id='save-reflection'>Save</button>
-	<div class='well' id='teacher-settings-include-tools'></div>
+	<!--<div class='well' id='teacher-settings-include-tools'></div>-->
 	<div id='files_dz' class="dropzone"></div>
 </div>
 <script>
@@ -32,7 +32,8 @@
 			processData: false,
 			success: function(data) {
 		
-				console.log(data);
+
+				alert('Upload completed');
 
 			},
 			error: function(error) {
@@ -46,7 +47,7 @@
 
   	});
 
-
+	/*
 	$.ajax({
 	
 		type: 'POST',
@@ -132,7 +133,7 @@
 		}
 
 	});
-    
+    	*/
     function getReflectionContent() {
 	
         $.ajax({
