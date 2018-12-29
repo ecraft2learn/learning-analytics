@@ -1,5 +1,9 @@
 function drawTables(result) {
     var list = JSON.parse(result);
+    
+    if (list && list.DATA && list.DATA.length)
+	$('#no-evaluation').hide();
+
     var html = "";
     var grouppedData = groupData(list.DATA);
     $.each(grouppedData, function (index, element) {

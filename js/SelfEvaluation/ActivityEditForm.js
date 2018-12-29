@@ -11,8 +11,17 @@ function addCategories(phpResult) {
 
 function addActivityCriterias(phpResults) {
 
-    var criterias = JSON.parse(phpResults);
+    hideLoader();
 
+   try { 
+
+   var criterias = JSON.parse(phpResults);
+
+   } catch (e) {
+
+	return;
+
+    }
 
     if (criterias.DATA[0]) {
         var category = criterias.DATA[0];
@@ -40,6 +49,7 @@ function addActivityCriterias(phpResults) {
 
         getSelectedActivityCriterias(getActivityId(), category.CategoryId, fillCriterias);
     }
+
 }
 
 

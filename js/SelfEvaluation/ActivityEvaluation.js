@@ -18,10 +18,10 @@ function setCategory(result, status) {
             html += "<div id=\"category_" + riga.CategoryId + "-criterias\" class=\"col-sm-4 \" style=\"padding-left: 0px; padding-right:opx;\"> </div>";
 
             //students remarks
-            html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
+            //html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
 
             //self-evaluation
-            html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
+            //html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
 
             //teacher evaluation
             html += "<div class=\"row-fluid container-fluid category-footer\"> <div class=\"col-md-2 container-fluid\"> <label for=\"category_" + riga.CategoryId + "-teacherEvaluation\">Teacher evaluation: </label>";
@@ -34,9 +34,9 @@ function setCategory(result, status) {
 
             getCategoryCriterias(riga.CategoryId, addCriterias);
         }
-        else
-            hideLoader();
     }
+
+    hideLoader();
 
     getSelfEvaluation(getActivityId(), getGroupId(), setSelfEvaluation);
 
@@ -69,6 +69,8 @@ function addCriterias(result, status) {
 
     var list = JSON.parse(result);
 
+    console.log(list);
+
     var gruppedCriterias = groupCriteriaValues(list.DATA);
 
     var html = "";
@@ -88,13 +90,16 @@ function addCriterias(result, status) {
         });
 
         $('#category_' + list.DATA[0].Category + '-criterias').append(html);
-        //alert("added criterias");
+        //alert("added criterias")
+	console.log('meni');
         getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
     }
 
 }
 
 function setCategorySelfEvaluation(result, status) {
+
+    console.log(result);
 
     if (result) {
         var list = JSON.parse(result);

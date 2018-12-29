@@ -45,6 +45,9 @@ function getActivityCategories(activityId, responseHandler) {
 function getCategoryCriterias(categoryId, responseHandler) {
     var formData = new FormData();
 
+    console.log(categoryId);
+    console.log(getActivityId());
+
     formData.append("func", "getCategoryCriterias");
     formData.append("category", categoryId);
     formData.append("activity", getActivityId());
