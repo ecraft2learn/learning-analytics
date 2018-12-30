@@ -103,6 +103,7 @@
 							<li id='li-call4action' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
 							<li id='li-share-lnu' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='share-lnu'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Sharing</span></a></li>
 
+							<li id='li-tools' role='presentation'><a href='javascript:void(0)' id='a-tools'>&nbsp;&nbsp;<span class='glyphicon glyphicon-briefcase'></span> Select tools for UUI</span></a></li>
 						</ul>
   						
 						<form class='navbar-form' id='session-connect'>
@@ -197,6 +198,24 @@
 
 
 				});
+				
+				$('#a-tools').on('click', function() {
+					$('#li-cluster').removeClass('active');
+					$('#li-classification').removeClass('active');
+					$('#li-anomaly').removeClass('active');
+					$('#li-charts').removeClass('active');
+					$('#li-apriori').removeClass('active');
+					$('#li-settings').removeClass('active');
+					$('#li-share').removeClass('active');
+					$('#li-home').removeClass('active');
+					
+					$('#li-tools').addClass('active');
+					analysisObjects.uiConstants.removeContent();
+					var $container = $(analysisObjects.uiConstants.wrapper);
+					$container.append('<iframe src="./templates/pilottools/pilottools.html" frameBorder="0" style="width:100vw;height:89vh;"></iframe>');
+					//$container.append('<div class="gridview-content"></div>');
+					//new GridView();
+				});
 			
 				$('#a-home').on('click', function(event) {
 				
@@ -207,6 +226,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');
+					$('#li-tools').removeClass('active');
 					
 					$('#li-home').addClass('active');
 					
@@ -224,6 +244,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-share').removeClass('active');
 					$('#li-home').removeClass('active');
+					$('#li-tools').removeClass('active');
 					
 					$('#li-settings').addClass('active');
 
@@ -240,6 +261,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');
+					$('#li-tools').removeClass('active');
 					
 					$('#li-cluster').addClass('active');
 				
@@ -256,6 +278,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');
+					$('#li-tools').removeClass('active');
 					
 					$('#li-classification').addClass('active');
 					
@@ -285,6 +308,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');					
+					$('#li-tools').removeClass('active');
 
 					$('#li-anomaly').addClass('active');
 				
@@ -314,6 +338,7 @@
 					$('#li-apriori').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');					
+					$('#li-tools').removeClass('active');
 
 					$('#li-charts').addClass('active');
 				
@@ -330,6 +355,7 @@
 					$('#li-charts').removeClass('active');
 					$('#li-settings').removeClass('active');
 					$('#li-share').removeClass('active');					
+					$('#li-tools').removeClass('active');					
 
 					$('#li-apriori').addClass('active');
 				
@@ -345,6 +371,7 @@
                                         $('#li-home').removeClass('active');
                                         $('#li-charts').removeClass('active');
                                         $('#li-settings').removeClass('active');
+										$('#li-tools').removeClass('active');
                                         
                                         $('#li-share').addClass('active');
                               
