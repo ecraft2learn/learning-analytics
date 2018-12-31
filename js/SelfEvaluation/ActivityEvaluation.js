@@ -112,8 +112,14 @@ function setCategorySelfEvaluation(result, status) {
 
             $('#category_' + gruppedEvaluations.Category + '_remark').append(gruppedEvaluations.Remark);
             //$('#category_' + gruppedEvaluations.Category + '_selfEvaluation').append(gruppedEvaluations.SelfEvaluation);
-            $('#category_' + gruppedEvaluations.Category + '-teacherEvaluation').val(gruppedEvaluations.TeacherEvaluation);
-            $('#category_' + gruppedEvaluations.Category + '-teacherNote').val(gruppedEvaluations.TeacherNote);
+//            $('#category_' + gruppedEvaluations.Category + '-teacherEvaluation').val(gruppedEvaluations.TeacherEvaluation);
+//            $('#category_' + gruppedEvaluations.Category + '-teacherNote').val(gruppedEvaluations.TeacherNote);
+
+		for (let i = 0; i < list.DATA.length; i++) {
+
+			 $('#category_' + list.DATA[i].Category + '-teacherEvaluation').val(list.DATA[i].TeacherEvaluation);
+			 $('#category_' + list.DATA[i].Category + '-teacherNote').val(list.DATA[i].TeacherNote);
+		}
 
 	//console.log(gruppedEvaluations);
 		/*
