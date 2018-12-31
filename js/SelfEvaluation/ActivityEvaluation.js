@@ -18,10 +18,10 @@ function setCategory(result, status) {
             html += "<div id=\"category_" + riga.CategoryId + "-criterias\" class=\"col-sm-4 \" style=\"padding-left: 0px; padding-right:opx;\"> </div>";
 
             //students remarks
-            //html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
+            html += "<div class=\"col-sm-6  form-group\" > <label for=\"category_" + riga.CategoryId + "_remark\">Students remarks:</label>  <p name=\"remark\" id=\"category_" + riga.CategoryId + "_remark\" style=\"margin-right: 10px;\" ></p>    </div>";
 
             //self-evaluation
-            //html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
+            html += "<div class=\"col-sm-2 form-group\">  <label for=\"category_" + riga.CategoryId + "_selfEvaluation\">Self-evaluation: </label> <label name=\"selfEvaluation\" class=\"form-control\" id=\"category_" + riga.CategoryId + "_selfEvaluation\" disabled> </label> </div> </div>";
 
             //teacher evaluation
             html += "<div class=\"row-fluid container-fluid category-footer\"> <div class=\"col-md-2 container-fluid\"> <label for=\"category_" + riga.CategoryId + "-teacherEvaluation\">Teacher evaluation: </label>";
@@ -99,28 +99,42 @@ function addCriterias(result, status) {
 
 function setCategorySelfEvaluation(result, status) {
 
-    console.log(result);
-
     if (result) {
         var list = JSON.parse(result);
 
         if (list.DATA.length > 0) {
             //alert("setting eval criterias");
+
             var gruppedEvaluations = groupEvaluations(list.DATA);
 
             //$('#whatWeKnow').val(gruppedEvaluations.WhatWeKnow);
             //$('#notClear').val(gruppedEvaluations.NotClear);
 
             $('#category_' + gruppedEvaluations.Category + '_remark').append(gruppedEvaluations.Remark);
-            $('#category_' + gruppedEvaluations.Category + '_selfEvaluation').append(gruppedEvaluations.SelfEvaluation);
+            //$('#category_' + gruppedEvaluations.Category + '_selfEvaluation').append(gruppedEvaluations.SelfEvaluation);
             $('#category_' + gruppedEvaluations.Category + '-teacherEvaluation').val(gruppedEvaluations.TeacherEvaluation);
             $('#category_' + gruppedEvaluations.Category + '-teacherNote').val(gruppedEvaluations.TeacherNote);
 
+	//console.log(gruppedEvaluations);
+		/*
             $.each(gruppedEvaluations.Criterias, function (index, critEval) {
+
+	       console.log(critEval);
 
                 $('#category_' + gruppedEvaluations.Category + '-criteria_' + critEval.Criteria + '_value').append(critEval.Value);
 
             });
+	*/
+
+	for (let i = 0; i < list.DATA.length; i++) {
+
+		console.log($('#category_' + list.DATA[i].Category + '_selfEvaluation'));
+
+		$('#category_' + list.DATA[i].Category + '_selfEvaluation').text(list.DATA[i].SelfEvaluation);
+		$('#category_' + list.DATA[i].Category + '_remark').text(list.DATA[i].Remark);
+
+	}
+
         }
 
         hideLoader();
