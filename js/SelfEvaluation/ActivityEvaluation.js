@@ -69,8 +69,6 @@ function addCriterias(result, status) {
 
     var list = JSON.parse(result);
 
-    console.log(list);
-
     var gruppedCriterias = groupCriteriaValues(list.DATA);
 
     var html = "";
@@ -91,8 +89,10 @@ function addCriterias(result, status) {
 
         $('#category_' + list.DATA[0].Category + '-criterias').append(html);
         //alert("added criterias")
-	console.log('meni');
-        getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
+        window.sessionStorage.setItem('tempActivityId', getActivityId());
+	window.sessionStorage.setItem('tempCategoryId', list.DATA[0].Category);
+	window.sessionStorage.setItem('tempGroupId', getGroupId());
+	getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
     }
 
 }
@@ -128,12 +128,33 @@ function setCategorySelfEvaluation(result, status) {
 
 	for (let i = 0; i < list.DATA.length; i++) {
 
-		console.log($('#category_' + list.DATA[i].Category + '_selfEvaluation'));
-
 		$('#category_' + list.DATA[i].Category + '_selfEvaluation').text(list.DATA[i].SelfEvaluation);
 		$('#category_' + list.DATA[i].Category + '_remark').text(list.DATA[i].Remark);
 
 	}
+
+	$.ajax({
+
+		type: 'POST',
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_ref.php',
+		data: 'activityId=' + window.sessionStorage.getItem('tempActivityId') + '&categoryId=' + window.sessionStorage.getItem('tempCategoryId') + '&groupId=' + window.sessionStorage.getItem('tempGroupId'),
+		success: function(data) {
+
+			data = JSON.parse(data);
+
+			let labels = $('label[name=criteria]');
+
+
+			console.log(data);
+
+			for (let i = 0; i < data.length; i++) {
+
+				$(labels[i]).text(data[i].Value);	
+		
+			}
+
+		}
+	});
 
         }
 
