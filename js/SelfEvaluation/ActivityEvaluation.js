@@ -65,14 +65,12 @@ function setGroupScore(result, satus){
     $('#learninAnalyticsScore').append(list.status_code);
 }
 
-function addCriterias(result, status) {
-
+function addCriterias(result, status, categoryId) {
     var list = JSON.parse(result);
 
     var gruppedCriterias = groupCriteriaValues(list.DATA);
 
     var html = "";
-
     if (gruppedCriterias.length > 0) {
         $.each(gruppedCriterias, function (index, criteria) {
             html += "<div class=\"row-fluid container-fluid form-group\" style=\"width: 100%; padding-bottom: 5px; padding-right: 0px; padding-left: 0px; margin:0px; \">";
@@ -93,18 +91,17 @@ function addCriterias(result, status) {
 	window.sessionStorage.setItem('tempCategoryId', list.DATA[0].Category);
 	window.sessionStorage.setItem('tempGroupId', getGroupId());
 	getCategorySelfEvaluation(getActivityId(), list.DATA[0].Category, getGroupId(), setCategorySelfEvaluation);
-    }
+    } else
+	getCategorySelfEvaluation(getActivityId(), categoryId, getGroupId(), setCategorySelfEvaluation);
 
 }
 
 function setCategorySelfEvaluation(result, status) {
-
+    //console.log(result);
     if (result) {
         var list = JSON.parse(result);
-
         if (list.DATA.length > 0) {
             //alert("setting eval criterias");
-
             var gruppedEvaluations = groupEvaluations(list.DATA);
 
             //$('#whatWeKnow').val(gruppedEvaluations.WhatWeKnow);
@@ -149,9 +146,6 @@ function setCategorySelfEvaluation(result, status) {
 			data = JSON.parse(data);
 
 			let labels = $('label[name=criteria]');
-
-
-			console.log(data);
 
 			for (let i = 0; i < data.length; i++) {
 
