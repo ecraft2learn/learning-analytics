@@ -51,8 +51,30 @@ function setSelfEvaluation(result, status) {
 
         if (list.DATA.length > 0) {
             $('#evaluatedGroup').append(list.DATA[0].GroupName);
-            $('#whatWeKnow').append(list.DATA[0].WhatWeKnow);
-            $('#notClear').append(list.DATA[0].NotClear);
+            //$('#whatWeKnow').append(list.DATA[0].WhatWeKnow);
+            //$('#notClear').append(list.DATA[0].NotClear);
+
+		$.ajax({
+
+			type: 'POST',
+			url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_notes_etc.php',
+			data: 'groupId=' + getGroupId() + '&activityId=' + getActivityId(),
+			success: function(data) {
+
+				let parsed = JSON.parse(data);
+				let first = parsed[0];
+
+				$('#whatWeKnow').append(first.WhatWeKnow);
+				$('#notClear').append(first.NotClear);
+
+			},
+			error: function(error) {
+				
+				// FAIL silently
+
+			}
+
+		});
 
             getGroupEvaluationFromLearningAnalytics(list.DATA[0].GroupName, setGroupScore);
         }
