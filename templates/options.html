@@ -3,6 +3,7 @@
 	<button class='btn btn-success' id='save-reflection'>Save</button>
 	<!--<div class='well' id='teacher-settings-include-tools'></div>-->
 	<div id='files_dz' class="dropzone"></div>
+	<div id='student-reflection'></div>
 </div>
 <script>
 
@@ -46,6 +47,42 @@
 
 
   	});
+
+	$.ajax({
+
+		type: 'POST',
+		url: 'https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/get_student_reflection.php',
+		data: 'sessionId=' + sessionId,
+		success: function(data) {
+
+			let parsed = JSON.parse(data);
+
+			let str = '<h3>Students\' reflections</h3>';
+
+			if (parsed && parsed.length) {
+
+				for (let i = 0; i < parsed.length; i++) {
+
+					str += '<div class=\'well\'>';
+					str += '<h5>' + parsed[i].USERNAME + '</h5>';
+					str += '<p>' + parsed[i].ANSWER + '</p>';
+					str += '<small>' + parsed[i].TIME_STAMP + '</small>';
+					str += '</div>';
+
+				}
+
+			} else
+				str += '<h5>No student has made a self-reflection</h5>';
+
+			$('#student-reflection').html(str);
+
+		},
+		error: function(error) {
+
+			console.log(error);
+		}
+
+	});
 
 	/*
 	$.ajax({
