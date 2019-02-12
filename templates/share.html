@@ -116,12 +116,10 @@
 <div id='share-upload-div' class='well'>
 	
 	<h4>Share an image, tag your image and write a tiny description.</h4>
-	<input style='display: inline-block !important;' name='tags' id="tags" value='' >
-	<textarea style='display: inline-block;' id='desc' cols='5' rows='4' maxlength='120' placeholder='add a description here'></textarea>
+	<input style='display: inline-block !important; height: 64px;' name='tags' id="tags" value='' >
+	<textarea style='display: inline-block; height: 64px;' id='desc' cols='5' rows='4' maxlength='120' placeholder='add a description here'></textarea>
 	<input style='display: inline-block;' type='file' accept='image/gif, image/jpeg, image/png' id='share-file'>
-	<img id='upload-share-img' src='#' alt='' >
-	<br>
-	<br>
+	<img id='upload-share-img' src='' alt='' >
 	<br>
 	<button style='display: inline-block;' id='share-upload' class='btn btn-success'>Upload</button>
 	<button class='btn btn-info' id='toggle-comments'>Toggle commenting</button>	
@@ -239,8 +237,6 @@
 				$(tags[i]).parent().parent().hide();
 
 			} else {
-
-				console.log('jaa');
 
 				$(tags[i]).parent().parent().show();
 				found[$(tags[i]).parent().parent().attr('id')] = true;
@@ -549,6 +545,10 @@ textarea:focus {
 .panel>.panel-heading:before{
 	border-right-color:#ddd;
 	border-width:8px;
+}
+#tags_tagsinput{
+	height: 64px !important;
+	min-height: 64px !important;
 }
 </style>
 <script>

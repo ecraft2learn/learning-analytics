@@ -70,7 +70,7 @@ var Share = (function(){
                 			html += '<div class="post-heading">';
                     			html += '<div class="pull-left image">';
 
-                        		html += '<img src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\' class="img-circle avatar" alt="user profile image">';
+                        		html += '<img width=\'50px\' src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\' class="img-circle avatar" alt="user profile image">';
                     			html += '</div>';
 
                     			html += '<div class="pull-left meta">';
@@ -82,9 +82,12 @@ var Share = (function(){
                 
 					html += '<div class="post-description">';
 
-                    			html += '<p>' + list[i].description + ' ';
+                    			html += '<p>';
 
 					html += '<img src=\'' + list[i].file_url + '\' alt=\'\' width=\'250\'>';
+					
+					html += '<br>';
+					html += list[i].description;
 
 					html += '</p>';
 
@@ -106,24 +109,22 @@ var Share = (function(){
 
         				html += '</div>';
 	
-					html += '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+					//html += '<br><br><br><br><br><br><br><br>';
 
 					if (list[i].comments) {
 
-						html += '<h4 style=\'margin-top: 30px;\'>Comments for the share</h4>';
-
-						html += '<div class=\'container\'>';
+						html += '<div class=\'container\' style=\'margin-top: 20px;\'>';
 
 						html += '<div class=\'row\'>';
 
 						for (var j = 0; j < list[i].comments.length; j++) {
 
-							html += '<div class=\'col-sm-1\'>';
-							html += '<div class=\'thumbnail\'>';
+							//html += '<div class=\'col-sm-1\'>';
+							//html += '<div class=\'thumbnail\'>';
 
-							html += '<img class=\'img-responsive user-photo\' src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\'>';
-							html += '</div>';
-							html += '</div>';
+							//html += '<img class=\'img-responsive user-photo\' src=\'https://ssl.gstatic.com/accounts/ui/avatar_2x.png\'>';
+							//html += '</div>';
+							//html += '</div>';
 
 							html += '<div class=\'col-sm-5\'>';
 							html += '<div class=\'panel panel-default\'>';
