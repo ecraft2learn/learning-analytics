@@ -24,7 +24,8 @@ Anomaly detection | One class SVM with kernel
 
 ### Adding self-made components to system:
 ```
-Add your html template to templates folder and include the js / css files in index.html then in index.html add the following lines
+Add your html template to templates folder and include the 
+js / css files in index.html then in index.html add the following lines
 ```
 ```html
 <!-- inside of <ul class='nav navbar-nav'>...</ul>  -->
