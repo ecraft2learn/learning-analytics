@@ -26,7 +26,7 @@ Anomaly detection | One class SVM with kernel
 ```
 Add your html template to templates folder and include the js / css files in index.html then in index.html add the following lines
 ```
-````html
+```html
 <!-- inside of <ul class='nav navbar-nav'>...</ul>  -->
 <li id='TOOL_NAME' role='presentation'><a href='javascript:void(0)' id='a-TOOL_NAME'>&nbsp;&nbsp;<span class='glyphicon glyphicon-ICON'></span> TOOL_NAME</span></a></li>
 ```
