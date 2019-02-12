@@ -21,3 +21,36 @@ Anomaly detection | One class SVM with kernel
 ### You can also run the app with [electron](https://electron.atom.io)
 
 [Instance of the app running on a server](https://ecraft2learn.github.io/learning-analytics/)
+
+### Adding self-made components to system:
+```
+Add your html template to templates folder and include the js / css files in index.html then in index.html add the following lines
+```
+````html
+<!-- inside of <ul class='nav navbar-nav'>...</ul>  -->
+<li id='TOOL_NAME' role='presentation'><a href='javascript:void(0)' id='a-TOOL_NAME'>&nbsp;&nbsp;<span class='glyphicon glyphicon-ICON'></span> TOOL_NAME</span></a></li>
+```
+
+```javascript
+$('#a-TOOL_NAME').on('click', (event) => {
+
+
+	analysisObjects.uiConstants.removeContent();
+ 
+       	let $container = $(analysisObjects.uiConstants.wrapper);
+
+        showLoader();
+
+        let uri = isChrome() ? analysisObjects.urls.templateUrl + 'TEMPLATE_NAME.html' : 'templates/TEMPLATE_NAME.html';
+
+        $container.load(uri, () => {
+ 
+        	hideLoader();
+
+		// do things after your html template has been loaded...
+
+        });
+
+});
+
+```
