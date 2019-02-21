@@ -1580,8 +1580,10 @@ initClassification.prototype.generateClassificationTable = function() {
 			if (! (key in analysisObjects.miners.ignoredAttributes) || key === 'users') {
 			
 				var value = obj[key];
+				
+				// console.log(value);
 
-				value = ! isNaN(value) ? +value.toFixed(2) : value;
+				value = ! isNaN(value) && value ? +value.toFixed(2) : value;
 
 				str += '<td>' + value + '</td>';
 
