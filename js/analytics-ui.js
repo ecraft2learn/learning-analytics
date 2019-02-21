@@ -1706,7 +1706,7 @@ initAnomaly.prototype.createUI = function() {
 					if (inputs[i].input[j] == 0.000001)
 						inputs[i].input[j] = 0;
 
-					if (! isNaN(inputs[i].input[j]))
+					if (! isNaN(inputs[i].input[j]) && inputs[i].input[j])
 						str += '<td>' + +inputs[i].input[j].toFixed(2) + '</td>';
 					else
 						str += '<td>' + inputs[i].input[j] + '</td>';
