@@ -7,16 +7,16 @@ class GridView {
 	}
 	m_createContent() {
 		var f = this.m_createForm();
-		f.appendChild(this.m_createLabel("Pilot Site:"));
+		//f.appendChild(this.m_createLabel("Pilot Site:"));
 		f.appendChild(this.m_createPilotList());
-		f.appendChild(document.createTextNode("Or"));
-		f.appendChild(document.createElement("br"));
-		f.appendChild(this.m_createLabel("Enter session id:"));
-		f.appendChild(document.createElement("br"));
+		//f.appendChild(document.createTextNode("Or"));
+		//f.appendChild(document.createElement("br"));
+		//f.appendChild(this.m_createLabel("Enter session id:"));
+		//f.appendChild(document.createElement("br"));
 		f.appendChild(this.m_createInput("tool_session_id"));
-		f.appendChild(document.createTextNode("Press enter or click outside session id box to update."));
-		f.appendChild(document.createElement("br"));
-		f.appendChild(document.createElement("br"));
+		//f.appendChild(document.createTextNode("Press enter or click outside session id box to update."));
+		//f.appendChild(document.createElement("br"));
+		//f.appendChild(document.createElement("br"));
 		f.appendChild(this.m_createLabel("Select which tools to inactivate:"));
 		f.appendChild(document.createElement("br"));
 		f.appendChild(this.m_createToolList());
@@ -140,6 +140,7 @@ $(function(){
 		data.append("func", "pilottools-select-pilot");
 		data.append("pilotid", pilotid);
 		$.ajax({
+			async: false,
 			type: "POST",
 			url: SERVER_URL,
 			cache: false,
@@ -173,11 +174,12 @@ $(function(){
 		}
 	});
 	$(document).on('change', '.radio-btn', function(e){
-		var pilotid = $('#pilottools-select-pilots').val(), 
-			data = new FormData();
-		if($('#tool_session_id').val().trim().length>0) {
-			pilotid = $('#tool_session_id').val().trim();
-		}
+		//var pilotid = $('#pilottools-select-pilots').val(), 
+		let data = new FormData();
+		//if($('#tool_session_id').val().trim().length>0) {
+		//	pilotid = $('#tool_session_id').val().trim();
+		//}
+		let pilotid = window.sessionStorage.getItem('sessionId');
 		data.append("func", "pilottools-changed");
 		data.append("pilotid", pilotid);
 		data.append("toolid", $(this).children().eq(0).attr('toolid'));
@@ -200,6 +202,9 @@ $(function(){
 		});
 		
 	});
+
+	$('#tool_session_id').hide();	
+	$('.dropdown-toggle').hide();
 });
 /*
 $(function(){
