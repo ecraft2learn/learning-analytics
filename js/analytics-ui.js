@@ -1232,7 +1232,7 @@ initClassification.prototype.createUI = function() {
 					var pivot = levels[i][j].pivot;
 
 					if (! isNaN(pivot))
-						pivot = +pivot.toFixed(2);
+						pivot = parseFloat(pivot).toFixed(2);
 
 					self.nodes.add({ label: ! levels[i][j].category ? levels[i][j].attribute + predicateString + pivot :
 						levels[i][j].category == 1 ? 'well' : levels[i][j].category == 0 ? 'neurtral' : 'not well', level: self.levelCount + plus, id: levels[i][j].index, size: 25, shape: 'square', featureCount: 0,
@@ -1278,7 +1278,8 @@ initClassification.prototype.createUI = function() {
 
             	hierarchical: {
 
-                	direction: 'UD'
+                	direction: 'UD',
+			nodeSpacing: 300			
 
             	}
 
@@ -1286,16 +1287,7 @@ initClassification.prototype.createUI = function() {
 
         	physics: {
         	
-        		enabled: true,
-    				barnesHut: {
-      					gravitationalConstant: -2000,
-      					centralGravity: 0.3,
-      					springLength: 95,
-      					springConstant: 0.04,
-      					damping: 0.09,
-      					avoidOverlap: 1
-    				},
-    			solver: 'barnesHut'
+        		enabled: false
         	
         	}
 
