@@ -21,6 +21,9 @@
     <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
     Train anomaly detector
 </button>
+<button id='show-one' class='btn btn-info'>
+	Show simplified view
+</button>
 <button id='build-models' class='shortcut-train btn btn-success'>
 	<span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
 	Generate student profiles for UUI adaptation / Self-evaluation
@@ -624,5 +627,87 @@
 		window.localStorage.setItem('isNew', true);
 
 	}
+
+	$('#show-one').on('click', (event) => {
+
+		let dataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+
+		for (let i = 0; i < dataset.length; i++) {
+				
+			let str = '<h5>Simplified view to label students</h5>';
+			
+			str = '<table class=\'table\'>';
+
+			str += '<thead>';
+			str += '<tr>';
+
+			for (let key in dataset[i])
+				if (key !== 'anomaly' && key !== 'hiddenId' && key !== 'wellPerformed')
+					str += '<th>' + key + '</th>';
+
+			str += '<th>Predict</th>';
+	
+			str += '</tr>';
+			str += '</thead>';
+
+			str += '<tbody>';
+			str += '<tr>';
+	
+			for (let key in dataset[i])
+				if (key !== 'anomaly' && key !== 'hiddenId' && key !== 'wellPerformed' && key !== 'timestamp' && key !== 'notes')
+					str += '<td>' + dataset[i][key]	+ '</td>';
+				else if (key === 'timestamp')
+					str += '<td>' + new Date(parseInt(dataset[i][key])).toString() + '</td>';
+				else if (key === 'notes') {
+
+					let value = dataset[i]['notes'];
+     
+                                	if (! value)
+                                        	value = 0;
+
+					str += '<td><input style=\'width: 30px;\' type=\'text\' value=\'' + value + '\' id=\'onenotes-' + dataset[i]['hiddenId'] + '\' class=\'notes\'></td>';			
+
+				}
+
+			str += '<td><select id=\'one-' + dataset[i]['hiddenId'] + '\' onchange=\'selectPerformance(this);\'><option value=\'-2\' selected=\'selected\'>Not included</option><option value=\'-1\'>Not performing well</option><option value=\'0\'>' +
+                        	'Neutral</option><option value=\'1\'>Performing well</option></select></td>';
+
+			str += '</tr>';
+
+			str += '</tbody>';
+			str += '</table>';
+
+                        $(str).dialog({
+
+				width: 1500,
+                                height: 300
+
+                        });	
+
+		}
+
+		$('.notes').on('change', function(event) {
+
+                	let value = event.target.value;
+
+			if (isNaN(value)) {
+
+				alert('Note value has to be a number!');
+				return;
+
+			}
+
+                	let id = event.target.id.split('-')[1];
+
+                	for (var i = 0; i < dataset.length; i++) 
+                        	if (dataset[i].hiddenId === parseInt(id)) {
+                                	dataset[i].notes = parseFloat(value);
+                                	break;
+                        	}    
+
+
+        	}); 
+
+	});
 
 </script>
