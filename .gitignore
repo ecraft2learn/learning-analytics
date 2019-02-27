@@ -4,3 +4,4 @@ js/neural-n-tree.js
 js/outlier.js
 js/sylvester.js
 .vscode/launch.json
+node_modules

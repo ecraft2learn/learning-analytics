@@ -1,13 +1,14 @@
 {
-  "name": "eCraft2Learn-analytics",
-  "version": "0.5.0",
+  "name": "open-learning-analytics",
+  "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "pretty-bytes": "^2.0.1"
+    "pretty-bytes": "^2.0.1",
+    "electron-prebuilt": "^1.4.13"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.35.2"
+    "electron-prebuilt": "^1.4.13"
   },
   "scripts": {
     "start": "electron main.js"

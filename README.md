@@ -19,6 +19,11 @@ Association rule mining | Apriori
 Anomaly detection | One class SVM with kernel
 
 ### You can also run the app with [electron](https://electron.atom.io)
+Only analytics features available when running with electron
+```
+npm install
+npm start
+```
 
 [Instance of the app running on a server](https://ecraft2learn.github.io/learning-analytics/)
 

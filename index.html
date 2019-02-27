@@ -91,22 +91,22 @@
   							<li id='li-classification' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-classification' data-toggle='tooltip' title='For instance to predict student performance'>&nbsp;&nbsp;<span class='glyphicon glyphicon-sort-by-attributes-alt'></span> Predict student or group performance</a></li>
   							<li id='li-anomaly' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-anomaly' data-toggle='tooltip' title='To find anomalies and outliers from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-indent-left'></span> Find anomalies among students or groups</a></li>
   							<li id='li-apriori' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-apriori' data-toggle='tooltip' title='To find intersting relationships from the data'>&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Find events that occur usually simultaneously</a></li>
-  							<li id='li-settings' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Send / view self-reflections</span></a></li>
-  							<li id='li-share' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-globe'></span> Social</span></a></li>
-							<li id='li-oer' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-paperclip'></span> Open educational resources</span></a></li>
+  							<li id='li-settings' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='a-settings'>&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Send / view self-reflections</span></a></li>
+  							<li id='li-share' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='a-share'>&nbsp;&nbsp;<span class='glyphicon glyphicon-globe'></span> Social</span></a></li>
+							<li id='li-oer' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='a-oer'>&nbsp;&nbsp;<span class='glyphicon glyphicon-paperclip'></span> Open educational resources</span></a></li>
 							<!--SELF EVALUATION-->
-							<li id='li-selfEvaluation' class='analysis-tools' role='presentation' > <a href='javascript:void(0)' id='a-selfEvaluation' data-toggle='tooltip' title='For students evaluation and activity creation' >&nbsp;&nbsp;<span class='glyphicon glyphicon-star'></span> Self-Evaluation</span></a></li>
-							<li id='li-activity' class='evaluation-tools active' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-activity' data-toggle='tooltip' title='Create and modify activity for your students' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Send self-evaluation requests</span></a></li>
-							<li id='li-evaluation' class='evaluation-tools' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-evaluation' data-toggle='tooltip' title='Students evaluation tool' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Evaluate students performance</span></a></li>
+							<li id='li-selfEvaluation' class='analysis-tools non-electron' role='presentation' > <a href='javascript:void(0)' id='a-selfEvaluation' data-toggle='tooltip' title='For students evaluation and activity creation' >&nbsp;&nbsp;<span class='glyphicon glyphicon-star'></span> Self-Evaluation</span></a></li>
+							<li id='li-activity' class='evaluation-tools active non-electron' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-activity' data-toggle='tooltip' title='Create and modify activity for your students' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-list'></span> Send self-evaluation requests</span></a></li>
+							<li id='li-evaluation' class='evaluation-tools non-electron' style="display: none" role='presentation'> <a href='javascript:void(0)' id='a-evaluation' data-toggle='tooltip' title='Students evaluation tool' >&nbsp;&nbsp;&nbsp;&nbsp;<span class='glyphicon glyphicon-cog'></span> Evaluate students performance</span></a></li>
   							
   							<!--LNU modeules-->
-							<li id='li-call4action' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
-							<li id='li-share-lnu' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='share-lnu'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Sharing</span></a></li>
+							<li id='li-call4action' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='call4action'>&nbsp;&nbsp;<span class='glyphicon glyphicon-tasks'></span> Call4action</span></a></li>
+							<li id='li-share-lnu' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='share-lnu'>&nbsp;&nbsp;<span class='glyphicon glyphicon-share'></span> Sharing</span></a></li>
 
-							<li id='li-tools' class='analysis-tools' role='presentation'><a href='javascript:void(0)' id='a-tools'>&nbsp;&nbsp;<span class='glyphicon glyphicon-briefcase'></span> Customize UUI</span></a></li>
+							<li id='li-tools' class='analysis-tools non-electron' role='presentation'><a href='javascript:void(0)' id='a-tools'>&nbsp;&nbsp;<span class='glyphicon glyphicon-briefcase'></span> Customize UUI</span></a></li>
 						</ul>
   						
-						<form class='navbar-form' id='session-connect'>
+						<form class='navbar-form non-electron' id='session-connect'>
 							
 							<div class='form-group'>
 								<input class='form-control' placeholder='Session id' id='session-id'>
@@ -114,26 +114,26 @@
 							
 							<button class='btn btn-info' id='connect-button'>Connect</button>
 						</form>
-						<select id='select-pilot'>
+						<select id='select-pilot' class='non-electron'>
 							<option value='' selected='selected'>Or select pilot</option>
 							<option value='11'>Koli Workshop</option>
 							<option value='12'>Lyseo</option>
 							<option value='13'>Athens informal</option>
 							<option value='14'>Athens formal</option>
 						</select>
-						<h4 id='real-time-indicator' class='analysis-tools' style='color: white;'>Real-time classification off</h4>
-						<div id='toggles' style='margin-top: 0px !important;' class='analysis-tools'>
+						<h4 id='real-time-indicator' class='analysis-tools non-electron' style='color: white;'>Real-time classification off</h4>
+						<div id='toggles' style='margin-top: 0px !important;' class='analysis-tools non-electron'>
 							<input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle">
   							<label for="checkbox1" class="checkbox-label" data-off="Off" data-on="On"></label>
 						</div>
-						<div class='range-wrapper analysis-tools'>
+						<div class='range-wrapper analysis-tools non-electron'>
 							<label for='real-time-interval' id='real-time-interval-label'>
 								Real-time classification interval
 							</label>
 							<br>
 							<input name='real-time-interval' id='real-time-interval' class="range-slider__range" type="range" value="3" min="1" max="5" step='0.5'>
 						</div>
-						<div id='users'></div>
+						<div id='users' class='non-electron'></div>
 						</div>
 					</nav>
 				</div>
@@ -176,6 +176,10 @@
 				
 					$('#session-connect').hide();
 					$('#index-img').hide();
+
+					$('.non-electron').remove();
+
+					document.title = 'Open learning analytics';
 					
 				}
 				

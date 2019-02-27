@@ -1,6 +1,6 @@
 <hr>
 <div class='row'>
-<a class='btn btn-link' href='https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/files/la-walkthrough.pdf' target='_blank'>Download manual for LA</a>
+<a class='btn btn-link non-electron' href='https://cs.uef.fi/~tapanit/ecraft2learn/api/pilot_2/files/la-walkthrough.pdf' target='_blank'>Download manual for LA</a>
 <button id='refresh' class='btn btn-info'>
 	<span class='glyphicon glyphicon-refresh' aria-hidden='true'></span>
 	Refresh dataset from server
@@ -9,11 +9,11 @@
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Load dataset from file
 </button>
-<button id='create-session' class='btn btn-success'>
+<button id='create-session' class='btn btn-successi non-electron'>
 	<span class='glyphicon glyphicon-level-up' aria-hidden='true'></span>
 	Create new session
 </button>
-<button id='train-decision-tree' class='shortcut-train btn btn-success'>
+<button id='train-decision-tree' class='shortcut-train btn btn-success non-electron'>
     <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
     Generate predictive tree for real-time classification
 </button>
@@ -24,7 +24,7 @@
 <button id='show-one' class='btn btn-info' disabled='true'>
 	Show simplified view for classification
 </button>
-<button id='build-models' class='shortcut-train btn btn-success'>
+<button id='build-models' class='shortcut-train btn btn-success non-electron'>
 	<span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
 	Generate student profiles for UUI adaptation / Self-evaluation
 </button>
@@ -110,6 +110,8 @@
 </div>
 <div id='test'></div>
 <script>
+
+	$('.non-electron').remove();
 
 	$('#user-search').on('change', (event) => {
 
