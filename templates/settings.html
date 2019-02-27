@@ -21,8 +21,8 @@
     <span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
     Train anomaly detector
 </button>
-<button id='show-one' class='btn btn-info'>
-	Show simplified view
+<button id='show-one' class='btn btn-info' disabled='true'>
+	Show simplified view for classification
 </button>
 <button id='build-models' class='shortcut-train btn btn-success'>
 	<span class='glyphicon glyphicon-wrench' aria-hidden='true'></span>
@@ -628,15 +628,28 @@
 
 	}
 
+	let simplifiedDialogs = {};
+
+	simplifiedDialogs.closeDialogs = function() {
+
+		for (let i = 0; i < simplifiedDialogs.dialogs.length; i++)
+			$(simplifiedDialogs.dialogs[i]).dialog('destroy');
+
+	};
+
 	$('#show-one').on('click', (event) => {
 
 		let dataset = analysisObjects.miners.curDataSet || analysisObjects.miners.groupDataSet || analysisObjects.miners.reducedTimeDataSet || analysisObjects.miners.dataSet;
+		
+		simplifiedDialogs.dialogs = [];
 
 		for (let i = 0; i < dataset.length; i++) {
-				
-			let str = '<h5>Simplified view to label students</h5>';
 			
-			str = '<table class=\'table\'>';
+			let str = '<div>';
+	
+			str += '<h5>Simplified view to label students</h5>';
+			
+			str += '<table class=\'table\'>';
 
 			str += '<thead>';
 			str += '<tr>';
@@ -677,12 +690,18 @@
 			str += '</tbody>';
 			str += '</table>';
 
-                        $(str).dialog({
+			str += '<button class=\'btn btn-warning\' onclick=\'simplifiedDialogs.closeDialogs()\'>Exit</button>';
+
+			str += '</div>';
+			
+                        let $dialog = $(str).dialog({
 
 				width: 1500,
                                 height: 300
 
-                        });	
+                        });
+
+			simplifiedDialogs.dialogs.push($dialog);	
 
 		}
 

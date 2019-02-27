@@ -19,8 +19,18 @@ analysisObjects.miners = {
 	neuralNTreeHeaders: null,
 	neuralNTreeNotes: null,
 	apriori: null,
-	ignoredAttributes: { 'id': true, 'wellPerformed': true, 'hiddenId': true, 'vector_id': true, 'session_id': true, 'users': true, 'timestamp': true,
-	'anomaly': true },
+	ignoredAttributes: { 
+	
+		'id': true, 
+		'wellPerformed': true, 
+		'hiddenId': true, 
+		'vector_id': true, 
+		'session_id': true, 
+		'users': true, 
+		'timestamp': true,
+		'anomaly': true 
+
+	},
 	classificationWellPerformed: {},
 	minTime: null,
 	maxTime: null,
@@ -1295,12 +1305,11 @@ initClassification.prototype.createUI = function() {
 
 		self.visual = new vis.Network(container, data, options);
 
-        self.visual.on('afterDrawing', function(canvas) {
+        	self.visual.on('afterDrawing', function(canvas) {
 
-            logClassification();
+            		logClassification();
 
-
-        });
+        	});
 
 
 		if (automatic) {
@@ -2853,8 +2862,6 @@ function generateGroupBySelect(arr) {
 
 			generateAttributeTable(analysisObjects.miners.groupDataSet);
 
-
-
 			$('#normalize').show();
 
 		} else {
@@ -2891,9 +2898,13 @@ function generateGroupBySelect(arr) {
 
 			window.sessionStorage.setItem('groupped', true);
 
+			$('#show-one').attr('disabled', false);
+
 			$('#normalize').show();
 
 		} else {
+
+			$('#show-one').attr('disabled', true);
 
 			analysisObjects.miners.curDataSet = null;
 			analysisObjects.miners.groupDataSet = null;
