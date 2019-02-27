@@ -111,7 +111,8 @@
 <div id='test'></div>
 <script>
 
-	$('.non-electron').remove();
+	if (window && window.process && window.process.type)
+		$('.non-electron').remove();
 
 	$('#user-search').on('change', (event) => {
 
