@@ -1363,7 +1363,6 @@ initClassification.prototype.createUI = function() {
 		self.visual.on('click', function(properties) {
 
 			var ids = properties.nodes;
-
 			var clickNodes = self.nodes.get(ids);
 
 			if (! clickNodes || ! clickNodes[0])
@@ -1371,10 +1370,7 @@ initClassification.prototype.createUI = function() {
 
 			if (clickNodes && clickNodes[0] && clickNodes[0].info) {
 
-				var featureValue = ! isNaN(clickNodes[0].info) ? +clickNodes[0].info.toFixed(2) : clickNodes[0].info;
-
-				
-
+				var featureValue = ! isNaN(clickNodes[0].info) ? parseFloat(clickNodes[0].info).toFixed(2) : clickNodes[0].info;	
 				var str = 'Feature value <input class=\'pivot\' value=\'' + featureValue + '\' id=\'pivot_' + clickNodes[0].nodeId + '\'>' +
 					'<br>';
 
