@@ -699,7 +699,7 @@ initCluster.prototype.createUI = function() {
 					for (var j = 0; j < clusters.length; j++)
 						if (i !== j) {
 
-							if (clusters[i] && clusters[j] && clusters[i].length > 1 && clusters[j].length > 1) {
+							if (clusters[i] && clusters[j] && clusters[i].length > 0 && clusters[j].length > 0) {
 
 								var temp = self.silhouette(clusters[i], clusters[j]);
 
